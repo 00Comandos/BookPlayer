@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "Műfajok";
 "catalog_home_languages_section" = "Nyelvek";
 "catalog_home_save" = "Mentés";
+"catalog_home_recent" = "Nemrég hallgatott";
+"catalog_home_search_placeholder" = "Hangoskönyvek keresése";
+"catalog_home_no_results" = "Nincs találat";
+"catalog_home_profile_guest" = "Nem vagy bejelentkezve";
+"catalog_home_profile_login" = "Bejelentkezés";

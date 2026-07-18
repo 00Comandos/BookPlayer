@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "类型";
 "catalog_home_languages_section" = "语言";
 "catalog_home_save" = "保存";
+"catalog_home_recent" = "最近收听";
+"catalog_home_search_placeholder" = "搜索有声书";
+"catalog_home_no_results" = "没有结果";
+"catalog_home_profile_guest" = "你尚未登录";
+"catalog_home_profile_login" = "登录";

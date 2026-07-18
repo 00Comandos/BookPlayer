@@ -514,3 +514,8 @@
 "catalog_home_genres_section" = "Géneros";
 "catalog_home_languages_section" = "Idiomas";
 "catalog_home_save" = "Guardar";
+"catalog_home_recent" = "Escuchado recientemente";
+"catalog_home_search_placeholder" = "Buscar audiolibros";
+"catalog_home_no_results" = "Sin resultados";
+"catalog_home_profile_guest" = "No has iniciado sesión";
+"catalog_home_profile_login" = "Iniciar sesión";

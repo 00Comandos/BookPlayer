@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "Genres";
 "catalog_home_languages_section" = "Sprachen";
 "catalog_home_save" = "Sichern";
+"catalog_home_recent" = "Zuletzt gehört";
+"catalog_home_search_placeholder" = "Hörbücher suchen";
+"catalog_home_no_results" = "Keine Ergebnisse";
+"catalog_home_profile_guest" = "Du bist nicht angemeldet";
+"catalog_home_profile_login" = "Anmelden";

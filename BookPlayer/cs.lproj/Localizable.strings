@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "Žánry";
 "catalog_home_languages_section" = "Jazyky";
 "catalog_home_save" = "Uložit";
+"catalog_home_recent" = "Naposledy poslouchané";
+"catalog_home_search_placeholder" = "Hledat audioknihy";
+"catalog_home_no_results" = "Žádné výsledky";
+"catalog_home_profile_guest" = "Nejste přihlášeni";
+"catalog_home_profile_login" = "Přihlásit se";

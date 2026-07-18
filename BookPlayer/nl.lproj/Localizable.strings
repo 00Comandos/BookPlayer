@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "Genres";
 "catalog_home_languages_section" = "Talen";
 "catalog_home_save" = "Bewaar";
+"catalog_home_recent" = "Onlangs beluisterd";
+"catalog_home_search_placeholder" = "Luisterboeken zoeken";
+"catalog_home_no_results" = "Geen resultaten";
+"catalog_home_profile_guest" = "Je bent niet ingelogd";
+"catalog_home_profile_login" = "Inloggen";

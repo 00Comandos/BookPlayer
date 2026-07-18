@@ -9,7 +9,7 @@ import BookPlayerKit
 import Foundation
 import SwiftUI
 
-struct OnboardingGenre: Identifiable, Equatable {
+struct OnboardingGenre: Identifiable, Equatable, Hashable {
   let id: String
   let systemImage: String
 

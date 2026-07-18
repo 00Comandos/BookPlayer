@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "Жанры";
 "catalog_home_languages_section" = "Языки";
 "catalog_home_save" = "Сохранить";
+"catalog_home_recent" = "Недавно прослушанные";
+"catalog_home_search_placeholder" = "Поиск аудиокниг";
+"catalog_home_no_results" = "Нет результатов";
+"catalog_home_profile_guest" = "Вы не вошли в аккаунт";
+"catalog_home_profile_login" = "Войти";

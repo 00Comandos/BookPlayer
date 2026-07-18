@@ -512,3 +512,8 @@ Usilovne pracujeme na poskytovaní bezproblémového zážitku, ak je to možné
 "catalog_home_genres_section" = "Žánre";
 "catalog_home_languages_section" = "Jazyky";
 "catalog_home_save" = "Uložiť";
+"catalog_home_recent" = "Naposledy počúvané";
+"catalog_home_search_placeholder" = "Hľadať audioknihy";
+"catalog_home_no_results" = "Žiadne výsledky";
+"catalog_home_profile_guest" = "Nie ste prihlásení";
+"catalog_home_profile_login" = "Prihlásiť sa";

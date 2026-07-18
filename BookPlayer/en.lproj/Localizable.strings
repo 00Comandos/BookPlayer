@@ -514,3 +514,8 @@ We're working hard on providing a seamless experience, if possible, please conta
 "catalog_home_genres_section" = "Genres";
 "catalog_home_languages_section" = "Languages";
 "catalog_home_save" = "Save";
+"catalog_home_recent" = "Recently listened";
+"catalog_home_search_placeholder" = "Search audiobooks";
+"catalog_home_no_results" = "No results";
+"catalog_home_profile_guest" = "You're not signed in";
+"catalog_home_profile_login" = "Sign in";

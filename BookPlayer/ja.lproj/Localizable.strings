@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "ジャンル";
 "catalog_home_languages_section" = "言語";
 "catalog_home_save" = "保存";
+"catalog_home_recent" = "最近聴いたもの";
+"catalog_home_search_placeholder" = "オーディオブックを検索";
+"catalog_home_no_results" = "結果がありません";
+"catalog_home_profile_guest" = "サインインしていません";
+"catalog_home_profile_login" = "サインイン";

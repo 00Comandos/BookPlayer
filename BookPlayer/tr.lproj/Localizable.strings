@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "Türler";
 "catalog_home_languages_section" = "Diller";
 "catalog_home_save" = "Kaydet";
+"catalog_home_recent" = "Son dinlenenler";
+"catalog_home_search_placeholder" = "Sesli kitap ara";
+"catalog_home_no_results" = "Sonuç yok";
+"catalog_home_profile_guest" = "Giriş yapmadın";
+"catalog_home_profile_login" = "Giriş yap";

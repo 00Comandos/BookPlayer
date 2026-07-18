@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "Genret";
 "catalog_home_languages_section" = "Kielet";
 "catalog_home_save" = "Tallenna";
+"catalog_home_recent" = "Viimeksi kuunnellut";
+"catalog_home_search_placeholder" = "Hae äänikirjoja";
+"catalog_home_no_results" = "Ei tuloksia";
+"catalog_home_profile_guest" = "Et ole kirjautunut sisään";
+"catalog_home_profile_login" = "Kirjaudu";

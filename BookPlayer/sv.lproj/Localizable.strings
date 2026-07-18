@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "Genrer";
 "catalog_home_languages_section" = "Språk";
 "catalog_home_save" = "Spara";
+"catalog_home_recent" = "Nyligen lyssnat";
+"catalog_home_search_placeholder" = "Sök ljudböcker";
+"catalog_home_no_results" = "Inga resultat";
+"catalog_home_profile_guest" = "Du är inte inloggad";
+"catalog_home_profile_login" = "Logga in";

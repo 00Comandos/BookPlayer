@@ -96,20 +96,20 @@ enum CatalogMockLibrary {
 }
 
 /// Spotify-style catalog browser shown after finishing the onboarding
-/// through the "browse our catalog" route. Playing a book requires an
-/// account: the login flow is presented first and playback starts once
-/// it completes.
+/// through the "browse our catalog" route
 struct CatalogHomeView: View {
   @Environment(\.accountService) private var accountService
 
   let onClose: () -> Void
   let onUploadOwn: () -> Void
 
+  @StateObject private var session = CatalogSession()
+
   @State private var selectedGenreId: String?
-  @State private var nowPlaying: CatalogBook?
-  @State private var pendingBook: CatalogBook?
-  @State private var showLogin = false
   @State private var showPreferences = false
+  @State private var showProfile = false
+  @State private var showSearch = false
+  @State private var navPath: [OnboardingGenre] = []
   /// Bumped when preferences change so the computed shelves re-read UserDefaults
   @State private var preferencesVersion = 0
 
@@ -149,50 +149,61 @@ struct CatalogHomeView: View {
   }
 
   var body: some View {
-    ZStack(alignment: .bottom) {
-      background.ignoresSafeArea()
+    NavigationStack(path: $navPath) {
+      ZStack(alignment: .bottom) {
+        background.ignoresSafeArea()
 
-      ScrollView {
-        VStack(alignment: .leading, spacing: Spacing.M) {
-          header
-          chips
+        ScrollView {
+          VStack(alignment: .leading, spacing: Spacing.M) {
+            header
+            chips
 
-          if let selectedGenreId,
-            let genre = OnboardingGenre.all.first(where: { $0.id == selectedGenreId })
-          {
-            shelf(
-              title: Text(genre.title),
-              count: CatalogMockLibrary.genreCount(genre.id),
-              books: Array(languageMatches.filter { $0.genreId == selectedGenreId }.prefix(12))
-            )
-          } else {
-            if !forYou.isEmpty {
-              shelf(title: Text("onboarding_catalog_title"), count: nil, books: forYou)
-            }
+            if let selectedGenreId,
+              let genre = OnboardingGenre.all.first(where: { $0.id == selectedGenreId })
+            {
+              shelf(
+                genre: genre,
+                count: CatalogMockLibrary.genreCount(genre.id),
+                books: Array(languageMatches.filter { $0.genreId == selectedGenreId }.prefix(12))
+              )
+            } else {
+              recentShelf
 
-            newContentShelf
-            uploadBanner
+              if !forYou.isEmpty {
+                shelf(title: Text("onboarding_catalog_title"), count: nil, books: forYou)
+              }
 
-            ForEach(orderedGenres) { genre in
-              let books = Array(languageMatches.filter { $0.genreId == genre.id }.prefix(10))
-              if !books.isEmpty {
-                shelf(
-                  title: Text(genre.title),
-                  count: CatalogMockLibrary.genreCount(genre.id),
-                  books: books
-                )
+              newContentShelf
+
+              ForEach(orderedGenres) { genre in
+                let books = Array(languageMatches.filter { $0.genreId == genre.id }.prefix(10))
+                if !books.isEmpty {
+                  shelf(genre: genre, count: CatalogMockLibrary.genreCount(genre.id), books: books)
+                }
               }
             }
           }
+          .padding(.bottom, 140)
         }
-        .padding(.bottom, 120)
-      }
 
-      if let book = nowPlaying {
-        miniPlayer(book)
+        bottomBar
+      }
+      .toolbar(.hidden, for: .navigationBar)
+      .navigationDestination(for: OnboardingGenre.self) { genre in
+        CatalogGenreListView(
+          genre: genre,
+          books: languageMatches.filter { $0.genreId == genre.id }
+        )
+      }
+      .navigationDestination(isPresented: $showSearch) {
+        CatalogSearchView(books: languageMatches)
       }
     }
-    .sheet(isPresented: $showLogin, onDismiss: handleLoginDismiss) {
+    .environmentObject(session)
+    .sheet(
+      isPresented: $session.showLogin,
+      onDismiss: { session.handleLoginDismiss(hasAccount: accountService.hasAccount()) }
+    ) {
       NavigationStack {
         LoginView()
       }
@@ -201,11 +212,29 @@ struct CatalogHomeView: View {
     .sheet(isPresented: $showPreferences, onDismiss: { preferencesVersion += 1 }) {
       CatalogPreferencesSheet()
     }
+    .sheet(isPresented: $showProfile) {
+      CatalogProfileSheet(onGoLibrary: onClose)
+        .presentationDetents([.medium])
+    }
     .id(preferencesVersion)
+    .onAppear {
+      #if DEBUG
+      if let genreId = ProcessInfo.processInfo.environment["BP_PREVIEW_GENRE"],
+        let genre = OnboardingGenre.all.first(where: { $0.id == genreId })
+      {
+        navPath = [genre]
+      }
+      if ProcessInfo.processInfo.environment["BP_PREVIEW_SEARCH"] == "1" {
+        showSearch = true
+      }
+      #endif
+    }
   }
 
   private var header: some View {
-    HStack(alignment: .center) {
+    HStack(alignment: .center, spacing: Spacing.S2) {
+      BPIsotype(height: 26)
+
       VStack(alignment: .leading, spacing: 2) {
         Text("catalog_home_title")
           .font(.system(size: 24, weight: .bold))
@@ -221,6 +250,19 @@ struct CatalogHomeView: View {
 
       Spacer()
 
+      Button(action: onUploadOwn) {
+        Image("lucide-upload")
+          .resizable()
+          .renderingMode(.template)
+          .scaledToFit()
+          .frame(width: 17, height: 17)
+          .foregroundStyle(.white)
+          .frame(width: 34, height: 34)
+          .background(elevated)
+          .clipShape(Circle())
+      }
+      .accessibilityLabel(Text("catalog_home_upload_title"))
+
       Button {
         showPreferences = true
       } label: {
@@ -233,7 +275,9 @@ struct CatalogHomeView: View {
       }
       .accessibilityLabel(Text("catalog_home_interests_title"))
 
-      Button(action: onClose) {
+      Button {
+        showProfile = true
+      } label: {
         ZStack {
           Circle()
             .fill(accent.opacity(0.25))
@@ -243,7 +287,7 @@ struct CatalogHomeView: View {
         }
         .frame(width: 34, height: 34)
       }
-      .accessibilityLabel(Text("onboarding_go_library"))
+      .accessibilityLabel(Text("profile_title"))
     }
     .padding(.horizontal, Spacing.S)
     .padding(.top, Spacing.S)
@@ -278,6 +322,29 @@ struct CatalogHomeView: View {
     .buttonStyle(.plain)
   }
 
+  /// Up to 4 in-progress titles the user recently listened to
+  @ViewBuilder
+  private var recentShelf: some View {
+    let recents = Array(session.recentBooks.prefix(4))
+    if !recents.isEmpty {
+      VStack(alignment: .leading, spacing: Spacing.S1) {
+        Text("catalog_home_recent")
+          .font(.system(size: 19, weight: .bold))
+          .foregroundStyle(.white)
+          .padding(.horizontal, Spacing.S)
+
+        ScrollView(.horizontal, showsIndicators: false) {
+          HStack(alignment: .top, spacing: Spacing.S1) {
+            ForEach(recents) { book in
+              CatalogBookCard(book: book, showProgress: true)
+            }
+          }
+          .padding(.horizontal, Spacing.S)
+        }
+      }
+    }
+  }
+
   private var newContentShelf: some View {
     VStack(alignment: .leading, spacing: Spacing.S1) {
       Text("catalog_home_new_content")
@@ -288,7 +355,7 @@ struct CatalogHomeView: View {
       ScrollView(.horizontal, showsIndicators: false) {
         HStack(alignment: .top, spacing: Spacing.S1) {
           ForEach(CatalogMockLibrary.newContent, id: \.book.id) { entry in
-            bookCard(entry.book, uploadedBy: entry.uploadedBy)
+            CatalogBookCard(book: entry.book, uploadedBy: entry.uploadedBy)
           }
         }
         .padding(.horizontal, Spacing.S)
@@ -296,42 +363,36 @@ struct CatalogHomeView: View {
     }
   }
 
-  private var uploadBanner: some View {
-    Button(action: onUploadOwn) {
-      HStack(spacing: Spacing.S1) {
-        Image("lucide-upload")
-          .resizable()
-          .renderingMode(.template)
-          .scaledToFit()
-          .frame(width: 22, height: 22)
-          .foregroundStyle(.white)
-          .frame(width: 44, height: 44)
-          .background(accent)
-          .clipShape(Circle())
-
-        VStack(alignment: .leading, spacing: 2) {
-          Text("catalog_home_upload_title")
-            .font(.system(size: 15, weight: .semibold))
+  /// Shelf with a tappable header leading to the full category listing
+  private func shelf(genre: OnboardingGenre, count: Int?, books: [CatalogBook]) -> some View {
+    VStack(alignment: .leading, spacing: Spacing.S1) {
+      Button {
+        navPath.append(genre)
+      } label: {
+        HStack(alignment: .firstTextBaseline, spacing: Spacing.S2) {
+          Text(genre.title)
+            .font(.system(size: 19, weight: .bold))
             .foregroundStyle(.white)
 
-          Text("onboarding_import_option_description")
+          if let count {
+            Text(String(
+              format: "catalog_home_books_format".localized,
+              CatalogMockLibrary.formattedCount(count)
+            ))
             .font(.system(size: 12))
             .foregroundStyle(subtle)
-            .lineLimit(2)
+          }
+
+          Image(systemName: "chevron.right")
+            .font(.system(size: 13, weight: .semibold))
+            .foregroundStyle(subtle)
         }
-
-        Spacer()
-
-        Image(systemName: "chevron.right")
-          .font(.system(size: 14, weight: .semibold))
-          .foregroundStyle(subtle)
       }
-      .padding(Spacing.S1)
-      .background(elevated)
-      .clipShape(RoundedRectangle(cornerRadius: 12))
+      .buttonStyle(.plain)
       .padding(.horizontal, Spacing.S)
+
+      shelfRow(books: books)
     }
-    .buttonStyle(.plain)
   }
 
   private func shelf(title: Text, count: Int?, books: [CatalogBook]) -> some View {
@@ -352,59 +413,35 @@ struct CatalogHomeView: View {
       }
       .padding(.horizontal, Spacing.S)
 
-      ScrollView(.horizontal, showsIndicators: false) {
-        HStack(alignment: .top, spacing: Spacing.S1) {
-          ForEach(books) { book in
-            bookCard(book, uploadedBy: nil)
-          }
-        }
-        .padding(.horizontal, Spacing.S)
-      }
+      shelfRow(books: books)
     }
   }
 
-  private func bookCard(_ book: CatalogBook, uploadedBy: String?) -> some View {
-    Button {
-      handlePlay(book)
-    } label: {
-      VStack(alignment: .leading, spacing: Spacing.S2) {
-        RoundedRectangle(cornerRadius: 6)
-          .fill(book.coverGradient)
-          .frame(width: 140, height: 140)
-          .overlay(
-            Image(systemName: book.coverSymbol)
-              .font(.system(size: 40))
-              .foregroundStyle(.white.opacity(0.9))
-          )
-          .overlay(alignment: .bottomTrailing) {
-            if nowPlaying == book {
-              Image(systemName: "waveform.circle.fill")
-                .font(.system(size: 26))
-                .foregroundStyle(.white, .black.opacity(0.45))
-                .padding(Spacing.S3)
-            }
-          }
-
-        Text(book.title)
-          .font(.system(size: 14, weight: .semibold))
-          .foregroundStyle(.white)
-          .lineLimit(1)
-
-        if let uploadedBy {
-          Text(String(format: "catalog_home_uploaded_by".localized, uploadedBy))
-            .font(.system(size: 12))
-            .foregroundStyle(accent)
-            .lineLimit(1)
-        } else {
-          Text(book.author)
-            .font(.system(size: 12))
-            .foregroundStyle(subtle)
-            .lineLimit(1)
+  private func shelfRow(books: [CatalogBook]) -> some View {
+    ScrollView(.horizontal, showsIndicators: false) {
+      HStack(alignment: .top, spacing: Spacing.S1) {
+        ForEach(books) { book in
+          CatalogBookCard(book: book)
         }
       }
-      .frame(width: 140, alignment: .leading)
+      .padding(.horizontal, Spacing.S)
     }
-    .buttonStyle(.plain)
+  }
+
+  private var bottomBar: some View {
+    HStack(alignment: .center, spacing: Spacing.S2) {
+      if let book = session.nowPlaying {
+        miniPlayer(book)
+      } else {
+        Spacer()
+      }
+
+      CatalogSearchButton {
+        showSearch = true
+      }
+    }
+    .padding(.horizontal, Spacing.S2)
+    .padding(.bottom, Spacing.S2)
   }
 
   private func miniPlayer(_ book: CatalogBook) -> some View {
@@ -432,7 +469,7 @@ struct CatalogHomeView: View {
       Spacer()
 
       Button {
-        nowPlaying = nil
+        session.nowPlaying = nil
       } label: {
         Image(systemName: "stop.fill")
           .font(.system(size: 18))
@@ -443,27 +480,6 @@ struct CatalogHomeView: View {
     .padding(Spacing.S2)
     .background(elevated)
     .clipShape(RoundedRectangle(cornerRadius: 8))
-    .padding(.horizontal, Spacing.S2)
-    .padding(.bottom, Spacing.S2)
-  }
-
-  /// JTBD: play the first catalog book — requires login before playback
-  private func handlePlay(_ book: CatalogBook) {
-    if accountService.hasAccount() {
-      nowPlaying = book
-    } else {
-      pendingBook = book
-      showLogin = true
-    }
-  }
-
-  private func handleLoginDismiss() {
-    guard let book = pendingBook else { return }
-    pendingBook = nil
-
-    if accountService.hasAccount() {
-      nowPlaying = book
-    }
   }
 }
 

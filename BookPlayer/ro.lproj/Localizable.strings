@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "Genuri";
 "catalog_home_languages_section" = "Limbi";
 "catalog_home_save" = "Salvează";
+"catalog_home_recent" = "Ascultate recent";
+"catalog_home_search_placeholder" = "Caută audiobook-uri";
+"catalog_home_no_results" = "Niciun rezultat";
+"catalog_home_profile_guest" = "Nu ești autentificat";
+"catalog_home_profile_login" = "Autentificare";

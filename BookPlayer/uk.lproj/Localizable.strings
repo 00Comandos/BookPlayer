@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "Жанри";
 "catalog_home_languages_section" = "Мови";
 "catalog_home_save" = "Зберегти";
+"catalog_home_recent" = "Нещодавно прослухані";
+"catalog_home_search_placeholder" = "Пошук аудіокниг";
+"catalog_home_no_results" = "Немає результатів";
+"catalog_home_profile_guest" = "Ви не ввійшли в обліковий запис";
+"catalog_home_profile_login" = "Увійти";

@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "Gatunki";
 "catalog_home_languages_section" = "Języki";
 "catalog_home_save" = "Zapisz";
+"catalog_home_recent" = "Ostatnio słuchane";
+"catalog_home_search_placeholder" = "Szukaj audiobooków";
+"catalog_home_no_results" = "Brak wyników";
+"catalog_home_profile_guest" = "Nie jesteś zalogowany";
+"catalog_home_profile_login" = "Zaloguj się";

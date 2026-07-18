@@ -512,3 +512,8 @@ Estem treballant dur per oferir una experiència perfecta; si és possible, pose
 "catalog_home_genres_section" = "Gèneres";
 "catalog_home_languages_section" = "Idiomes";
 "catalog_home_save" = "Desa";
+"catalog_home_recent" = "Escoltats recentment";
+"catalog_home_search_placeholder" = "Cerca audiollibres";
+"catalog_home_no_results" = "Sense resultats";
+"catalog_home_profile_guest" = "No has iniciat la sessió";
+"catalog_home_profile_login" = "Inicia la sessió";

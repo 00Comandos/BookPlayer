@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "الأنواع";
 "catalog_home_languages_section" = "اللغات";
 "catalog_home_save" = "حفظ";
+"catalog_home_recent" = "استمعت إليها مؤخرًا";
+"catalog_home_search_placeholder" = "البحث عن كتب صوتية";
+"catalog_home_no_results" = "لا توجد نتائج";
+"catalog_home_profile_guest" = "لم تسجّل الدخول";
+"catalog_home_profile_login" = "تسجيل الدخول";

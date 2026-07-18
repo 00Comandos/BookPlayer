@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "Είδη";
 "catalog_home_languages_section" = "Γλώσσες";
 "catalog_home_save" = "Αποθήκευση";
+"catalog_home_recent" = "Πρόσφατες ακροάσεις";
+"catalog_home_search_placeholder" = "Αναζήτηση ακουστικών βιβλίων";
+"catalog_home_no_results" = "Κανένα αποτέλεσμα";
+"catalog_home_profile_guest" = "Δεν έχεις συνδεθεί";
+"catalog_home_profile_login" = "Σύνδεση";

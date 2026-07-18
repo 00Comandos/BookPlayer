@@ -113,3 +113,27 @@ extension View {
     modifier(BPSelectableSurface(isSelected: isSelected))
   }
 }
+
+/// Static mini isotype: the brand's book-spine equalizer with leaning book
+struct BPIsotype: View {
+  var height: CGFloat = 26
+
+  private static let barHeights: [CGFloat] = [0.46, 0.68, 1.0, 0.79, 0.68]
+  private static let barHexes = ["FD9E83", "FDA38A", "FD6746", "FE5A3C", "FE9C82"]
+
+  var body: some View {
+    HStack(alignment: .bottom, spacing: height * 0.10) {
+      ForEach(0..<5, id: \.self) { index in
+        RoundedRectangle(cornerRadius: height * 0.07)
+          .fill(Color(UIColor(hex: Self.barHexes[index])))
+          .frame(width: height * 0.17, height: height * Self.barHeights[index])
+      }
+
+      RoundedRectangle(cornerRadius: height * 0.07)
+        .fill(BPDesign.Colors.bookBlue)
+        .frame(width: height * 0.17, height: height * 0.5)
+        .rotationEffect(.degrees(-15), anchor: .bottomLeading)
+    }
+    .frame(height: height, alignment: .bottom)
+  }
+}

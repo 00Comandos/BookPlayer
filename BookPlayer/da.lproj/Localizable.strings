@@ -512,3 +512,8 @@
 "catalog_home_genres_section" = "Genrer";
 "catalog_home_languages_section" = "Sprog";
 "catalog_home_save" = "Gem";
+"catalog_home_recent" = "Senest lyttet";
+"catalog_home_search_placeholder" = "Søg lydbøger";
+"catalog_home_no_results" = "Ingen resultater";
+"catalog_home_profile_guest" = "Du er ikke logget ind";
+"catalog_home_profile_login" = "Log ind";
