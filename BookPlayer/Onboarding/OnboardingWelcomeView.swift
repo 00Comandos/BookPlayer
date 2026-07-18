@@ -19,7 +19,7 @@ struct OnboardingWelcomeView: View {
     VStack(spacing: 0) {
       heroView
         .frame(maxWidth: .infinity)
-        .containerRelativeFrame(.vertical) { length, _ in length * 0.48 }
+        .containerRelativeFrame(.vertical) { length, _ in length * 0.58 }
         .clipShape(
           UnevenRoundedRectangle(bottomLeadingRadius: 24, bottomTrailingRadius: 24)
         )
@@ -43,14 +43,14 @@ struct OnboardingWelcomeView: View {
 
       VStack(spacing: Spacing.S1) {
         welcomeOptionCard(
-          systemImage: "arrow.down.circle",
+          imageName: "lucide-download",
           title: "onboarding_import_option_title",
           subtitle: "onboarding_import_option_description",
           action: onImportAudiobooks
         )
 
         welcomeOptionCard(
-          systemImage: "books.vertical",
+          imageName: "lucide-book-headphones",
           title: "onboarding_catalog_option_title",
           subtitle: "onboarding_catalog_option_description",
           action: onBrowseCatalog
@@ -85,16 +85,18 @@ struct OnboardingWelcomeView: View {
   }
 
   private func welcomeOptionCard(
-    systemImage: String,
+    imageName: String,
     title: LocalizedStringKey,
     subtitle: LocalizedStringKey,
     action: @escaping () -> Void
   ) -> some View {
     Button(action: action) {
       HStack(spacing: Spacing.S) {
-        Image(systemName: systemImage)
-          .font(.system(size: 22, weight: .light))
-          .symbolRenderingMode(.hierarchical)
+        Image(imageName)
+          .resizable()
+          .renderingMode(.template)
+          .scaledToFit()
+          .frame(width: 22, height: 22)
           .foregroundStyle(theme.linkColor)
           .frame(width: 44, height: 44)
           .background(theme.linkColor.opacity(0.10))
