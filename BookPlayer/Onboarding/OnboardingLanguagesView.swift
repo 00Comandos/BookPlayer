@@ -10,19 +10,33 @@ import SwiftUI
 
 struct OnboardingLanguagesView: View {
   @ObservedObject var viewModel: OnboardingViewModel
-  @EnvironmentObject private var theme: ThemeViewModel
+
+  let onContinue: () -> Void
+
+  private let background = BPDesign.Colors.inkBackground
+  private let card = BPDesign.Colors.surface
+  private let accent = BPDesign.Colors.coral
+  private let subtle = BPDesign.Colors.textSecondaryDark
 
   var body: some View {
-    VStack(spacing: 0) {
+    VStack(alignment: .leading, spacing: 0) {
       ScrollView {
-        VStack(alignment: .leading, spacing: Spacing.S2) {
-          Text("onboarding_languages_title")
-            .bpFont(.titleStory)
-            .foregroundStyle(theme.primaryColor)
+        VStack(alignment: .leading, spacing: Spacing.S1) {
+          HStack(alignment: .firstTextBaseline) {
+            Text("onboarding_languages_title")
+              .font(.system(size: 28, weight: .bold))
+              .foregroundStyle(.white)
+
+            Spacer()
+
+            Text("\(viewModel.selectedLanguages.count)/\(OnboardingViewModel.maxLanguages)")
+              .font(.system(size: 14, weight: .medium))
+              .foregroundStyle(subtle)
+          }
 
           Text(String(format: "onboarding_languages_subtitle".localized, OnboardingViewModel.maxLanguages))
-            .bpFont(.body)
-            .foregroundStyle(theme.secondaryColor)
+            .font(.system(size: 15))
+            .foregroundStyle(subtle)
 
           VStack(spacing: Spacing.S2) {
             ForEach(OnboardingLanguage.all) { language in
@@ -35,22 +49,18 @@ struct OnboardingLanguagesView: View {
         .padding(.top, Spacing.S)
       }
 
-      OnboardingPrimaryButton(
+      BPPrimaryButton(
         title: "onboarding_continue",
-        isEnabled: !viewModel.selectedLanguages.isEmpty
-      ) {
-        viewModel.path.append(.catalog)
-      }
+        isEnabled: !viewModel.selectedLanguages.isEmpty,
+        action: onContinue
+      )
+      .padding(.horizontal, Spacing.M)
+      .padding(.bottom, Spacing.S)
     }
-    .background(theme.systemBackgroundColor.ignoresSafeArea())
+    .background(background.ignoresSafeArea())
     .navigationBarTitleDisplayMode(.inline)
-    .toolbar {
-      ToolbarItem(placement: .principal) {
-        Text("\(viewModel.selectedLanguages.count)/\(OnboardingViewModel.maxLanguages)")
-          .bpFont(.captionMedium)
-          .foregroundStyle(theme.secondaryColor)
-      }
-    }
+    .toolbarColorScheme(.dark, for: .navigationBar)
+    .tint(.white)
   }
 
   private func languageRow(_ language: OnboardingLanguage) -> some View {
@@ -63,16 +73,16 @@ struct OnboardingLanguagesView: View {
     } label: {
       HStack(spacing: Spacing.S) {
         Text(language.nativeName)
-          .bpFont(.title)
-          .foregroundStyle(theme.primaryColor)
+          .font(.system(size: 16, weight: .medium))
+          .foregroundStyle(.white)
 
         if isDeviceLanguage {
           Text("onboarding_language_device_tag")
-            .bpFont(.buttonTextSmall)
-            .foregroundStyle(theme.linkColor)
+            .font(.system(size: 11, weight: .bold))
+            .foregroundStyle(accent)
             .padding(.horizontal, Spacing.S2)
             .padding(.vertical, Spacing.S5)
-            .background(theme.linkColor.opacity(0.12))
+            .background(accent.opacity(0.15))
             .clipShape(Capsule())
         }
 
@@ -80,16 +90,11 @@ struct OnboardingLanguagesView: View {
 
         Image(systemName: isSelected ? "checkmark.circle.fill" : "circle")
           .font(.system(size: 22))
-          .foregroundStyle(isSelected ? theme.linkColor : theme.separatorColor)
+          .foregroundStyle(isSelected ? accent : subtle.opacity(0.5))
       }
       .padding(Spacing.S)
-      .background(theme.secondarySystemBackgroundColor)
-      .clipShape(RoundedRectangle(cornerRadius: 12))
-      .overlay(
-        RoundedRectangle(cornerRadius: 12)
-          .stroke(isSelected ? theme.linkColor : Color.clear, lineWidth: 1.5)
-      )
-      .opacity(isAtLimit ? 0.4 : 1)
+      .bpSelectableSurface(isSelected: isSelected)
+      .opacity(isAtLimit ? 0.35 : 1)
     }
     .buttonStyle(.plain)
     .disabled(isAtLimit)
@@ -99,7 +104,6 @@ struct OnboardingLanguagesView: View {
 
 #Preview {
   NavigationStack {
-    OnboardingLanguagesView(viewModel: OnboardingViewModel())
+    OnboardingLanguagesView(viewModel: OnboardingViewModel(), onContinue: {})
   }
-  .environmentObject(ThemeViewModel())
 }

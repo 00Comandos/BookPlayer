@@ -19,7 +19,6 @@ final class OnboardingViewModel: ObservableObject {
   enum Step: Hashable {
     case genres
     case languages
-    case catalog
   }
 
   static let maxGenres = 5
@@ -28,10 +27,22 @@ final class OnboardingViewModel: ObservableObject {
   @Published var path: [Step] = []
   @Published var selectedGenres: Set<String> = []
   @Published var selectedLanguages: Set<String> = []
-  @Published var nowPlayingBook: CatalogBook?
 
   init() {
     selectedLanguages = [Self.deviceLanguageId()]
+
+    #if DEBUG
+    /// Jump straight into a step for previews/screenshots:
+    /// SIMCTL_CHILD_BP_PREVIEW_STEP=genres|languages
+    switch ProcessInfo.processInfo.environment["BP_PREVIEW_STEP"] {
+    case "genres":
+      path = [.genres]
+    case "languages":
+      path = [.genres, .languages]
+    default:
+      break
+    }
+    #endif
   }
 
   /// Defaults to the phone's language when we offer it, otherwise English
@@ -66,14 +77,6 @@ final class OnboardingViewModel: ObservableObject {
       selectedLanguages.remove(language.id)
     } else if selectedLanguages.count < Self.maxLanguages {
       selectedLanguages.insert(language.id)
-    }
-  }
-
-  var filteredBooks: [CatalogBook] {
-    CatalogBook.sampleCatalog.filter { book in
-      let matchesLanguage = selectedLanguages.isEmpty || selectedLanguages.contains(book.languageId)
-      let matchesGenre = selectedGenres.isEmpty || selectedGenres.contains(book.genreId)
-      return matchesLanguage && matchesGenre
     }
   }
 

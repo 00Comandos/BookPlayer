@@ -883,8 +883,9 @@
 		0B0A5D1E0C000000000000B4 /* OnboardingWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A4 /* OnboardingWelcomeView.swift */; };
 		0B0A5D1E0C000000000000B5 /* OnboardingGenresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A5 /* OnboardingGenresView.swift */; };
 		0B0A5D1E0C000000000000B6 /* OnboardingLanguagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A6 /* OnboardingLanguagesView.swift */; };
-		0B0A5D1E0C000000000000B7 /* OnboardingCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A7 /* OnboardingCatalogView.swift */; };
 		0B0A5D1E0C000000000000D2 /* onboarding-hero.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000D1 /* onboarding-hero.mp4 */; };
+		0B0A5D1E0C000000000000E2 /* CatalogHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000E1 /* CatalogHomeView.swift */; };
+		0B0A5D1E0C000000000000F2 /* BPDesign.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000F1 /* BPDesign.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1821,8 +1822,9 @@
 		0B0A5D1E0C000000000000A4 /* OnboardingWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomeView.swift; sourceTree = "<group>"; };
 		0B0A5D1E0C000000000000A5 /* OnboardingGenresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGenresView.swift; sourceTree = "<group>"; };
 		0B0A5D1E0C000000000000A6 /* OnboardingLanguagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLanguagesView.swift; sourceTree = "<group>"; };
-		0B0A5D1E0C000000000000A7 /* OnboardingCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCatalogView.swift; sourceTree = "<group>"; };
 		0B0A5D1E0C000000000000D1 /* onboarding-hero.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "onboarding-hero.mp4"; sourceTree = "<group>"; };
+		0B0A5D1E0C000000000000E1 /* CatalogHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogHomeView.swift; sourceTree = "<group>"; };
+		0B0A5D1E0C000000000000F1 /* BPDesign.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BPDesign.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2241,6 +2243,8 @@
 			children = (
 				634BA58B2C14D5100015314D /* SecondOnboarding */,
 				0B0A5D1E0C000000000000C0 /* Onboarding */,
+				0B0A5D1E0C000000000000E0 /* Catalog */,
+				0B0A5D1E0C000000000000F0 /* DesignSystem */,
 				4151A6DE26E4A13E00E49DBE /* Coordinators */,
 				69343D3121338440000C425E /* Services */,
 				C3A479112094C8A800D92122 /* Utils */,
@@ -3732,9 +3736,24 @@
 				0B0A5D1E0C000000000000A4 /* OnboardingWelcomeView.swift */,
 				0B0A5D1E0C000000000000A5 /* OnboardingGenresView.swift */,
 				0B0A5D1E0C000000000000A6 /* OnboardingLanguagesView.swift */,
-				0B0A5D1E0C000000000000A7 /* OnboardingCatalogView.swift */,
 			);
 			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		0B0A5D1E0C000000000000E0 /* Catalog */ = {
+			isa = PBXGroup;
+			children = (
+				0B0A5D1E0C000000000000E1 /* CatalogHomeView.swift */,
+			);
+			path = Catalog;
+			sourceTree = "<group>";
+		};
+		0B0A5D1E0C000000000000F0 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				0B0A5D1E0C000000000000F1 /* BPDesign.swift */,
+			);
+			path = DesignSystem;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -4571,10 +4590,11 @@
 				0B0A5D1E0C000000000000B1 /* OnboardingModels.swift in Sources */,
 				0B0A5D1E0C000000000000B2 /* OnboardingViewModel.swift in Sources */,
 				0B0A5D1E0C000000000000B3 /* OnboardingView.swift in Sources */,
+				0B0A5D1E0C000000000000E2 /* CatalogHomeView.swift in Sources */,
+				0B0A5D1E0C000000000000F2 /* BPDesign.swift in Sources */,
 				0B0A5D1E0C000000000000B4 /* OnboardingWelcomeView.swift in Sources */,
 				0B0A5D1E0C000000000000B5 /* OnboardingGenresView.swift in Sources */,
 				0B0A5D1E0C000000000000B6 /* OnboardingLanguagesView.swift in Sources */,
-				0B0A5D1E0C000000000000B7 /* OnboardingCatalogView.swift in Sources */,
 				63FCBBBE2DF7404000C50035 /* JellyfinLibraryListItemView.swift in Sources */,
 				9F3D0CE728C2BF7700E9E8A3 /* ButtonFreeViewModel.swift in Sources */,
 				99329DD72F3E8A04003F8E73 /* SlickSlider.swift in Sources */,

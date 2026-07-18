@@ -136,6 +136,13 @@ class MainCoordinator: NSObject {
     }
 
     navigationController.present(vc, animated: false) { [weak self] in
+      #if DEBUG
+      if ProcessInfo.processInfo.environment["BP_PREVIEW_CATALOG"] == "1" {
+        self?.showCatalogHome()
+        splashHost?.view.removeFromSuperview()
+        return
+      }
+      #endif
       self?.showFirstTimeOnboarding {
         guard let splashHost else { return }
         UIView.animate(withDuration: 0.3, delay: 0.1) {
@@ -162,9 +169,13 @@ class MainCoordinator: NSObject {
     }
 
     let vc = AppHostingViewController(
-      rootView: OnboardingView { [weak self] _ in
+      rootView: OnboardingView { [weak self] outcome in
         UserDefaults.standard.set(true, forKey: Constants.UserDefaults.completedOnboarding)
-        self?.mainController?.dismiss(animated: true)
+        self?.mainController?.dismiss(animated: false) {
+          if case .finishedCatalog = outcome {
+            self?.showCatalogHome()
+          }
+        }
       }
       .environmentObject(ThemeViewModel())
       .environment(\.accountService, accountService)
@@ -173,6 +184,30 @@ class MainCoordinator: NSObject {
     vc.modalTransitionStyle = .crossDissolve
 
     mainController.present(vc, animated: false, completion: onPresented)
+  }
+
+  /// Spotify-style catalog browser, entry point after the onboarding's
+  /// "browse our catalog" route
+  func showCatalogHome() {
+    guard let mainController else { return }
+
+    let vc = AppHostingViewController(
+      rootView: CatalogHomeView(
+        onClose: { [weak self] in
+          self?.mainController?.dismiss(animated: true)
+        },
+        onUploadOwn: { [weak self] in
+          /// Land on the library, where the existing import flow lives
+          self?.mainController?.dismiss(animated: true)
+        }
+      )
+      .environmentObject(ThemeViewModel())
+      .environment(\.accountService, accountService)
+    )
+    vc.modalPresentationStyle = .fullScreen
+    vc.modalTransitionStyle = .crossDissolve
+
+    mainController.present(vc, animated: false)
   }
 
   func showSecondOnboarding() {

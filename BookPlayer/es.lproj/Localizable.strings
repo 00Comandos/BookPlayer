@@ -480,8 +480,8 @@
 "onboarding_continue" = "Continuar";
 "onboarding_genres_title" = "¿Qué te gusta escuchar?";
 "onboarding_genres_subtitle" = "Elige hasta %d géneros para personalizar tu catálogo";
-"onboarding_languages_title" = "¿En qué idiomas?";
-"onboarding_languages_subtitle" = "Elige hasta %d idiomas para tu contenido";
+"onboarding_languages_title" = "¿En qué idiomas quieres escuchar?";
+"onboarding_languages_subtitle" = "Tu catálogo mostrará audiolibros en estos idiomas (elige hasta %d)";
 "onboarding_language_device_tag" = "Idioma del teléfono";
 "onboarding_catalog_title" = "Elegidos para ti";
 "onboarding_catalog_subtitle" = "Según tus géneros e idiomas";
@@ -501,3 +501,11 @@
 "onboarding_genre_kids" = "Infantil";
 "onboarding_genre_nonfiction" = "No ficción";
 "onboarding_genre_poetry" = "Poesía";
+
+/* Catalog home */
+"catalog_home_title" = "Descubre";
+"catalog_home_all" = "Todo";
+"catalog_home_new_content" = "Contenido nuevo";
+"catalog_home_upload_title" = "Sube tus propios audiolibros";
+"catalog_home_books_format" = "%@ audiolibros";
+"catalog_home_uploaded_by" = "Subido por %@";

@@ -480,8 +480,8 @@ We're working hard on providing a seamless experience, if possible, please conta
 "onboarding_continue" = "Continue";
 "onboarding_genres_title" = "What do you like to listen to?";
 "onboarding_genres_subtitle" = "Pick up to %d genres to personalize your catalog";
-"onboarding_languages_title" = "In which languages?";
-"onboarding_languages_subtitle" = "Choose up to %d languages for your content";
+"onboarding_languages_title" = "Which languages do you want to listen in?";
+"onboarding_languages_subtitle" = "Your catalog will show audiobooks in these languages (pick up to %d)";
 "onboarding_language_device_tag" = "Device language";
 "onboarding_catalog_title" = "Picked for you";
 "onboarding_catalog_subtitle" = "Based on your genres and languages";
@@ -501,3 +501,11 @@ We're working hard on providing a seamless experience, if possible, please conta
 "onboarding_genre_kids" = "Kids";
 "onboarding_genre_nonfiction" = "Nonfiction";
 "onboarding_genre_poetry" = "Poetry";
+
+/* Catalog home */
+"catalog_home_title" = "Discover";
+"catalog_home_all" = "All";
+"catalog_home_new_content" = "New content";
+"catalog_home_upload_title" = "Upload your own audiobooks";
+"catalog_home_books_format" = "%@ audiobooks";
+"catalog_home_uploaded_by" = "Uploaded by %@";

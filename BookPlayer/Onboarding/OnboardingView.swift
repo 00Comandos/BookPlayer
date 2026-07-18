@@ -31,9 +31,7 @@ struct OnboardingView: View {
         case .genres:
           OnboardingGenresView(viewModel: viewModel)
         case .languages:
-          OnboardingLanguagesView(viewModel: viewModel)
-        case .catalog:
-          OnboardingCatalogView(viewModel: viewModel) {
+          OnboardingLanguagesView(viewModel: viewModel) {
             viewModel.persistPreferences()
             onFinish(.finishedCatalog)
           }
@@ -47,31 +45,6 @@ struct OnboardingView: View {
     .onChange(of: scheme) {
       ThemeManager.shared.checkSystemMode()
     }
-  }
-}
-
-/// Shared bottom CTA style for the onboarding steps
-struct OnboardingPrimaryButton: View {
-  @EnvironmentObject private var theme: ThemeViewModel
-
-  let title: LocalizedStringKey
-  var isEnabled: Bool = true
-  let action: () -> Void
-
-  var body: some View {
-    Button(action: action) {
-      Text(title)
-        .contentShape(Rectangle())
-        .bpFont(.headline)
-        .frame(height: 45)
-        .frame(maxWidth: .infinity)
-        .foregroundStyle(.white)
-        .background(isEnabled ? theme.linkColor : Color(UIColor.systemGray3))
-        .cornerRadius(10)
-    }
-    .disabled(!isEnabled)
-    .padding(.horizontal, Spacing.M)
-    .padding(.bottom, Spacing.S)
   }
 }
 
