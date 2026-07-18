@@ -16,13 +16,16 @@ struct OnboardingWelcomeView: View {
   let onBrowseCatalog: () -> Void
 
   var body: some View {
-    VStack(spacing: Spacing.M) {
+    VStack(spacing: 0) {
       heroView
         .frame(maxWidth: .infinity)
-        .containerRelativeFrame(.vertical) { length, _ in length * 0.40 }
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .padding(.horizontal, Spacing.M)
-        .padding(.top, Spacing.S)
+        .containerRelativeFrame(.vertical) { length, _ in length * 0.48 }
+        .clipShape(
+          UnevenRoundedRectangle(bottomLeadingRadius: 24, bottomTrailingRadius: 24)
+        )
+        .ignoresSafeArea(edges: .top)
+
+      Spacer()
 
       VStack(spacing: Spacing.S2) {
         Text("onboarding_welcome_title")
@@ -36,19 +39,18 @@ struct OnboardingWelcomeView: View {
           .multilineTextAlignment(.center)
       }
       .padding(.horizontal, Spacing.M)
-
-      Spacer()
+      .padding(.bottom, Spacing.M)
 
       VStack(spacing: Spacing.S1) {
         welcomeOptionCard(
-          systemImage: "square.and.arrow.down.fill",
+          systemImage: "arrow.down.circle",
           title: "onboarding_import_option_title",
           subtitle: "onboarding_import_option_description",
           action: onImportAudiobooks
         )
 
         welcomeOptionCard(
-          systemImage: "rectangle.grid.2x2.fill",
+          systemImage: "books.vertical",
           title: "onboarding_catalog_option_title",
           subtitle: "onboarding_catalog_option_description",
           action: onBrowseCatalog
@@ -91,11 +93,12 @@ struct OnboardingWelcomeView: View {
     Button(action: action) {
       HStack(spacing: Spacing.S) {
         Image(systemName: systemImage)
-          .font(.system(size: 24))
+          .font(.system(size: 22, weight: .light))
+          .symbolRenderingMode(.hierarchical)
           .foregroundStyle(theme.linkColor)
           .frame(width: 44, height: 44)
-          .background(theme.linkColor.opacity(0.12))
-          .clipShape(RoundedRectangle(cornerRadius: 10))
+          .background(theme.linkColor.opacity(0.10))
+          .clipShape(Circle())
 
         VStack(alignment: .leading, spacing: Spacing.S4) {
           Text(title)

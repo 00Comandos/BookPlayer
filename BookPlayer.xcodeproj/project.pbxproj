@@ -884,6 +884,7 @@
 		0B0A5D1E0C000000000000B5 /* OnboardingGenresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A5 /* OnboardingGenresView.swift */; };
 		0B0A5D1E0C000000000000B6 /* OnboardingLanguagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A6 /* OnboardingLanguagesView.swift */; };
 		0B0A5D1E0C000000000000B7 /* OnboardingCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A7 /* OnboardingCatalogView.swift */; };
+		0B0A5D1E0C000000000000D2 /* onboarding-hero.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000D1 /* onboarding-hero.mp4 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1821,6 +1822,7 @@
 		0B0A5D1E0C000000000000A5 /* OnboardingGenresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGenresView.swift; sourceTree = "<group>"; };
 		0B0A5D1E0C000000000000A6 /* OnboardingLanguagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLanguagesView.swift; sourceTree = "<group>"; };
 		0B0A5D1E0C000000000000A7 /* OnboardingCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCatalogView.swift; sourceTree = "<group>"; };
+		0B0A5D1E0C000000000000D1 /* onboarding-hero.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "onboarding-hero.mp4"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2262,6 +2264,7 @@
 				418B6D011D2707F800F974FB /* Main.storyboard */,
 				418B6D061D2707F800F974FB /* LaunchScreen.storyboard */,
 				418B6D041D2707F800F974FB /* Assets.xcassets */,
+				0B0A5D1E0C000000000000D1 /* onboarding-hero.mp4 */,
 				419196341D47CC4E007A3AF3 /* BookPlayer.entitlements */,
 				416BF8A526537A4C00239166 /* BookPlayer-NoCarPlay.entitlements */,
 				418B6D091D2707F800F974FB /* Info.plist */,
@@ -4132,6 +4135,7 @@
 				4149539A21F0D456003C5D27 /* Themes.json in Resources */,
 				C37A6873209F0F830063AEAC /* Credits.html in Resources */,
 				418B6D051D2707F800F974FB /* Assets.xcassets in Resources */,
+				0B0A5D1E0C000000000000D2 /* onboarding-hero.mp4 in Resources */,
 				9F665EE82A48991C004BFE27 /* heart-of-glass-ayu-ipad@3x.png in Resources */,
 				634BA5492C0BD06B0015314D /* pride-ipad@3x.png in Resources */,
 				418B6D031D2707F800F974FB /* Main.storyboard in Resources */,
