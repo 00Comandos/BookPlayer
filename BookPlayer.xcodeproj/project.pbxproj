@@ -877,6 +877,13 @@
 		FEEDBABE0000000000000003 /* SharedWidgetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEDBABE0000000000000001 /* SharedWidgetStore.swift */; };
 		FEEDBABE0000000000000005 /* SharedWidgetStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEEDBABE0000000000000004 /* SharedWidgetStoreTests.swift */; };
 		FF95F8C692908D744A32D761 /* PreferencesAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E6918C51C370C2E89B24F9 /* PreferencesAPI.swift */; };
+		0B0A5D1E0C000000000000B1 /* OnboardingModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A1 /* OnboardingModels.swift */; };
+		0B0A5D1E0C000000000000B2 /* OnboardingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A2 /* OnboardingViewModel.swift */; };
+		0B0A5D1E0C000000000000B3 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A3 /* OnboardingView.swift */; };
+		0B0A5D1E0C000000000000B4 /* OnboardingWelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A4 /* OnboardingWelcomeView.swift */; };
+		0B0A5D1E0C000000000000B5 /* OnboardingGenresView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A5 /* OnboardingGenresView.swift */; };
+		0B0A5D1E0C000000000000B6 /* OnboardingLanguagesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A6 /* OnboardingLanguagesView.swift */; };
+		0B0A5D1E0C000000000000B7 /* OnboardingCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B0A5D1E0C000000000000A7 /* OnboardingCatalogView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1807,6 +1814,13 @@
 		F6F0D505E060FDAEB6DB68E3 /* IntegrationLibraryListView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IntegrationLibraryListView.swift; sourceTree = "<group>"; };
 		FEEDBABE0000000000000001 /* SharedWidgetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWidgetStore.swift; sourceTree = "<group>"; };
 		FEEDBABE0000000000000004 /* SharedWidgetStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedWidgetStoreTests.swift; sourceTree = "<group>"; };
+		0B0A5D1E0C000000000000A1 /* OnboardingModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingModels.swift; sourceTree = "<group>"; };
+		0B0A5D1E0C000000000000A2 /* OnboardingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewModel.swift; sourceTree = "<group>"; };
+		0B0A5D1E0C000000000000A3 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		0B0A5D1E0C000000000000A4 /* OnboardingWelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingWelcomeView.swift; sourceTree = "<group>"; };
+		0B0A5D1E0C000000000000A5 /* OnboardingGenresView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingGenresView.swift; sourceTree = "<group>"; };
+		0B0A5D1E0C000000000000A6 /* OnboardingLanguagesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingLanguagesView.swift; sourceTree = "<group>"; };
+		0B0A5D1E0C000000000000A7 /* OnboardingCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingCatalogView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2224,6 +2238,7 @@
 			isa = PBXGroup;
 			children = (
 				634BA58B2C14D5100015314D /* SecondOnboarding */,
+				0B0A5D1E0C000000000000C0 /* Onboarding */,
 				4151A6DE26E4A13E00E49DBE /* Coordinators */,
 				69343D3121338440000C425E /* Services */,
 				C3A479112094C8A800D92122 /* Utils */,
@@ -3705,6 +3720,20 @@
 			path = ListLayout;
 			sourceTree = "<group>";
 		};
+		0B0A5D1E0C000000000000C0 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				0B0A5D1E0C000000000000A1 /* OnboardingModels.swift */,
+				0B0A5D1E0C000000000000A2 /* OnboardingViewModel.swift */,
+				0B0A5D1E0C000000000000A3 /* OnboardingView.swift */,
+				0B0A5D1E0C000000000000A4 /* OnboardingWelcomeView.swift */,
+				0B0A5D1E0C000000000000A5 /* OnboardingGenresView.swift */,
+				0B0A5D1E0C000000000000A6 /* OnboardingLanguagesView.swift */,
+				0B0A5D1E0C000000000000A7 /* OnboardingCatalogView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -4535,6 +4564,13 @@
 				63B4A3C62E93858C00784A22 /* PlayerControlsView.swift in Sources */,
 				9F00A5FC294F9B9A005EA316 /* ItemDetailsView.swift in Sources */,
 				63AE5A872E4C4329002531B8 /* MainView.swift in Sources */,
+				0B0A5D1E0C000000000000B1 /* OnboardingModels.swift in Sources */,
+				0B0A5D1E0C000000000000B2 /* OnboardingViewModel.swift in Sources */,
+				0B0A5D1E0C000000000000B3 /* OnboardingView.swift in Sources */,
+				0B0A5D1E0C000000000000B4 /* OnboardingWelcomeView.swift in Sources */,
+				0B0A5D1E0C000000000000B5 /* OnboardingGenresView.swift in Sources */,
+				0B0A5D1E0C000000000000B6 /* OnboardingLanguagesView.swift in Sources */,
+				0B0A5D1E0C000000000000B7 /* OnboardingCatalogView.swift in Sources */,
 				63FCBBBE2DF7404000C50035 /* JellyfinLibraryListItemView.swift in Sources */,
 				9F3D0CE728C2BF7700E9E8A3 /* ButtonFreeViewModel.swift in Sources */,
 				99329DD72F3E8A04003F8E73 /* SlickSlider.swift in Sources */,

@@ -56,6 +56,19 @@ struct SettingsView: View {
           }
         }
         SettingsCreditsSectionView()
+        #if DEBUG
+        Section {
+          Button("Reset onboarding") {
+            let defaults = UserDefaults.standard
+            defaults.removeObject(forKey: Constants.UserDefaults.completedOnboarding)
+            defaults.removeObject(forKey: Constants.UserDefaults.onboardingSelectedGenres)
+            defaults.removeObject(forKey: Constants.UserDefaults.onboardingSelectedLanguages)
+          }
+          .foregroundStyle(theme.linkColor)
+        } header: {
+          Text(verbatim: "Debug")
+        }
+        #endif
       }
       .environment(\.loadingState, loadingState)
       .loadingOverlay(loadingState.show)

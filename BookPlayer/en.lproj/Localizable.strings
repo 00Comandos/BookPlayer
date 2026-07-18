@@ -468,3 +468,36 @@ We're working hard on providing a seamless experience, if possible, please conta
 "Series" = "Series";
 "Collections" = "Collections";
 "Narrators" = "Narrators";
+
+/* First-time onboarding */
+"onboarding_welcome_title" = "Welcome to BookPlayer";
+"onboarding_welcome_subtitle" = "Your audiobooks, your way. How would you like to start?";
+"onboarding_import_option_title" = "Load my audiobooks";
+"onboarding_import_option_description" = "Import your files from this device, iCloud or your own server";
+"onboarding_catalog_option_title" = "Browse our catalog";
+"onboarding_catalog_option_description" = "Discover audiobooks picked for your tastes";
+"onboarding_skip" = "Skip";
+"onboarding_continue" = "Continue";
+"onboarding_genres_title" = "What do you like to listen to?";
+"onboarding_genres_subtitle" = "Pick up to %d genres to personalize your catalog";
+"onboarding_languages_title" = "In which languages?";
+"onboarding_languages_subtitle" = "Choose up to %d languages for your content";
+"onboarding_language_device_tag" = "Device language";
+"onboarding_catalog_title" = "Picked for you";
+"onboarding_catalog_subtitle" = "Based on your genres and languages";
+"onboarding_catalog_play" = "Play";
+"onboarding_catalog_sample_note" = "Sample catalog content for preview purposes";
+"onboarding_go_library" = "Go to my library";
+"onboarding_playing_demo" = "Playing preview";
+"onboarding_genre_fiction" = "Fiction";
+"onboarding_genre_mystery" = "Mystery & Thriller";
+"onboarding_genre_romance" = "Romance";
+"onboarding_genre_scifi" = "Science Fiction";
+"onboarding_genre_fantasy" = "Fantasy";
+"onboarding_genre_biography" = "Biography";
+"onboarding_genre_history" = "History";
+"onboarding_genre_business" = "Business";
+"onboarding_genre_selfhelp" = "Self-Help";
+"onboarding_genre_kids" = "Kids";
+"onboarding_genre_nonfiction" = "Nonfiction";
+"onboarding_genre_poetry" = "Poetry";

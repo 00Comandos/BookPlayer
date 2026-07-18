@@ -468,3 +468,36 @@
 "Series" = "Series";
 "Collections" = "Colecciones";
 "Narrators" = "Narradores";
+
+/* First-time onboarding */
+"onboarding_welcome_title" = "Bienvenido a BookPlayer";
+"onboarding_welcome_subtitle" = "Tus audiolibros, a tu manera. ¿Cómo quieres empezar?";
+"onboarding_import_option_title" = "Cargar mis audiolibros";
+"onboarding_import_option_description" = "Importa tus archivos desde este dispositivo, iCloud o tu propio servidor";
+"onboarding_catalog_option_title" = "Ver el catálogo";
+"onboarding_catalog_option_description" = "Descubre audiolibros elegidos según tus gustos";
+"onboarding_skip" = "Saltar";
+"onboarding_continue" = "Continuar";
+"onboarding_genres_title" = "¿Qué te gusta escuchar?";
+"onboarding_genres_subtitle" = "Elige hasta %d géneros para personalizar tu catálogo";
+"onboarding_languages_title" = "¿En qué idiomas?";
+"onboarding_languages_subtitle" = "Elige hasta %d idiomas para tu contenido";
+"onboarding_language_device_tag" = "Idioma del teléfono";
+"onboarding_catalog_title" = "Elegidos para ti";
+"onboarding_catalog_subtitle" = "Según tus géneros e idiomas";
+"onboarding_catalog_play" = "Reproducir";
+"onboarding_catalog_sample_note" = "Contenido de ejemplo del catálogo";
+"onboarding_go_library" = "Ir a mi biblioteca";
+"onboarding_playing_demo" = "Reproduciendo la muestra";
+"onboarding_genre_fiction" = "Ficción";
+"onboarding_genre_mystery" = "Misterio y suspenso";
+"onboarding_genre_romance" = "Romance";
+"onboarding_genre_scifi" = "Ciencia ficción";
+"onboarding_genre_fantasy" = "Fantasía";
+"onboarding_genre_biography" = "Biografías";
+"onboarding_genre_history" = "Historia";
+"onboarding_genre_business" = "Negocios";
+"onboarding_genre_selfhelp" = "Autoayuda";
+"onboarding_genre_kids" = "Infantil";
+"onboarding_genre_nonfiction" = "No ficción";
+"onboarding_genre_poetry" = "Poesía";

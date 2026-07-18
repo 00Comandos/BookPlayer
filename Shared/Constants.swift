@@ -8,6 +8,9 @@ public enum Constants {
   public enum UserDefaults {
     // Application information
     public static let completedFirstLaunch = "userSettingsCompletedFirstLaunch"
+    public static let completedOnboarding = "userSettingsCompletedOnboarding"
+    public static let onboardingSelectedGenres = "userOnboardingSelectedGenres"
+    public static let onboardingSelectedLanguages = "userOnboardingSelectedLanguages"
     public static let appIcon = "userSettingsAppIcon"
     public static let donationMade = "userSettingsDonationMade"
     public static let showPlayer = "userSettingsShowPlayer"

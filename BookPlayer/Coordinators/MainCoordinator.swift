@@ -122,13 +122,40 @@ class MainCoordinator: NSObject {
       }
     }
     
-    navigationController.present(vc, animated: false)
+    navigationController.present(vc, animated: false) { [weak self] in
+      self?.showFirstTimeOnboarding()
+    }
     mainController = vc
 
     AppServices.shared.coreServices?.watchService.startSession()
   }
 
+  /// One-time welcome flow: import your audiobooks or browse the catalog
+  /// picking genre and language preferences
+  func showFirstTimeOnboarding() {
+    guard
+      !UserDefaults.standard.bool(forKey: Constants.UserDefaults.completedOnboarding),
+      let mainController
+    else { return }
+
+    let vc = AppHostingViewController(
+      rootView: OnboardingView { [weak self] _ in
+        UserDefaults.standard.set(true, forKey: Constants.UserDefaults.completedOnboarding)
+        self?.mainController?.dismiss(animated: true)
+      }
+      .environmentObject(ThemeViewModel())
+      .environment(\.accountService, accountService)
+    )
+    vc.modalPresentationStyle = .fullScreen
+    vc.modalTransitionStyle = .crossDissolve
+
+    mainController.present(vc, animated: false)
+  }
+
   func showSecondOnboarding() {
+    /// Don't compete with the first-time onboarding flow
+    guard UserDefaults.standard.bool(forKey: Constants.UserDefaults.completedOnboarding) else { return }
+
     guard let anonymousId = accountService.getAnonymousId() else { return }
 
     let coordinator = SecondOnboardingCoordinator(
