@@ -538,3 +538,8 @@
 "profile_appearance_system" = "System";
 "profile_appearance_light" = "Ljust";
 "profile_appearance_dark" = "Mörkt";
+"player_about_book_title" = "Om den här ljudboken";
+"player_about_author_title" = "Om författaren";
+"player_about_book_format" = "”%1$@” är en ljudbok inom %3$@, hyllad för sitt medryckande berättande och tempo.";
+"player_about_author_format" = "%1$@ har skrivit flera hyllade titlar inom %2$@, översatta till flera språk.";
+"player_about_source" = "Sammanfattningar från Wikipedia och förlag (demodata)";

@@ -538,3 +538,8 @@
 "profile_appearance_system" = "Järjestelmä";
 "profile_appearance_light" = "Vaalea";
 "profile_appearance_dark" = "Tumma";
+"player_about_book_title" = "Tietoa äänikirjasta";
+"player_about_author_title" = "Tietoa kirjailijasta";
+"player_about_book_format" = "”%1$@” on genren %3$@ äänikirja, jota kiitetään mukaansatempaavasta kerronnasta ja rytmistä.";
+"player_about_author_format" = "%1$@ on kirjoittanut useita kiitettyjä teoksia genressä %2$@; teoksia on käännetty useille kielille.";
+"player_about_source" = "Tiivistelmät Wikipediasta ja kustantajilta (demotietoa)";

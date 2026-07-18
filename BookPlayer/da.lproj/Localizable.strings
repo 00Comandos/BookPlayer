@@ -538,3 +538,8 @@
 "profile_appearance_system" = "System";
 "profile_appearance_light" = "Lys";
 "profile_appearance_dark" = "Mørk";
+"player_about_book_title" = "Om denne lydbog";
+"player_about_author_title" = "Om forfatteren";
+"player_about_book_format" = "”%1$@” er en lydbog i genren %3$@, rost for sin medrivende fortælling og sit tempo.";
+"player_about_author_format" = "%1$@ har skrevet flere roste titler inden for %2$@, oversat til flere sprog.";
+"player_about_source" = "Resuméer fra Wikipedia og forlag (demodata)";

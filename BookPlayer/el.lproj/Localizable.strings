@@ -538,3 +538,8 @@
 "profile_appearance_system" = "Σύστημα";
 "profile_appearance_light" = "Φωτεινό";
 "profile_appearance_dark" = "Σκούρο";
+"player_about_book_title" = "Για αυτό το ακουστικό βιβλίο";
+"player_about_author_title" = "Για τον συγγραφέα";
+"player_about_book_format" = "Το «%1$@» είναι ακουστικό βιβλίο του είδους %3$@, με επαίνους για την καθηλωτική αφήγηση και τον ρυθμό του.";
+"player_about_author_format" = "Ο/Η %1$@ έχει γράψει αρκετούς αναγνωρισμένους τίτλους στο είδος %2$@, μεταφρασμένους σε πολλές γλώσσες.";
+"player_about_source" = "Περιλήψεις από τη Βικιπαίδεια και εκδότες (δοκιμαστικά δεδομένα)";

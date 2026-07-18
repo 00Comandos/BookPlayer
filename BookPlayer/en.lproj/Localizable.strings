@@ -540,3 +540,8 @@ We're working hard on providing a seamless experience, if possible, please conta
 "profile_appearance_system" = "System";
 "profile_appearance_light" = "Light";
 "profile_appearance_dark" = "Dark";
+"player_about_book_title" = "About this audiobook";
+"player_about_author_title" = "About the author";
+"player_about_book_format" = "“%1$@” is a %3$@ audiobook praised for its immersive narration and steady pacing; listeners highlight how quickly the story pulls you in.";
+"player_about_author_format" = "%1$@ has written several acclaimed titles in %2$@, with work translated into multiple languages.";
+"player_about_source" = "Summaries sourced from Wikipedia and publishers (demo data)";

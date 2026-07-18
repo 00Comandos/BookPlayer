@@ -538,3 +538,8 @@
 "profile_appearance_system" = "Système";
 "profile_appearance_light" = "Clair";
 "profile_appearance_dark" = "Sombre";
+"player_about_book_title" = "À propos de ce livre audio";
+"player_about_author_title" = "À propos de l'auteur";
+"player_about_book_format" = "« %1$@ » est un livre audio de %3$@ salué pour sa narration immersive et son rythme.";
+"player_about_author_format" = "%1$@ a écrit plusieurs titres salués en %2$@, traduits en plusieurs langues.";
+"player_about_source" = "Résumés issus de Wikipédia et des éditeurs (données de démonstration)";

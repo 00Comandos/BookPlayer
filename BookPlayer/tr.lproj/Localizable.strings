@@ -538,3 +538,8 @@
 "profile_appearance_system" = "Sistem";
 "profile_appearance_light" = "Açık";
 "profile_appearance_dark" = "Koyu";
+"player_about_book_title" = "Bu sesli kitap hakkında";
+"player_about_author_title" = "Yazar hakkında";
+"player_about_book_format" = "“%1$@”, sürükleyici anlatımı ve temposuyla övülen bir %3$@ sesli kitabıdır.";
+"player_about_author_format" = "%1$@, %2$@ türünde birçok beğenilen esere imza attı; eserleri birçok dile çevrildi.";
+"player_about_source" = "Özetler Wikipedia ve yayıncılardan (demo veriler)";

@@ -538,3 +538,8 @@
 "profile_appearance_system" = "النظام";
 "profile_appearance_light" = "فاتح";
 "profile_appearance_dark" = "داكن";
+"player_about_book_title" = "عن هذا الكتاب الصوتي";
+"player_about_author_title" = "عن المؤلف";
+"player_about_book_format" = "«%1$@» كتاب صوتي من فئة %3$@، نال إشادة بسرده الآسر وإيقاعه.";
+"player_about_author_format" = "كتب %1$@ عدة أعمال بارزة في فئة %2$@، وتُرجمت أعماله إلى عدة لغات.";
+"player_about_source" = "الملخصات من ويكيبيديا والناشرين (بيانات تجريبية)";

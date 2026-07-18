@@ -538,3 +538,8 @@
 "profile_appearance_system" = "Systemowy";
 "profile_appearance_light" = "Jasny";
 "profile_appearance_dark" = "Ciemny";
+"player_about_book_title" = "O tym audiobooku";
+"player_about_author_title" = "O autorze";
+"player_about_book_format" = "„%1$@” to audiobook z gatunku %3$@, chwalony za wciągającą narrację i tempo.";
+"player_about_author_format" = "%1$@ ma na koncie kilka uznanych tytułów z gatunku %2$@, tłumaczonych na wiele języków.";
+"player_about_source" = "Streszczenia z Wikipedii i od wydawców (dane demonstracyjne)";

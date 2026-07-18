@@ -538,3 +538,8 @@ Vi jobber hardt for å gi deg en sømløs opplevelse. Hvis mulig, kontakt oss p�
 "profile_appearance_system" = "System";
 "profile_appearance_light" = "Lys";
 "profile_appearance_dark" = "Mørk";
+"player_about_book_title" = "Om denne lydboken";
+"player_about_author_title" = "Om forfatteren";
+"player_about_book_format" = "«%1$@» er en lydbok i sjangeren %3$@, rost for sin medrivende fortelling og sitt tempo.";
+"player_about_author_format" = "%1$@ har skrevet flere roste titler innen %2$@, oversatt til flere språk.";
+"player_about_source" = "Sammendrag fra Wikipedia og forlag (demodata)";

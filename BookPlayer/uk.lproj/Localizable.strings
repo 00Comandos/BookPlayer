@@ -538,3 +538,8 @@
 "profile_appearance_system" = "Системне";
 "profile_appearance_light" = "Світле";
 "profile_appearance_dark" = "Темне";
+"player_about_book_title" = "Про цю аудіокнигу";
+"player_about_author_title" = "Про автора";
+"player_about_book_format" = "«%1$@» — аудіокнига жанру «%3$@», яку хвалять за захопливу оповідь і ритм.";
+"player_about_author_format" = "%1$@ — автор кількох визнаних книжок у жанрі «%2$@», перекладених багатьма мовами.";
+"player_about_source" = "Описи з Вікіпедії та від видавців (демодані)";

@@ -732,9 +732,13 @@ struct CatalogProfileSheet: View {
 
       VStack(alignment: .leading, spacing: 2) {
         if accountService.hasAccount() {
-          Text(accountService.account.email)
+          Text(displayName(from: accountService.account.email))
             .font(.system(size: 16, weight: .semibold))
             .foregroundStyle(.white)
+
+          Text(accountService.account.email)
+            .font(.system(size: 13))
+            .foregroundStyle(subtle)
         } else {
           Text("catalog_home_profile_guest")
             .font(.system(size: 15))
@@ -752,6 +756,15 @@ struct CatalogProfileSheet: View {
 
       Spacer()
     }
+  }
+
+  /// The account has no name field yet, so derive a friendly one from the email
+  private func displayName(from email: String) -> String {
+    let localPart = email.split(separator: "@").first.map(String.init) ?? email
+    return localPart
+      .replacingOccurrences(of: ".", with: " ")
+      .replacingOccurrences(of: "_", with: " ")
+      .capitalized
   }
 
   private func menuRow(
@@ -897,6 +910,14 @@ struct CatalogInterestsPage: View {
         .padding(.bottom, Spacing.L)
       }
     }
+    .onAppear(perform: reload)
+  }
+
+  /// Always mirror what the onboarding (or a previous edit) persisted
+  private func reload() {
+    let defaults = UserDefaults.standard
+    selectedGenres = Set(defaults.stringArray(forKey: Constants.UserDefaults.onboardingSelectedGenres) ?? [])
+    selectedLanguages = Set(defaults.stringArray(forKey: Constants.UserDefaults.onboardingSelectedLanguages) ?? [])
   }
 
   private func section<Content: View>(
@@ -1044,7 +1065,8 @@ struct CatalogPlayerView: View {
           Int(session.progress(for: book) * Double(chapters.count)) + 1
         )
 
-        VStack(spacing: Spacing.S1) {
+        ScrollView {
+          VStack(spacing: Spacing.S1) {
           HStack {
             Button {
               dismiss()
@@ -1066,11 +1088,10 @@ struct CatalogPlayerView: View {
           }
           .padding(.top, Spacing.S)
 
-          Spacer()
-
           RoundedRectangle(cornerRadius: 16)
             .fill(book.coverGradient)
             .frame(width: 280, height: 280)
+            .padding(.top, Spacing.M)
             .overlay(
               Image(systemName: book.coverSymbol)
                 .font(.system(size: 80))
@@ -1138,15 +1159,63 @@ struct CatalogPlayerView: View {
             .foregroundStyle(subtle)
             .padding(.top, Spacing.S)
 
-          Spacer()
+          aboutSection(for: book)
+            .padding(.top, Spacing.M)
+          }
+          .padding(.horizontal, Spacing.M)
+          .padding(.bottom, Spacing.L)
         }
-        .padding(.horizontal, Spacing.M)
         .sheet(isPresented: $showChapters) {
           chaptersSheet(for: book, chapters: chapters, currentChapter: currentChapter)
             .presentationDetents([.medium, .large])
         }
       }
     }
+  }
+
+  /// Book and author blurbs; in production these would come from
+  /// Wikipedia/Amazon metadata via the catalog backend
+  private func aboutSection(for book: CatalogBook) -> some View {
+    VStack(alignment: .leading, spacing: Spacing.S1) {
+      infoCard(
+        title: "player_about_book_title",
+        text: String(
+          format: "player_about_book_format".localized,
+          book.title, book.author, book.genre?.title ?? ""
+        )
+      )
+
+      infoCard(
+        title: "player_about_author_title",
+        text: String(
+          format: "player_about_author_format".localized,
+          book.author, book.genre?.title ?? ""
+        )
+      )
+
+      Text("player_about_source")
+        .font(.system(size: 11))
+        .italic()
+        .foregroundStyle(subtle)
+        .frame(maxWidth: .infinity, alignment: .center)
+    }
+  }
+
+  private func infoCard(title: LocalizedStringKey, text: String) -> some View {
+    VStack(alignment: .leading, spacing: Spacing.S2) {
+      Text(title)
+        .font(.system(size: 15, weight: .semibold))
+        .foregroundStyle(.white)
+
+      Text(text)
+        .font(.system(size: 14))
+        .foregroundStyle(subtle)
+        .lineSpacing(3)
+    }
+    .frame(maxWidth: .infinity, alignment: .leading)
+    .padding(Spacing.S1)
+    .background(elevated)
+    .clipShape(RoundedRectangle(cornerRadius: BPDesign.Radius.card))
   }
 
   private func chaptersSheet(

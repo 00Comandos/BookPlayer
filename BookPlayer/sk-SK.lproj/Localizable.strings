@@ -538,3 +538,8 @@ Usilovne pracujeme na poskytovaní bezproblémového zážitku, ak je to možné
 "profile_appearance_system" = "Systém";
 "profile_appearance_light" = "Svetlý";
 "profile_appearance_dark" = "Tmavý";
+"player_about_book_title" = "O tejto audioknihe";
+"player_about_author_title" = "O autorovi";
+"player_about_book_format" = "„%1$@“ je audiokniha žánru %3$@, cenená za strhujúce rozprávanie a tempo.";
+"player_about_author_format" = "%1$@ napísal(a) viacero oceňovaných titulov v žánri %2$@, preložených do viacerých jazykov.";
+"player_about_source" = "Súhrny z Wikipédie a od vydavateľov (ukážkové dáta)";

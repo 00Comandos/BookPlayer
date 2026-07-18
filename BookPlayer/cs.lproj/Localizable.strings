@@ -538,3 +538,8 @@
 "profile_appearance_system" = "Systém";
 "profile_appearance_light" = "Světlý";
 "profile_appearance_dark" = "Tmavý";
+"player_about_book_title" = "O této audioknize";
+"player_about_author_title" = "O autorovi";
+"player_about_book_format" = "„%1$@“ je audiokniha žánru %3$@, ceněná za strhující vyprávění a tempo.";
+"player_about_author_format" = "%1$@ napsal(a) několik oceňovaných titulů v žánru %2$@, přeložených do řady jazyků.";
+"player_about_source" = "Souhrny z Wikipedie a od nakladatelů (ukázková data)";

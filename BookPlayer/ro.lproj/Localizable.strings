@@ -538,3 +538,8 @@
 "profile_appearance_system" = "Sistem";
 "profile_appearance_light" = "Luminos";
 "profile_appearance_dark" = "Întunecat";
+"player_about_book_title" = "Despre acest audiobook";
+"player_about_author_title" = "Despre autor";
+"player_about_book_format" = "„%1$@” este un audiobook din genul %3$@, lăudat pentru narațiunea captivantă și ritmul său.";
+"player_about_author_format" = "%1$@ a scris mai multe titluri apreciate în genul %2$@, traduse în mai multe limbi.";
+"player_about_source" = "Rezumate din Wikipedia și de la edituri (date demonstrative)";

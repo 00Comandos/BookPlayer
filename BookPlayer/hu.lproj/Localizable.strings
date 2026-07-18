@@ -538,3 +538,8 @@
 "profile_appearance_system" = "Rendszer";
 "profile_appearance_light" = "Világos";
 "profile_appearance_dark" = "Sötét";
+"player_about_book_title" = "Erről a hangoskönyvről";
+"player_about_author_title" = "A szerzőről";
+"player_about_book_format" = "A(z) „%1$@” a(z) %3$@ műfaj hangoskönyve, amelyet magával ragadó narrációjáért dicsérnek.";
+"player_about_author_format" = "%1$@ több elismert címet írt a(z) %2$@ műfajban; műveit több nyelvre lefordították.";
+"player_about_source" = "Összefoglalók a Wikipédiáról és a kiadóktól (demóadatok)";

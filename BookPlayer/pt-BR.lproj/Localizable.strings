@@ -538,3 +538,8 @@
 "profile_appearance_system" = "Sistema";
 "profile_appearance_light" = "Claro";
 "profile_appearance_dark" = "Escuro";
+"player_about_book_title" = "Sobre este audiolivro";
+"player_about_author_title" = "Sobre o autor";
+"player_about_book_format" = "“%1$@” é um audiolivro de %3$@ elogiado pela narração envolvente e pelo ritmo.";
+"player_about_author_format" = "%1$@ escreveu vários títulos aclamados de %2$@, com obras traduzidas para vários idiomas.";
+"player_about_source" = "Resumos da Wikipédia e das editoras (dados de demonstração)";

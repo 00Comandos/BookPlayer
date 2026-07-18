@@ -538,3 +538,8 @@
 "profile_appearance_system" = "跟随系统";
 "profile_appearance_light" = "浅色";
 "profile_appearance_dark" = "深色";
+"player_about_book_title" = "关于本有声书";
+"player_about_author_title" = "关于作者";
+"player_about_book_format" = "《%1$@》是一部%3$@类有声书，以沉浸式的叙述和节奏著称。";
+"player_about_author_format" = "%1$@著有多部广受好评的%2$@类作品，已被翻译成多种语言。";
+"player_about_source" = "简介来自维基百科和出版商（演示数据）";
