@@ -10,7 +10,7 @@ import Foundation
 
 /// How the user left the onboarding flow
 enum OnboardingOutcome {
-  case importAudiobooks
+  case importAudiobooks(urls: [URL])
   case finishedCatalog
 }
 
@@ -19,6 +19,7 @@ final class OnboardingViewModel: ObservableObject {
   enum Step: Hashable {
     case genres
     case languages
+    case uploads
   }
 
   static let maxGenres = 5

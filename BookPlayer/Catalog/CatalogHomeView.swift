@@ -115,9 +115,9 @@ struct CatalogHomeView: View {
   /// Bumped when preferences change so the computed shelves re-read UserDefaults
   @State private var preferencesVersion = 0
 
-  private let background = BPDesign.Colors.mediaBackground
-  private let elevated = BPDesign.Colors.mediaSurfaceElevated
-  private let subtle = BPDesign.Colors.textSecondaryMedia
+  private let background = BPDesign.Colors.inkBackground
+  private let elevated = BPDesign.Colors.surfaceElevated
+  private let subtle = BPDesign.Colors.textSecondary
   private let accent = BPDesign.Colors.coral
 
   private var preferredGenreIds: [String] {
@@ -201,7 +201,7 @@ struct CatalogHomeView: View {
         CatalogSearchView(books: languageMatches)
       }
       .navigationDestination(isPresented: $showUploads) {
-        UploadsView(style: .media, title: "uploads_title_from_catalog") { urls in
+        UploadsView(style: .adaptive, title: "uploads_title_from_catalog") { urls in
           showUploads = false
           onImportFiles(urls)
         }
@@ -256,7 +256,7 @@ struct CatalogHomeView: View {
       VStack(alignment: .leading, spacing: 2) {
         Text("catalog_home_title")
           .font(.system(size: 24, weight: .bold))
-          .foregroundStyle(.white)
+          .foregroundStyle(BPDesign.Colors.textPrimary)
 
         Text(String(
           format: "catalog_home_books_format".localized,
@@ -276,7 +276,7 @@ struct CatalogHomeView: View {
           .renderingMode(.template)
           .scaledToFit()
           .frame(width: 17, height: 17)
-          .foregroundStyle(.white)
+          .foregroundStyle(BPDesign.Colors.textPrimary)
           .frame(width: 34, height: 34)
           .background(elevated)
           .clipShape(Circle())
@@ -321,7 +321,7 @@ struct CatalogHomeView: View {
     Button(action: action) {
       title
         .font(.system(size: 13, weight: .medium))
-        .foregroundStyle(isSelected ? .black : .white)
+        .foregroundStyle(isSelected ? Color.black : BPDesign.Colors.textPrimary)
         .padding(.horizontal, Spacing.S1)
         .padding(.vertical, Spacing.S2)
         .background(isSelected ? accent : elevated)
@@ -339,7 +339,7 @@ struct CatalogHomeView: View {
       VStack(alignment: .leading, spacing: Spacing.S1) {
         Text("catalog_home_recent")
           .font(.system(size: 19, weight: .bold))
-          .foregroundStyle(.white)
+          .foregroundStyle(BPDesign.Colors.textPrimary)
           .padding(.horizontal, Spacing.S)
 
         ScrollView(.horizontal, showsIndicators: false) {
@@ -356,7 +356,7 @@ struct CatalogHomeView: View {
         RoundedRectangle(cornerRadius: BPDesign.Radius.banner)
           .fill(
             LinearGradient(
-              colors: [accent.opacity(0.10), Color.white.opacity(0.03)],
+              colors: [accent.opacity(0.12), accent.opacity(0.03)],
               startPoint: .topLeading,
               endPoint: .bottomTrailing
             )
@@ -370,7 +370,7 @@ struct CatalogHomeView: View {
     VStack(alignment: .leading, spacing: Spacing.S1) {
       Text("catalog_home_new_content")
         .font(.system(size: 19, weight: .bold))
-        .foregroundStyle(.white)
+        .foregroundStyle(BPDesign.Colors.textPrimary)
         .padding(.horizontal, Spacing.S)
 
       ScrollView(.horizontal, showsIndicators: false) {
@@ -393,7 +393,7 @@ struct CatalogHomeView: View {
         HStack(alignment: .firstTextBaseline, spacing: Spacing.S2) {
           Text(genre.title)
             .font(.system(size: 19, weight: .bold))
-            .foregroundStyle(.white)
+            .foregroundStyle(BPDesign.Colors.textPrimary)
 
           if let count {
             Text(String(
@@ -421,7 +421,7 @@ struct CatalogHomeView: View {
       HStack(alignment: .firstTextBaseline, spacing: Spacing.S2) {
         title
           .font(.system(size: 19, weight: .bold))
-          .foregroundStyle(.white)
+          .foregroundStyle(BPDesign.Colors.textPrimary)
 
         if let count {
           Text(String(
@@ -478,13 +478,13 @@ struct CatalogHomeView: View {
             .overlay(
               Image(systemName: "waveform")
                 .font(.system(size: 16))
-                .foregroundStyle(.white)
+                .foregroundStyle(BPDesign.Colors.textPrimary)
             )
 
           VStack(alignment: .leading, spacing: 2) {
             Text(book.title)
               .font(.system(size: 14, weight: .semibold))
-              .foregroundStyle(.white)
+              .foregroundStyle(BPDesign.Colors.textPrimary)
               .lineLimit(1)
 
             Text("onboarding_playing_demo")
@@ -503,7 +503,7 @@ struct CatalogHomeView: View {
       } label: {
         Image(systemName: "stop.fill")
           .font(.system(size: 18))
-          .foregroundStyle(.white)
+          .foregroundStyle(BPDesign.Colors.textPrimary)
       }
       .padding(.trailing, Spacing.S3)
     }

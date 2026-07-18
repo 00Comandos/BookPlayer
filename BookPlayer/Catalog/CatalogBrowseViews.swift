@@ -125,9 +125,18 @@ struct CatalogBookCard: View {
   /// Fixed width for shelves; nil stretches to fill grid cells
   var width: CGFloat? = 140
   var showProgress = false
+  /// Set in always-dark contexts (player, about sheet) so text stays white
+  var forceDark = false
 
-  private let subtle = BPDesign.Colors.textSecondaryMedia
   private let accent = BPDesign.Colors.coral
+
+  private var titleColor: Color {
+    forceDark ? .white : BPDesign.Colors.textPrimary
+  }
+
+  private var subtle: Color {
+    forceDark ? BPDesign.Colors.textSecondaryMedia : BPDesign.Colors.textSecondary
+  }
 
   var body: some View {
     Button {
@@ -138,7 +147,7 @@ struct CatalogBookCard: View {
 
         Text(book.title)
           .font(.system(size: 14, weight: .semibold))
-          .foregroundStyle(.white)
+          .foregroundStyle(titleColor)
           .lineLimit(1)
 
         if let uploadedBy {
@@ -203,8 +212,8 @@ struct CatalogGenreListView: View {
 
   @State private var showSearch = false
 
-  private let background = BPDesign.Colors.mediaBackground
-  private let subtle = BPDesign.Colors.textSecondaryMedia
+  private let background = BPDesign.Colors.inkBackground
+  private let subtle = BPDesign.Colors.textSecondary
 
   private let columns = [
     GridItem(.flexible(), spacing: Spacing.S1),
@@ -219,7 +228,7 @@ struct CatalogGenreListView: View {
         VStack(alignment: .leading, spacing: Spacing.S1) {
           Text(genre.title)
             .font(.system(size: 24, weight: .bold))
-            .foregroundStyle(.white)
+            .foregroundStyle(BPDesign.Colors.textPrimary)
 
           Text(String(
             format: "catalog_home_books_format".localized,
@@ -245,7 +254,6 @@ struct CatalogGenreListView: View {
       .padding(.trailing, Spacing.S)
       .padding(.bottom, Spacing.S)
     }
-    .toolbarColorScheme(.dark, for: .navigationBar)
     .toolbarBackground(background, for: .navigationBar)
     .navigationDestination(isPresented: $showSearch) {
       CatalogSearchView(books: books, scope: genre)
@@ -261,9 +269,9 @@ struct CatalogSearchView: View {
   @State private var query = ""
   @FocusState private var isFocused: Bool
 
-  private let background = BPDesign.Colors.mediaBackground
-  private let elevated = BPDesign.Colors.mediaSurfaceElevated
-  private let subtle = BPDesign.Colors.textSecondaryMedia
+  private let background = BPDesign.Colors.inkBackground
+  private let elevated = BPDesign.Colors.surfaceElevated
+  private let subtle = BPDesign.Colors.textSecondary
 
   private let columns = [
     GridItem(.flexible(), spacing: Spacing.S1),
@@ -314,7 +322,6 @@ struct CatalogSearchView: View {
       .padding(.horizontal, Spacing.S)
       .padding(.top, Spacing.S2)
     }
-    .toolbarColorScheme(.dark, for: .navigationBar)
     .toolbarBackground(background, for: .navigationBar)
     .onAppear { isFocused = true }
   }
@@ -331,7 +338,7 @@ struct CatalogSearchView: View {
         prompt: Text("catalog_home_search_placeholder").foregroundStyle(subtle)
       )
       .font(.system(size: 15))
-      .foregroundStyle(.white)
+      .foregroundStyle(BPDesign.Colors.textPrimary)
       .focused($isFocused)
       .autocorrectionDisabled()
       .textInputAutocapitalization(.never)
@@ -361,11 +368,11 @@ struct CatalogSearchButton: View {
     Button(action: action) {
       Image(systemName: "magnifyingglass")
         .font(.system(size: 19, weight: .semibold))
-        .foregroundStyle(.white)
+        .foregroundStyle(BPDesign.Colors.textPrimary)
         .frame(width: 52, height: 52)
-        .background(BPDesign.Colors.mediaSurfaceElevated)
+        .background(BPDesign.Colors.surfaceElevated)
         .clipShape(Circle())
-        .overlay(Circle().stroke(Color.white.opacity(0.08), lineWidth: 1))
+        .overlay(Circle().stroke(BPDesign.Border.hairlineColor, lineWidth: 1))
     }
     .accessibilityLabel(Text("catalog_home_search_placeholder"))
   }
@@ -566,9 +573,9 @@ struct CatalogProfileSheet: View {
   /// Bumped after login/logout so the identity re-renders
   @State private var accountVersion = 0
 
-  private let background = BPDesign.Colors.mediaBackground
-  private let elevated = BPDesign.Colors.mediaSurfaceElevated
-  private let subtle = BPDesign.Colors.textSecondaryMedia
+  private let background = BPDesign.Colors.inkBackground
+  private let elevated = BPDesign.Colors.surfaceElevated
+  private let subtle = BPDesign.Colors.textSecondary
   private let accent = BPDesign.Colors.coral
 
   private var planName: LocalizedStringKey {
@@ -650,8 +657,7 @@ struct CatalogProfileSheet: View {
             )
           }
         }
-        .toolbarColorScheme(.dark, for: .navigationBar)
-        .toolbarBackground(background, for: .navigationBar)
+            .toolbarBackground(background, for: .navigationBar)
       }
     }
     .id(accountVersion)
@@ -708,7 +714,7 @@ struct CatalogProfileSheet: View {
           } label: {
             Text(mode.label)
               .font(.system(size: 13, weight: .medium))
-              .foregroundStyle(currentAppearance == mode ? .black : .white)
+              .foregroundStyle(currentAppearance == mode ? Color.black : BPDesign.Colors.textPrimary)
               .frame(height: 36)
               .frame(maxWidth: .infinity)
               .background(currentAppearance == mode ? accent : elevated)
@@ -752,7 +758,7 @@ struct CatalogProfileSheet: View {
         if accountService.hasAccount() {
           Text(displayName(from: accountService.account.email))
             .font(.system(size: 16, weight: .semibold))
-            .foregroundStyle(.white)
+            .foregroundStyle(BPDesign.Colors.textPrimary)
 
           Text(accountService.account.email)
             .font(.system(size: 13))
@@ -800,7 +806,7 @@ struct CatalogProfileSheet: View {
 
         title
           .font(.system(size: 15, weight: .medium))
-          .foregroundStyle(.white)
+          .foregroundStyle(BPDesign.Colors.textPrimary)
 
         Spacer()
 
@@ -838,7 +844,7 @@ struct CatalogProfileSheet: View {
         VStack(alignment: .leading, spacing: Spacing.S2) {
           Text("profile_stats_title")
             .font(.system(size: 24, weight: .bold))
-            .foregroundStyle(.white)
+            .foregroundStyle(BPDesign.Colors.textPrimary)
 
           LazyVGrid(
             columns: [
@@ -851,7 +857,7 @@ struct CatalogProfileSheet: View {
               VStack(alignment: .leading, spacing: 2) {
                 Text(CatalogSession.formatMinutes(tile.1))
                   .font(.system(size: 19, weight: .bold))
-                  .foregroundStyle(.white)
+                  .foregroundStyle(BPDesign.Colors.textPrimary)
                 Text(tile.0)
                   .font(.system(size: 12))
                   .foregroundStyle(subtle)
@@ -875,8 +881,8 @@ struct CatalogInterestsPage: View {
   @State private var selectedGenres: Set<String>
   @State private var selectedLanguages: Set<String>
 
-  private let background = BPDesign.Colors.mediaBackground
-  private let subtle = BPDesign.Colors.textSecondaryMedia
+  private let background = BPDesign.Colors.inkBackground
+  private let subtle = BPDesign.Colors.textSecondary
   private let accent = BPDesign.Colors.coral
 
   init() {
@@ -897,7 +903,7 @@ struct CatalogInterestsPage: View {
         VStack(alignment: .leading, spacing: Spacing.S1) {
           Text("catalog_home_interests_title")
             .font(.system(size: 24, weight: .bold))
-            .foregroundStyle(.white)
+            .foregroundStyle(BPDesign.Colors.textPrimary)
 
           section(
             title: "catalog_home_genres_section",
@@ -974,12 +980,12 @@ struct CatalogInterestsPage: View {
         Text(title)
           .font(.system(size: 13, weight: .medium))
       }
-      .foregroundStyle(isSelected ? .black : .white)
+      .foregroundStyle(isSelected ? Color.black : BPDesign.Colors.textPrimary)
       .padding(.horizontal, Spacing.S1)
       .frame(height: 34)
       .background(isSelected ? accent : Color.clear)
       .overlay(
-        Capsule().stroke(isSelected ? Color.clear : Color.white.opacity(0.18), lineWidth: 1)
+        Capsule().stroke(isSelected ? Color.clear : BPDesign.Border.hairlineColor, lineWidth: 1)
       )
       .clipShape(Capsule())
     }
@@ -1007,9 +1013,9 @@ struct CatalogSubscriptionPage: View {
 
   @State private var showPaywall = false
 
-  private let background = BPDesign.Colors.mediaBackground
-  private let elevated = BPDesign.Colors.mediaSurfaceElevated
-  private let subtle = BPDesign.Colors.textSecondaryMedia
+  private let background = BPDesign.Colors.inkBackground
+  private let elevated = BPDesign.Colors.surfaceElevated
+  private let subtle = BPDesign.Colors.textSecondary
   private let accent = BPDesign.Colors.coral
 
   var body: some View {
@@ -1033,7 +1039,7 @@ struct CatalogSubscriptionPage: View {
 
         Text(planName)
           .font(.system(size: 24, weight: .bold))
-          .foregroundStyle(.white)
+          .foregroundStyle(BPDesign.Colors.textPrimary)
 
         VStack(alignment: .leading, spacing: Spacing.S2) {
           benefitRow(Text("benefits_cloudsync_title"))
@@ -1076,7 +1082,7 @@ struct CatalogSubscriptionPage: View {
 
       title
         .font(.system(size: 14))
-        .foregroundStyle(.white)
+        .foregroundStyle(BPDesign.Colors.textPrimary)
 
       Spacer()
     }
@@ -1461,7 +1467,7 @@ struct CatalogMoreByAuthorShelf: View {
         ScrollView(.horizontal, showsIndicators: false) {
           HStack(alignment: .top, spacing: Spacing.S1) {
             ForEach(authorBooks) { authorBook in
-              CatalogBookCard(book: authorBook, width: 110)
+              CatalogBookCard(book: authorBook, width: 110, forceDark: true)
             }
           }
         }
@@ -1587,9 +1593,9 @@ struct CatalogLibraryView: View {
   @State private var items: [SimpleLibraryItem] = []
   @State private var showPicker = false
 
-  private let background = BPDesign.Colors.mediaBackground
-  private let elevated = BPDesign.Colors.mediaSurfaceElevated
-  private let subtle = BPDesign.Colors.textSecondaryMedia
+  private let background = BPDesign.Colors.inkBackground
+  private let elevated = BPDesign.Colors.surfaceElevated
+  private let subtle = BPDesign.Colors.textSecondary
   private let accent = BPDesign.Colors.coral
 
   var body: some View {
@@ -1611,7 +1617,7 @@ struct CatalogLibraryView: View {
 
           Text("catalog_library_title")
             .font(.system(size: 24, weight: .bold))
-            .foregroundStyle(.white)
+            .foregroundStyle(BPDesign.Colors.textPrimary)
 
           Text("uploads_empty_description")
             .font(.system(size: 15))
@@ -1632,7 +1638,7 @@ struct CatalogLibraryView: View {
           VStack(alignment: .leading, spacing: Spacing.S1) {
             Text("catalog_library_title")
               .font(.system(size: 24, weight: .bold))
-              .foregroundStyle(.white)
+              .foregroundStyle(BPDesign.Colors.textPrimary)
 
             Text(String(
               format: "catalog_home_books_format".localized,
@@ -1648,7 +1654,7 @@ struct CatalogLibraryView: View {
             Button(action: onOpenFull) {
               Text("catalog_library_open_full")
                 .font(.system(size: 15, weight: .medium))
-                .foregroundStyle(.white)
+                .foregroundStyle(BPDesign.Colors.textPrimary)
                 .frame(height: 44)
                 .frame(maxWidth: .infinity)
                 .background(elevated)
@@ -1663,7 +1669,6 @@ struct CatalogLibraryView: View {
         }
       }
     }
-    .toolbarColorScheme(.dark, for: .navigationBar)
     .toolbarBackground(background, for: .navigationBar)
     .onAppear {
       items = AppServices.shared.coreServices?.libraryService
@@ -1698,7 +1703,7 @@ struct CatalogLibraryView: View {
       VStack(alignment: .leading, spacing: 2) {
         Text(item.title)
           .font(.system(size: 15, weight: .semibold))
-          .foregroundStyle(.white)
+          .foregroundStyle(BPDesign.Colors.textPrimary)
           .lineLimit(1)
 
         Text(item.durationFormatted)

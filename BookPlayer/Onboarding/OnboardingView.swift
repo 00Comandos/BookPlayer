@@ -19,8 +19,7 @@ struct OnboardingView: View {
     NavigationStack(path: $viewModel.path) {
       OnboardingWelcomeView(
         onImportAudiobooks: {
-          viewModel.persistPreferences()
-          onFinish(.importAudiobooks)
+          viewModel.path.append(.uploads)
         },
         onBrowseCatalog: {
           viewModel.path.append(.genres)
@@ -35,10 +34,15 @@ struct OnboardingView: View {
             viewModel.persistPreferences()
             onFinish(.finishedCatalog)
           }
+        case .uploads:
+          UploadsView(style: .adaptive, title: "uploads_title_personal") { urls in
+            viewModel.persistPreferences()
+            onFinish(.importAudiobooks(urls: urls))
+          }
         }
       }
     }
-    .tint(theme.linkColor)
+    .tint(BPDesign.Colors.coral)
     .onAppear {
       ThemeManager.shared.checkSystemMode()
     }

@@ -83,10 +83,10 @@ struct OnboardingWelcomeView: View {
         .scaledToFill()
     } else {
       ZStack {
-        theme.linkColor.opacity(0.12)
+        BPDesign.Colors.coral.opacity(0.12)
         Image(systemName: "headphones.circle.fill")
           .font(.system(size: 72))
-          .foregroundStyle(theme.linkColor)
+          .foregroundStyle(BPDesign.Colors.coral)
       }
     }
   }
@@ -104,9 +104,9 @@ struct OnboardingWelcomeView: View {
           .renderingMode(.template)
           .scaledToFit()
           .frame(width: 22, height: 22)
-          .foregroundStyle(theme.linkColor)
+          .foregroundStyle(BPDesign.Colors.coral)
           .frame(width: 44, height: 44)
-          .background(theme.linkColor.opacity(0.10))
+          .background(BPDesign.Colors.coral.opacity(0.12))
           .clipShape(Circle())
 
         VStack(alignment: .leading, spacing: Spacing.S4) {

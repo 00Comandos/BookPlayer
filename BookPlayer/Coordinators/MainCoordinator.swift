@@ -175,8 +175,11 @@ class MainCoordinator: NSObject {
           switch outcome {
           case .finishedCatalog:
             self?.showCatalogHome()
-          case .importAudiobooks:
-            self?.showStandaloneUploads()
+          case .importAudiobooks(let urls):
+            /// First files flow straight into the import pipeline while the
+            /// user lands on Discover
+            self?.processFiles(urls: urls)
+            self?.showCatalogHome()
           }
         }
       }
@@ -208,34 +211,6 @@ class MainCoordinator: NSObject {
       )
       .environmentObject(ThemeViewModel())
       .environment(\.accountService, accountService)
-    )
-    vc.modalPresentationStyle = .fullScreen
-    vc.modalTransitionStyle = .crossDissolve
-
-    mainController.present(vc, animated: false)
-  }
-
-  /// Simplified upload page shown after choosing "Load my audiobooks"
-  /// in the onboarding
-  func showStandaloneUploads() {
-    guard let mainController else { return }
-
-    let vc = AppHostingViewController(
-      rootView: NavigationStack {
-        UploadsView(
-          style: .adaptive,
-          title: "uploads_title_personal",
-          showsClose: true,
-          onPick: { [weak self] urls in
-            self?.processFiles(urls: urls)
-            self?.mainController?.dismiss(animated: true)
-          },
-          onClose: { [weak self] in
-            self?.mainController?.dismiss(animated: true)
-          }
-        )
-      }
-      .environmentObject(ThemeViewModel())
     )
     vc.modalPresentationStyle = .fullScreen
     vc.modalTransitionStyle = .crossDissolve
