@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "Kritika chválí osobitý hlas a smysl pro atmosféru; nahrávku nese vypravěč, který tónu textu odpovídá.";
 "catalog_library_title" = "Moje knihovna";
 "catalog_library_open_full" = "Otevřít celou knihovnu";
+"player_sleep_off" = "Vypnout časovač";
+"player_sleep_end_chapter" = "Konec kapitoly";

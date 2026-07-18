@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "Критики відзначають особливий голос і відчуття атмосфери; у записі текст супроводжує відповідний за тоном оповідач.";
 "catalog_library_title" = "Моя бібліотека";
 "catalog_library_open_full" = "Відкрити повну бібліотеку";
+"player_sleep_off" = "Вимкнути таймер";
+"player_sleep_end_chapter" = "Кінець розділу";

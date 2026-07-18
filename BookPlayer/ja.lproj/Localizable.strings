@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "批評家は独特の声と雰囲気づくりを高く評価しています。本録音では作品のトーンに合ったナレーターが朗読しています。";
 "catalog_library_title" = "マイライブラリ";
 "catalog_library_open_full" = "ライブラリ全体を開く";
+"player_sleep_off" = "タイマーをオフ";
+"player_sleep_end_chapter" = "チャプターの終わり";

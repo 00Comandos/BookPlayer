@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "Krytycy chwalą wyrazisty głos i wyczucie atmosfery; nagranie łączy tekst z lektorem dorównującym jego tonowi.";
 "catalog_library_title" = "Moja biblioteka";
 "catalog_library_open_full" = "Otwórz pełną bibliotekę";
+"player_sleep_off" = "Wyłącz minutnik";
+"player_sleep_end_chapter" = "Koniec rozdziału";

@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "评论界称赞其独特的声音与氛围感；本录音由与文本气质契合的朗读者演绎。";
 "catalog_library_title" = "我的书库";
 "catalog_library_open_full" = "打开完整书库";
+"player_sleep_off" = "关闭定时器";
+"player_sleep_end_chapter" = "本章结束";

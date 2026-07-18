@@ -27,6 +27,10 @@ final class CatalogSession: ObservableObject {
   @Published var isPaused = false {
     didSet { restartProgressTimer() }
   }
+  /// Playback rate, cycled between 0.75x and 2x
+  @Published var playbackSpeed: Double = 1.0
+  /// Remaining sleep-timer time, in book minutes; pauses playback at zero
+  @Published var sleepMinutesRemaining: Double?
   @Published private(set) var recentIds: [String]
 
   private var progressTimer: Timer?
@@ -51,13 +55,43 @@ final class CatalogSession: ObservableObject {
   private func advanceProgress() {
     guard let book = nowPlaying, !isPaused else { return }
 
-    let next = progress(for: book) + 1.0 / Double(book.durationMinutes)
+    let next = progress(for: book) + playbackSpeed / Double(book.durationMinutes)
     if next >= 1 {
       setProgress(1, for: book)
       isPaused = true
     } else {
       setProgress(next, for: book)
     }
+
+    if var remaining = sleepMinutesRemaining {
+      remaining -= playbackSpeed
+      if remaining <= 0 {
+        sleepMinutesRemaining = nil
+        isPaused = true
+      } else {
+        sleepMinutesRemaining = remaining
+      }
+    }
+  }
+
+  static let speedOptions: [Double] = [0.75, 1.0, 1.25, 1.5, 1.75, 2.0]
+
+  func cycleSpeed() {
+    let options = Self.speedOptions
+    let index = options.firstIndex(of: playbackSpeed) ?? 1
+    playbackSpeed = options[(index + 1) % options.count]
+  }
+
+  func setSleepTimer(minutes: Double?) {
+    sleepMinutesRemaining = minutes
+  }
+
+  /// Book minutes left until the current chapter ends
+  func minutesUntilChapterEnd(of book: CatalogBook) -> Double {
+    let count = Double(chapters(for: book).count)
+    let current = progress(for: book)
+    let boundary = (Double(Int(current * count)) + 1) / count
+    return (boundary - current) * Double(book.durationMinutes)
   }
 
   var recentBooks: [CatalogBook] {
@@ -1236,9 +1270,22 @@ struct CatalogPlayerView: View {
           progressBar(for: book)
             .padding(.top, Spacing.S)
 
-          HStack(spacing: Spacing.L) {
+          HStack(spacing: Spacing.M) {
+            Button {
+              session.cycleSpeed()
+            } label: {
+              Text(verbatim: speedLabel)
+                .font(.system(size: 15, weight: .semibold))
+                .monospacedDigit()
+                .foregroundStyle(.white)
+                .frame(width: 52, height: 40)
+                .background(elevated)
+                .clipShape(Capsule())
+            }
+            .buttonStyle(.plain)
+
             Image(systemName: "gobackward.15")
-              .font(.system(size: 28))
+              .font(.system(size: 26))
               .foregroundStyle(.white)
 
             Button {
@@ -1254,15 +1301,30 @@ struct CatalogPlayerView: View {
             }
 
             Image(systemName: "goforward.15")
-              .font(.system(size: 28))
+              .font(.system(size: 26))
               .foregroundStyle(.white)
+
+            sleepTimerMenu(for: book)
           }
           .padding(.top, Spacing.S)
 
-          Text("onboarding_playing_demo")
-            .font(.system(size: 12))
-            .foregroundStyle(subtle)
-            .padding(.top, Spacing.S)
+          Group {
+            if let remaining = session.sleepMinutesRemaining {
+              HStack(spacing: Spacing.S3) {
+                Image(systemName: "moon.zzz.fill")
+                  .font(.system(size: 11))
+                Text(verbatim: CatalogSession.formatMinutes(Int(remaining.rounded(.up))))
+                  .monospacedDigit()
+              }
+              .font(.system(size: 12, weight: .semibold))
+              .foregroundStyle(accent)
+            } else {
+              Text("onboarding_playing_demo")
+                .font(.system(size: 12))
+                .foregroundStyle(subtle)
+            }
+          }
+          .padding(.top, Spacing.S)
 
           aboutSection(for: book)
             .padding(.top, Spacing.M)
@@ -1286,6 +1348,41 @@ struct CatalogPlayerView: View {
           #endif
         }
       }
+    }
+  }
+
+  private var speedLabel: String {
+    let speed = session.playbackSpeed
+    return speed == speed.rounded()
+      ? String(format: "%.0f\u{00D7}", speed)
+      : String(format: "%.2g\u{00D7}", speed)
+  }
+
+  /// Sleep timer: pause playback after a while or at the chapter end
+  private func sleepTimerMenu(for book: CatalogBook) -> some View {
+    Menu {
+      if session.sleepMinutesRemaining != nil {
+        Button("player_sleep_off") {
+          session.setSleepTimer(minutes: nil)
+        }
+      }
+      ForEach([5.0, 15.0, 30.0, 60.0], id: \.self) { minutes in
+        Button {
+          session.setSleepTimer(minutes: minutes)
+        } label: {
+          Text(verbatim: CatalogSession.formatMinutes(Int(minutes)))
+        }
+      }
+      Button("player_sleep_end_chapter") {
+        session.setSleepTimer(minutes: session.minutesUntilChapterEnd(of: book))
+      }
+    } label: {
+      Image(systemName: session.sleepMinutesRemaining == nil ? "moon.zzz" : "moon.zzz.fill")
+        .font(.system(size: 19))
+        .foregroundStyle(session.sleepMinutesRemaining == nil ? .white : accent)
+        .frame(width: 52, height: 40)
+        .background(elevated)
+        .clipShape(Capsule())
     }
   }
 

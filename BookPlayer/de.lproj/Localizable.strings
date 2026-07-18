@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "Die Kritik lobt eine unverwechselbare Stimme und ein Gespür für Atmosphäre; die Aufnahme wird von einer passenden Erzählstimme getragen.";
 "catalog_library_title" = "Meine Bibliothek";
 "catalog_library_open_full" = "Vollständige Bibliothek öffnen";
+"player_sleep_off" = "Timer ausschalten";
+"player_sleep_end_chapter" = "Ende des Kapitels";

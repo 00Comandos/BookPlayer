@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "Critici prijzen een herkenbare stem en gevoel voor sfeer; deze opname koppelt de tekst aan een passende verteller.";
 "catalog_library_title" = "Mijn bibliotheek";
 "catalog_library_open_full" = "Volledige bibliotheek openen";
+"player_sleep_off" = "Timer uitschakelen";
+"player_sleep_end_chapter" = "Einde van hoofdstuk";

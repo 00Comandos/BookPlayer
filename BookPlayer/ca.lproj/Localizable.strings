@@ -550,3 +550,5 @@ Estem treballant dur per oferir una experiència perfecta; si és possible, pose
 "player_about_author_extra_format" = "La crítica en destaca una veu pròpia i un gran sentit de l'atmosfera; aquesta gravació acompanya el text amb un narrador a l'altura.";
 "catalog_library_title" = "La meva biblioteca";
 "catalog_library_open_full" = "Obre la biblioteca completa";
+"player_sleep_off" = "Desactiva el temporitzador";
+"player_sleep_end_chapter" = "Final del capítol";

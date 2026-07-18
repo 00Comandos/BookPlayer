@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "يشيد النقاد بصوت مميز وحس بالأجواء؛ ويرافق النص في هذا التسجيل راوٍ يليق بنبرته.";
 "catalog_library_title" = "مكتبتي";
 "catalog_library_open_full" = "فتح المكتبة الكاملة";
+"player_sleep_off" = "إيقاف المؤقت";
+"player_sleep_end_chapter" = "نهاية الفصل";

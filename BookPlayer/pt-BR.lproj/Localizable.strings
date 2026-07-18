@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "A crítica destaca uma voz própria e um grande senso de atmosfera; esta gravação une o texto a um narrador à altura.";
 "catalog_library_title" = "Minha biblioteca";
 "catalog_library_open_full" = "Abrir a biblioteca completa";
+"player_sleep_off" = "Desligar temporizador";
+"player_sleep_end_chapter" = "Fim do capítulo";

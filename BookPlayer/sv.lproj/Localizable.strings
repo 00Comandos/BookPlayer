@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "Kritiker hyllar en egen röst och känsla för stämning; inspelningen bärs av en berättare i samma ton.";
 "catalog_library_title" = "Mitt bibliotek";
 "catalog_library_open_full" = "Öppna hela biblioteket";
+"player_sleep_off" = "Stäng av timern";
+"player_sleep_end_chapter" = "Kapitlets slut";

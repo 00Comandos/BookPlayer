@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "Critica laudă o voce distinctă și simțul atmosferei; înregistrarea alătură textului un narator pe măsură.";
 "catalog_library_title" = "Biblioteca mea";
 "catalog_library_open_full" = "Deschide biblioteca completă";
+"player_sleep_off" = "Oprește temporizatorul";
+"player_sleep_end_chapter" = "Sfârșitul capitolului";

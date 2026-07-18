@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "A kritika a jellegzetes hangot és a légkörteremtő erőt dicséri; a felvételen a szöveghez illő narrátor szólal meg.";
 "catalog_library_title" = "Saját könyvtáram";
 "catalog_library_open_full" = "Teljes könyvtár megnyitása";
+"player_sleep_off" = "Időzítő kikapcsolása";
+"player_sleep_end_chapter" = "Fejezet vége";

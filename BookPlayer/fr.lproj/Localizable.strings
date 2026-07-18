@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "La critique salue une voix singulière et un vrai sens de l'atmosphère ; cet enregistrement est porté par un narrateur à la hauteur du texte.";
 "catalog_library_title" = "Ma bibliothèque";
 "catalog_library_open_full" = "Ouvrir la bibliothèque complète";
+"player_sleep_off" = "Désactiver la minuterie";
+"player_sleep_end_chapter" = "Fin du chapitre";

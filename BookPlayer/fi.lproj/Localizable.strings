@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "Kriitikot kiittävät omaperäistä ääntä ja tunnelman tajua; äänitteessä tekstiä kannattelee siihen sopiva lukija.";
 "catalog_library_title" = "Oma kirjasto";
 "catalog_library_open_full" = "Avaa koko kirjasto";
+"player_sleep_off" = "Sammuta ajastin";
+"player_sleep_end_chapter" = "Luvun loppu";

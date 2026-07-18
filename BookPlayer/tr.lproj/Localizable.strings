@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "Eleştirmenler kendine özgü sesi ve atmosfer duygusunu övüyor; kayıtta metne tonuna uygun bir seslendirmen eşlik ediyor.";
 "catalog_library_title" = "Kitaplığım";
 "catalog_library_open_full" = "Tüm kitaplığı aç";
+"player_sleep_off" = "Zamanlayıcıyı kapat";
+"player_sleep_end_chapter" = "Bölümün sonu";

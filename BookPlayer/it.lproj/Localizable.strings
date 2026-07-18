@@ -550,3 +550,5 @@
 "player_about_author_extra_format" = "La critica ne loda la voce distintiva e il senso dell'atmosfera; questa registrazione è affidata a un narratore all'altezza del testo.";
 "catalog_library_title" = "La mia libreria";
 "catalog_library_open_full" = "Apri la libreria completa";
+"player_sleep_off" = "Disattiva timer";
+"player_sleep_end_chapter" = "Fine del capitolo";

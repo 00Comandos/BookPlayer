@@ -550,3 +550,5 @@ Usilovne pracujeme na poskytovaní bezproblémového zážitku, ak je to možné
 "player_about_author_extra_format" = "Kritika chváli osobitý hlas a cit pre atmosféru; nahrávku nesie rozprávač zodpovedajúci tónu textu.";
 "catalog_library_title" = "Moja knižnica";
 "catalog_library_open_full" = "Otvoriť celú knižnicu";
+"player_sleep_off" = "Vypnúť časovač";
+"player_sleep_end_chapter" = "Koniec kapitoly";

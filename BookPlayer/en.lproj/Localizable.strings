@@ -552,3 +552,5 @@ We're working hard on providing a seamless experience, if possible, please conta
 "player_about_author_extra_format" = "Critics praise a distinctive voice and a gift for atmosphere; this recording pairs the text with a narrator who matches its tone.";
 "catalog_library_title" = "My library";
 "catalog_library_open_full" = "Open the full library";
+"player_sleep_off" = "Turn off timer";
+"player_sleep_end_chapter" = "End of chapter";
