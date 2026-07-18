@@ -509,3 +509,8 @@
 "catalog_home_upload_title" = "Sube tus propios audiolibros";
 "catalog_home_books_format" = "%@ audiolibros";
 "catalog_home_uploaded_by" = "Subido por %@";
+"onboarding_languages_search_placeholder" = "Buscar idioma";
+"catalog_home_interests_title" = "Tus intereses";
+"catalog_home_genres_section" = "Géneros";
+"catalog_home_languages_section" = "Idiomas";
+"catalog_home_save" = "Guardar";

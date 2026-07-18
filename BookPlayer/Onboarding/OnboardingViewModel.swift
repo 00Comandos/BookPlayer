@@ -47,11 +47,17 @@ final class OnboardingViewModel: ObservableObject {
 
   /// Defaults to the phone's language when we offer it, otherwise English
   static func deviceLanguageId() -> String {
-    let deviceCode = Locale.preferredLanguages.first
-      .flatMap { Locale(identifier: $0).language.languageCode?.identifier }
+    guard let preferred = Locale.preferredLanguages.first else { return "en" }
 
-    if let deviceCode, OnboardingLanguage.all.contains(where: { $0.id == deviceCode }) {
-      return deviceCode
+    if let exact = OnboardingLanguage.all.first(where: { preferred.hasPrefix($0.id) }) {
+      return exact.id
+    }
+
+    let deviceBase = Locale(identifier: preferred).language.languageCode?.identifier
+    if let deviceBase,
+      let baseMatch = OnboardingLanguage.all.first(where: { $0.baseCode == deviceBase })
+    {
+      return baseMatch.id
     }
     return "en"
   }

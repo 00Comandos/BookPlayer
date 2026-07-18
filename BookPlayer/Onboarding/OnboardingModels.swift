@@ -32,17 +32,42 @@ struct OnboardingGenre: Identifiable, Equatable {
 }
 
 struct OnboardingLanguage: Identifiable, Equatable {
-  /// ISO 639-1 code
+  /// ISO 639-1 code, optionally with region/script (pt-BR, zh-Hans)
   let id: String
   let nativeName: String
 
+  /// Primary language code, ignoring region/script
+  var baseCode: String {
+    id.split(separator: "-").first.map(String.init) ?? id
+  }
+
+  /// Every language the app UI is localized in
   static let all: [OnboardingLanguage] = [
     .init(id: "es", nativeName: "Español"),
     .init(id: "en", nativeName: "English"),
-    .init(id: "pt", nativeName: "Português"),
+    .init(id: "pt-BR", nativeName: "Português (Brasil)"),
+    .init(id: "pt-PT", nativeName: "Português (Portugal)"),
     .init(id: "fr", nativeName: "Français"),
     .init(id: "de", nativeName: "Deutsch"),
     .init(id: "it", nativeName: "Italiano"),
+    .init(id: "ca", nativeName: "Català"),
+    .init(id: "nl", nativeName: "Nederlands"),
+    .init(id: "sv", nativeName: "Svenska"),
+    .init(id: "da", nativeName: "Dansk"),
+    .init(id: "nb", nativeName: "Norsk bokmål"),
+    .init(id: "fi", nativeName: "Suomi"),
+    .init(id: "pl", nativeName: "Polski"),
+    .init(id: "cs", nativeName: "Čeština"),
+    .init(id: "sk", nativeName: "Slovenčina"),
+    .init(id: "hu", nativeName: "Magyar"),
+    .init(id: "ro", nativeName: "Română"),
+    .init(id: "ru", nativeName: "Русский"),
+    .init(id: "uk", nativeName: "Українська"),
+    .init(id: "el", nativeName: "Ελληνικά"),
+    .init(id: "tr", nativeName: "Türkçe"),
+    .init(id: "ar", nativeName: "العربية"),
+    .init(id: "ja", nativeName: "日本語"),
+    .init(id: "zh-Hans", nativeName: "中文（简体）"),
   ]
 }
 

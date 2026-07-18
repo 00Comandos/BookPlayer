@@ -14,7 +14,7 @@ struct OnboardingGenresView: View {
   private let background = BPDesign.Colors.inkBackground
   private let card = BPDesign.Colors.surface
   private let accent = BPDesign.Colors.coral
-  private let subtle = BPDesign.Colors.textSecondaryDark
+  private let subtle = BPDesign.Colors.textSecondary
 
   private let columns = [
     GridItem(.flexible(), spacing: Spacing.S1),
@@ -28,7 +28,7 @@ struct OnboardingGenresView: View {
           HStack(alignment: .firstTextBaseline) {
             Text("onboarding_genres_title")
               .font(.system(size: 28, weight: .bold))
-              .foregroundStyle(.white)
+              .foregroundStyle(BPDesign.Colors.textPrimary)
 
             Spacer()
 
@@ -63,8 +63,7 @@ struct OnboardingGenresView: View {
     }
     .background(background.ignoresSafeArea())
     .navigationBarTitleDisplayMode(.inline)
-    .toolbarColorScheme(.dark, for: .navigationBar)
-    .tint(.white)
+        .tint(BPDesign.Colors.textPrimary)
   }
 
   private func genreCard(_ genre: OnboardingGenre) -> some View {
@@ -77,13 +76,13 @@ struct OnboardingGenresView: View {
       VStack(alignment: .leading, spacing: 0) {
         Image(systemName: genre.systemImage)
           .font(.system(size: 20, weight: .regular))
-          .foregroundStyle(isSelected ? accent : .white.opacity(0.85))
+          .foregroundStyle(isSelected ? accent : BPDesign.Colors.textPrimary.opacity(0.85))
 
         Spacer(minLength: Spacing.S)
 
         Text(genre.title)
           .font(.system(size: 14, weight: .medium))
-          .foregroundStyle(.white)
+          .foregroundStyle(BPDesign.Colors.textPrimary)
           .multilineTextAlignment(.leading)
           .lineLimit(2)
       }

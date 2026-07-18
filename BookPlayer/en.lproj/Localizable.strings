@@ -509,3 +509,8 @@ We're working hard on providing a seamless experience, if possible, please conta
 "catalog_home_upload_title" = "Upload your own audiobooks";
 "catalog_home_books_format" = "%@ audiobooks";
 "catalog_home_uploaded_by" = "Uploaded by %@";
+"onboarding_languages_search_placeholder" = "Search languages";
+"catalog_home_interests_title" = "Your interests";
+"catalog_home_genres_section" = "Genres";
+"catalog_home_languages_section" = "Languages";
+"catalog_home_save" = "Save";

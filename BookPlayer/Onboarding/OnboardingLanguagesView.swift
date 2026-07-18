@@ -13,10 +13,36 @@ struct OnboardingLanguagesView: View {
 
   let onContinue: () -> Void
 
+  @State private var searchQuery = ""
+
   private let background = BPDesign.Colors.inkBackground
   private let card = BPDesign.Colors.surface
   private let accent = BPDesign.Colors.coral
-  private let subtle = BPDesign.Colors.textSecondaryDark
+  private let subtle = BPDesign.Colors.textSecondary
+
+  /// Device language pinned first, then selected ones, then the rest;
+  /// filtered by the search query
+  private var displayedLanguages: [OnboardingLanguage] {
+    let deviceId = OnboardingViewModel.deviceLanguageId()
+    let selected = viewModel.selectedLanguages
+    let sorted = OnboardingLanguage.all.sorted { lhs, rhs in
+      func rank(_ language: OnboardingLanguage) -> Int {
+        if language.id == deviceId { return 0 }
+        if selected.contains(language.id) { return 1 }
+        return 2
+      }
+      let lhsRank = rank(lhs)
+      let rhsRank = rank(rhs)
+      if lhsRank != rhsRank { return lhsRank < rhsRank }
+      return lhs.nativeName.localizedCaseInsensitiveCompare(rhs.nativeName) == .orderedAscending
+    }
+
+    guard !searchQuery.isEmpty else { return sorted }
+    return sorted.filter {
+      $0.nativeName.localizedCaseInsensitiveContains(searchQuery)
+        || $0.id.localizedCaseInsensitiveContains(searchQuery)
+    }
+  }
 
   var body: some View {
     VStack(alignment: .leading, spacing: 0) {
@@ -25,7 +51,7 @@ struct OnboardingLanguagesView: View {
           HStack(alignment: .firstTextBaseline) {
             Text("onboarding_languages_title")
               .font(.system(size: 28, weight: .bold))
-              .foregroundStyle(.white)
+              .foregroundStyle(BPDesign.Colors.textPrimary)
 
             Spacer()
 
@@ -38,12 +64,15 @@ struct OnboardingLanguagesView: View {
             .font(.system(size: 15))
             .foregroundStyle(subtle)
 
+          searchField
+            .padding(.top, Spacing.S)
+
           VStack(spacing: Spacing.S2) {
-            ForEach(OnboardingLanguage.all) { language in
+            ForEach(displayedLanguages) { language in
               languageRow(language)
             }
           }
-          .padding(.top, Spacing.S)
+          .padding(.top, Spacing.S2)
         }
         .padding(.horizontal, Spacing.M)
         .padding(.top, Spacing.S)
@@ -59,8 +88,39 @@ struct OnboardingLanguagesView: View {
     }
     .background(background.ignoresSafeArea())
     .navigationBarTitleDisplayMode(.inline)
-    .toolbarColorScheme(.dark, for: .navigationBar)
-    .tint(.white)
+        .tint(BPDesign.Colors.textPrimary)
+  }
+
+  private var searchField: some View {
+    HStack(spacing: Spacing.S2) {
+      Image(systemName: "magnifyingglass")
+        .font(.system(size: 15))
+        .foregroundStyle(subtle)
+
+      TextField(
+        "",
+        text: $searchQuery,
+        prompt: Text("onboarding_languages_search_placeholder").foregroundStyle(subtle)
+      )
+      .font(.system(size: 15))
+      .foregroundStyle(BPDesign.Colors.textPrimary)
+      .autocorrectionDisabled()
+      .textInputAutocapitalization(.never)
+
+      if !searchQuery.isEmpty {
+        Button {
+          searchQuery = ""
+        } label: {
+          Image(systemName: "xmark.circle.fill")
+            .font(.system(size: 15))
+            .foregroundStyle(subtle)
+        }
+      }
+    }
+    .padding(.horizontal, Spacing.S1)
+    .frame(height: 42)
+    .background(card)
+    .clipShape(RoundedRectangle(cornerRadius: BPDesign.Radius.card))
   }
 
   private func languageRow(_ language: OnboardingLanguage) -> some View {
@@ -74,7 +134,7 @@ struct OnboardingLanguagesView: View {
       HStack(spacing: Spacing.S) {
         Text(language.nativeName)
           .font(.system(size: 16, weight: .medium))
-          .foregroundStyle(.white)
+          .foregroundStyle(BPDesign.Colors.textPrimary)
 
         if isDeviceLanguage {
           Text("onboarding_language_device_tag")

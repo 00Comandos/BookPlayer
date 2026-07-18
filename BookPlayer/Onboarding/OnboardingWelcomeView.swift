@@ -19,7 +19,7 @@ struct OnboardingWelcomeView: View {
     VStack(spacing: 0) {
       heroView
         .frame(maxWidth: .infinity)
-        .containerRelativeFrame(.vertical) { length, _ in length * 0.62 }
+        .containerRelativeFrame(.vertical) { length, _ in length * 0.66 }
         .clipped()
         .ignoresSafeArea(edges: .top)
 
