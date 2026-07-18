@@ -743,22 +743,32 @@ struct CatalogProfileSheet: View {
         .font(.system(size: 15, weight: .semibold))
         .foregroundStyle(subtle)
 
-      HStack(spacing: Spacing.S2) {
+      /// Quiet segmented control so it doesn't compete with the primary CTA
+      HStack(spacing: Spacing.S3) {
         ForEach(AppearanceMode.allCases, id: \.self) { mode in
           Button {
             apply(mode)
           } label: {
             Text(mode.label)
-              .font(.system(size: 13, weight: .medium))
-              .foregroundStyle(currentAppearance == mode ? Color.black : BPDesign.Colors.textPrimary)
-              .frame(height: 36)
+              .font(.system(size: 13, weight: currentAppearance == mode ? .semibold : .regular))
+              .foregroundStyle(currentAppearance == mode ? BPDesign.Colors.textPrimary : subtle)
+              .frame(height: 32)
               .frame(maxWidth: .infinity)
-              .background(currentAppearance == mode ? accent : elevated)
+              .background(currentAppearance == mode ? BPDesign.Colors.surface : Color.clear)
               .clipShape(Capsule())
+              .overlay(
+                Capsule().stroke(
+                  currentAppearance == mode ? BPDesign.Border.hairlineColor : Color.clear,
+                  lineWidth: 1
+                )
+              )
           }
           .buttonStyle(.plain)
         }
       }
+      .padding(Spacing.S4)
+      .background(elevated)
+      .clipShape(Capsule())
     }
   }
 
