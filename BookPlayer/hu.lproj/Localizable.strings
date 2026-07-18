@@ -526,3 +526,15 @@
 "profile_stats_week" = "Ezen a héten";
 "profile_stats_month" = "Ebben a hónapban";
 "profile_stats_year" = "Idén";
+"profile_menu_subscription" = "Előfizetés";
+"profile_plan_free" = "Ingyenes csomag";
+"profile_go_pro" = "Váltás Próra";
+"profile_manage_subscription" = "Előfizetés kezelése";
+"profile_logout" = "Kijelentkezés";
+"player_chapters_title" = "Fejezetek";
+"player_chapter_format" = "%d. fejezet";
+"player_chapter_position_format" = "%1$d. fejezet a(z) %2$d közül";
+"profile_appearance_title" = "Megjelenés";
+"profile_appearance_system" = "Rendszer";
+"profile_appearance_light" = "Világos";
+"profile_appearance_dark" = "Sötét";

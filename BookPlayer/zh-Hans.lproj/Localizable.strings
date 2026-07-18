@@ -526,3 +526,15 @@
 "profile_stats_week" = "本周";
 "profile_stats_month" = "本月";
 "profile_stats_year" = "今年";
+"profile_menu_subscription" = "订阅";
+"profile_plan_free" = "免费计划";
+"profile_go_pro" = "升级到 Pro";
+"profile_manage_subscription" = "管理订阅";
+"profile_logout" = "退出登录";
+"player_chapters_title" = "章节";
+"player_chapter_format" = "第 %d 章";
+"player_chapter_position_format" = "第 %1$d 章，共 %2$d 章";
+"profile_appearance_title" = "外观";
+"profile_appearance_system" = "跟随系统";
+"profile_appearance_light" = "浅色";
+"profile_appearance_dark" = "深色";

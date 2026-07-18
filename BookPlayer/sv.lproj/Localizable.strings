@@ -526,3 +526,15 @@
 "profile_stats_week" = "Denna vecka";
 "profile_stats_month" = "Denna månad";
 "profile_stats_year" = "I år";
+"profile_menu_subscription" = "Prenumeration";
+"profile_plan_free" = "Gratisplan";
+"profile_go_pro" = "Bli Pro";
+"profile_manage_subscription" = "Hantera prenumeration";
+"profile_logout" = "Logga ut";
+"player_chapters_title" = "Kapitel";
+"player_chapter_format" = "Kapitel %d";
+"player_chapter_position_format" = "Kapitel %1$d av %2$d";
+"profile_appearance_title" = "Utseende";
+"profile_appearance_system" = "System";
+"profile_appearance_light" = "Ljust";
+"profile_appearance_dark" = "Mörkt";

@@ -526,3 +526,15 @@
 "profile_stats_week" = "今週";
 "profile_stats_month" = "今月";
 "profile_stats_year" = "今年";
+"profile_menu_subscription" = "サブスクリプション";
+"profile_plan_free" = "無料プラン";
+"profile_go_pro" = "Proにする";
+"profile_manage_subscription" = "サブスクリプションを管理";
+"profile_logout" = "ログアウト";
+"player_chapters_title" = "チャプター";
+"player_chapter_format" = "チャプター%d";
+"player_chapter_position_format" = "チャプター%1$d/%2$d";
+"profile_appearance_title" = "外観";
+"profile_appearance_system" = "システム";
+"profile_appearance_light" = "ライト";
+"profile_appearance_dark" = "ダーク";

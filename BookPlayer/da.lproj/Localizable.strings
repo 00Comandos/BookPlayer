@@ -526,3 +526,15 @@
 "profile_stats_week" = "Denne uge";
 "profile_stats_month" = "Denne måned";
 "profile_stats_year" = "I år";
+"profile_menu_subscription" = "Abonnement";
+"profile_plan_free" = "Gratis plan";
+"profile_go_pro" = "Bliv Pro";
+"profile_manage_subscription" = "Administrér abonnement";
+"profile_logout" = "Log ud";
+"player_chapters_title" = "Kapitler";
+"player_chapter_format" = "Kapitel %d";
+"player_chapter_position_format" = "Kapitel %1$d af %2$d";
+"profile_appearance_title" = "Udseende";
+"profile_appearance_system" = "System";
+"profile_appearance_light" = "Lys";
+"profile_appearance_dark" = "Mørk";

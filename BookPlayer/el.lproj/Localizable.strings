@@ -526,3 +526,15 @@
 "profile_stats_week" = "Αυτή την εβδομάδα";
 "profile_stats_month" = "Αυτόν τον μήνα";
 "profile_stats_year" = "Φέτος";
+"profile_menu_subscription" = "Συνδρομή";
+"profile_plan_free" = "Δωρεάν πρόγραμμα";
+"profile_go_pro" = "Γίνε Pro";
+"profile_manage_subscription" = "Διαχείριση συνδρομής";
+"profile_logout" = "Αποσύνδεση";
+"player_chapters_title" = "Κεφάλαια";
+"player_chapter_format" = "Κεφάλαιο %d";
+"player_chapter_position_format" = "Κεφάλαιο %1$d από %2$d";
+"profile_appearance_title" = "Εμφάνιση";
+"profile_appearance_system" = "Σύστημα";
+"profile_appearance_light" = "Φωτεινό";
+"profile_appearance_dark" = "Σκούρο";

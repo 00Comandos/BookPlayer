@@ -526,3 +526,15 @@
 "profile_stats_week" = "Săptămâna aceasta";
 "profile_stats_month" = "Luna aceasta";
 "profile_stats_year" = "Anul acesta";
+"profile_menu_subscription" = "Abonament";
+"profile_plan_free" = "Plan gratuit";
+"profile_go_pro" = "Treci la Pro";
+"profile_manage_subscription" = "Gestionează abonamentul";
+"profile_logout" = "Deconectare";
+"player_chapters_title" = "Capitole";
+"player_chapter_format" = "Capitolul %d";
+"player_chapter_position_format" = "Capitolul %1$d din %2$d";
+"profile_appearance_title" = "Aspect";
+"profile_appearance_system" = "Sistem";
+"profile_appearance_light" = "Luminos";
+"profile_appearance_dark" = "Întunecat";

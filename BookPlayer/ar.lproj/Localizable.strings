@@ -526,3 +526,15 @@
 "profile_stats_week" = "هذا الأسبوع";
 "profile_stats_month" = "هذا الشهر";
 "profile_stats_year" = "هذا العام";
+"profile_menu_subscription" = "الاشتراك";
+"profile_plan_free" = "الخطة المجانية";
+"profile_go_pro" = "الترقية إلى Pro";
+"profile_manage_subscription" = "إدارة الاشتراك";
+"profile_logout" = "تسجيل الخروج";
+"player_chapters_title" = "الفصول";
+"player_chapter_format" = "الفصل %d";
+"player_chapter_position_format" = "الفصل %1$d من %2$d";
+"profile_appearance_title" = "المظهر";
+"profile_appearance_system" = "النظام";
+"profile_appearance_light" = "فاتح";
+"profile_appearance_dark" = "داكن";

@@ -526,3 +526,15 @@ Vi jobber hardt for å gi deg en sømløs opplevelse. Hvis mulig, kontakt oss p�
 "profile_stats_week" = "Denne uken";
 "profile_stats_month" = "Denne måneden";
 "profile_stats_year" = "I år";
+"profile_menu_subscription" = "Abonnement";
+"profile_plan_free" = "Gratis plan";
+"profile_go_pro" = "Bli Pro";
+"profile_manage_subscription" = "Administrer abonnement";
+"profile_logout" = "Logg ut";
+"player_chapters_title" = "Kapitler";
+"player_chapter_format" = "Kapittel %d";
+"player_chapter_position_format" = "Kapittel %1$d av %2$d";
+"profile_appearance_title" = "Utseende";
+"profile_appearance_system" = "System";
+"profile_appearance_light" = "Lys";
+"profile_appearance_dark" = "Mørk";

@@ -526,3 +526,15 @@ Usilovne pracujeme na poskytovaní bezproblémového zážitku, ak je to možné
 "profile_stats_week" = "Tento týždeň";
 "profile_stats_month" = "Tento mesiac";
 "profile_stats_year" = "Tento rok";
+"profile_menu_subscription" = "Predplatné";
+"profile_plan_free" = "Bezplatný plán";
+"profile_go_pro" = "Prejsť na Pro";
+"profile_manage_subscription" = "Spravovať predplatné";
+"profile_logout" = "Odhlásiť sa";
+"player_chapters_title" = "Kapitoly";
+"player_chapter_format" = "Kapitola %d";
+"player_chapter_position_format" = "Kapitola %1$d z %2$d";
+"profile_appearance_title" = "Vzhľad";
+"profile_appearance_system" = "Systém";
+"profile_appearance_light" = "Svetlý";
+"profile_appearance_dark" = "Tmavý";

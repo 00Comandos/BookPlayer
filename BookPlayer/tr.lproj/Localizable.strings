@@ -526,3 +526,15 @@
 "profile_stats_week" = "Bu hafta";
 "profile_stats_month" = "Bu ay";
 "profile_stats_year" = "Bu yıl";
+"profile_menu_subscription" = "Abonelik";
+"profile_plan_free" = "Ücretsiz plan";
+"profile_go_pro" = "Pro'ya geç";
+"profile_manage_subscription" = "Aboneliği yönet";
+"profile_logout" = "Çıkış yap";
+"player_chapters_title" = "Bölümler";
+"player_chapter_format" = "Bölüm %d";
+"player_chapter_position_format" = "Bölüm %1$d / %2$d";
+"profile_appearance_title" = "Görünüm";
+"profile_appearance_system" = "Sistem";
+"profile_appearance_light" = "Açık";
+"profile_appearance_dark" = "Koyu";

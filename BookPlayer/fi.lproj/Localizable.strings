@@ -526,3 +526,15 @@
 "profile_stats_week" = "Tällä viikolla";
 "profile_stats_month" = "Tässä kuussa";
 "profile_stats_year" = "Tänä vuonna";
+"profile_menu_subscription" = "Tilaus";
+"profile_plan_free" = "Ilmainen taso";
+"profile_go_pro" = "Hanki Pro";
+"profile_manage_subscription" = "Hallinnoi tilausta";
+"profile_logout" = "Kirjaudu ulos";
+"player_chapters_title" = "Luvut";
+"player_chapter_format" = "Luku %d";
+"player_chapter_position_format" = "Luku %1$d / %2$d";
+"profile_appearance_title" = "Ulkoasu";
+"profile_appearance_system" = "Järjestelmä";
+"profile_appearance_light" = "Vaalea";
+"profile_appearance_dark" = "Tumma";

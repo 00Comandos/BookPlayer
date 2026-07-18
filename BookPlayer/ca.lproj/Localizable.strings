@@ -526,3 +526,15 @@ Estem treballant dur per oferir una experiència perfecta; si és possible, pose
 "profile_stats_week" = "Aquesta setmana";
 "profile_stats_month" = "Aquest mes";
 "profile_stats_year" = "Aquest any";
+"profile_menu_subscription" = "Subscripció";
+"profile_plan_free" = "Pla gratuït";
+"profile_go_pro" = "Fes-te Pro";
+"profile_manage_subscription" = "Gestiona la subscripció";
+"profile_logout" = "Tanca la sessió";
+"player_chapters_title" = "Capítols";
+"player_chapter_format" = "Capítol %d";
+"player_chapter_position_format" = "Capítol %1$d de %2$d";
+"profile_appearance_title" = "Aparença";
+"profile_appearance_system" = "Sistema";
+"profile_appearance_light" = "Clar";
+"profile_appearance_dark" = "Fosc";

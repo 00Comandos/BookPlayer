@@ -528,3 +528,15 @@ We're working hard on providing a seamless experience, if possible, please conta
 "profile_stats_week" = "This week";
 "profile_stats_month" = "This month";
 "profile_stats_year" = "This year";
+"profile_menu_subscription" = "Subscription";
+"profile_plan_free" = "Free plan";
+"profile_go_pro" = "Go Pro";
+"profile_manage_subscription" = "Manage subscription";
+"profile_logout" = "Log out";
+"player_chapters_title" = "Chapters";
+"player_chapter_format" = "Chapter %d";
+"player_chapter_position_format" = "Chapter %1$d of %2$d";
+"profile_appearance_title" = "Appearance";
+"profile_appearance_system" = "System";
+"profile_appearance_light" = "Light";
+"profile_appearance_dark" = "Dark";

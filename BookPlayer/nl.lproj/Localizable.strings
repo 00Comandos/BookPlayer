@@ -526,3 +526,15 @@
 "profile_stats_week" = "Deze week";
 "profile_stats_month" = "Deze maand";
 "profile_stats_year" = "Dit jaar";
+"profile_menu_subscription" = "Abonnement";
+"profile_plan_free" = "Gratis abonnement";
+"profile_go_pro" = "Word Pro";
+"profile_manage_subscription" = "Abonnement beheren";
+"profile_logout" = "Uitloggen";
+"player_chapters_title" = "Hoofdstukken";
+"player_chapter_format" = "Hoofdstuk %d";
+"player_chapter_position_format" = "Hoofdstuk %1$d van %2$d";
+"profile_appearance_title" = "Weergave";
+"profile_appearance_system" = "Systeem";
+"profile_appearance_light" = "Licht";
+"profile_appearance_dark" = "Donker";

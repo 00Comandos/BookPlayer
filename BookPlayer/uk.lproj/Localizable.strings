@@ -526,3 +526,15 @@
 "profile_stats_week" = "Цього тижня";
 "profile_stats_month" = "Цього місяця";
 "profile_stats_year" = "Цього року";
+"profile_menu_subscription" = "Підписка";
+"profile_plan_free" = "Безкоштовний план";
+"profile_go_pro" = "Перейти на Pro";
+"profile_manage_subscription" = "Керувати підпискою";
+"profile_logout" = "Вийти";
+"player_chapters_title" = "Розділи";
+"player_chapter_format" = "Розділ %d";
+"player_chapter_position_format" = "Розділ %1$d з %2$d";
+"profile_appearance_title" = "Оформлення";
+"profile_appearance_system" = "Системне";
+"profile_appearance_light" = "Світле";
+"profile_appearance_dark" = "Темне";

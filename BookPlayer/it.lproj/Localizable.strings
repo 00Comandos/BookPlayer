@@ -526,3 +526,15 @@
 "profile_stats_week" = "Questa settimana";
 "profile_stats_month" = "Questo mese";
 "profile_stats_year" = "Quest'anno";
+"profile_menu_subscription" = "Abbonamento";
+"profile_plan_free" = "Piano gratuito";
+"profile_go_pro" = "Passa a Pro";
+"profile_manage_subscription" = "Gestisci abbonamento";
+"profile_logout" = "Esci";
+"player_chapters_title" = "Capitoli";
+"player_chapter_format" = "Capitolo %d";
+"player_chapter_position_format" = "Capitolo %1$d di %2$d";
+"profile_appearance_title" = "Aspetto";
+"profile_appearance_system" = "Sistema";
+"profile_appearance_light" = "Chiaro";
+"profile_appearance_dark" = "Scuro";
