@@ -19,21 +19,8 @@
                     <view key="view" contentMode="scaleToFill" id="OGu-fd-mgd">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptyLibrary" translatesAutoresizingMaskIntoConstraints="NO" id="7QN-5v-8hD">
-                                <rect key="frame" x="63" y="219" width="249" height="249"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="7QN-5v-8hD" secondAttribute="height" multiplier="1:1" id="fKC-dE-o1c"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="61g-eZ-R4G"/>
-                        <color key="backgroundColor" red="0.12549019610000001" green="0.1333333333" blue="0.1450980392" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="7QN-5v-8hD" firstAttribute="centerY" secondItem="61g-eZ-R4G" secondAttribute="centerY" id="CrR-K6-xbM"/>
-                            <constraint firstItem="7QN-5v-8hD" firstAttribute="centerX" secondItem="61g-eZ-R4G" secondAttribute="centerX" id="ePL-JF-X7Y"/>
-                            <constraint firstItem="7QN-5v-8hD" firstAttribute="width" secondItem="OGu-fd-mgd" secondAttribute="width" multiplier="0.664" id="iyJ-TU-Ynp"/>
-                        </constraints>
+                        <color key="backgroundColor" red="0.07450980392" green="0.13333333333" blue="0.21568627451" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                 </viewController>
@@ -42,7 +29,4 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="emptyLibrary" width="249" height="249"/>
-    </resources>
 </document>
