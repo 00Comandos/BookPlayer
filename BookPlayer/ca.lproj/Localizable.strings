@@ -521,3 +521,8 @@ Estem treballant dur per oferir una experiència perfecta; si és possible, pose
 "uploads_title_personal" = "Els meus audiollibres";
 "uploads_empty_description" = "Els teus fitxers es queden a la teva biblioteca. Tria fitxers d'àudio, carpetes o zips per afegir-los.";
 "uploads_choose_files" = "Tria fitxers";
+"profile_stats_title" = "Temps d'escolta";
+"profile_stats_day" = "Avui";
+"profile_stats_week" = "Aquesta setmana";
+"profile_stats_month" = "Aquest mes";
+"profile_stats_year" = "Aquest any";

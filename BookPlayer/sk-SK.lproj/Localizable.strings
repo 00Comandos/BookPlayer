@@ -521,3 +521,8 @@ Usilovne pracujeme na poskytovaní bezproblémového zážitku, ak je to možné
 "uploads_title_personal" = "Moje audioknihy";
 "uploads_empty_description" = "Vaše súbory zostávajú vo vašej knižnici. Vyberte zvukové súbory, priečinky alebo zipy, ktoré chcete pridať.";
 "uploads_choose_files" = "Vybrať súbory";
+"profile_stats_title" = "Čas počúvania";
+"profile_stats_day" = "Dnes";
+"profile_stats_week" = "Tento týždeň";
+"profile_stats_month" = "Tento mesiac";
+"profile_stats_year" = "Tento rok";

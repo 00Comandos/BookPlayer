@@ -22,6 +22,7 @@ final class CatalogSession: ObservableObject {
   }
   @Published var pendingBook: CatalogBook?
   @Published var showLogin = false
+  @Published var isPaused = false
   @Published private(set) var recentIds: [String]
 
   init() {
@@ -58,6 +59,23 @@ final class CatalogSession: ObservableObject {
   func progress(for book: CatalogBook) -> Double {
     let seed = book.id.unicodeScalars.reduce(11) { $0 &* 17 &+ Int($1.value) }
     return 0.2 + Double(abs(seed) % 60) / 100.0
+  }
+
+  /// Mock listening time in minutes, growing with actual usage of the catalog
+  var listeningStats: (day: Int, week: Int, month: Int, year: Int) {
+    let base = recentIds.count
+    return (
+      day: 38 + base * 9,
+      week: 260 + base * 22,
+      month: 1_180 + base * 40,
+      year: 9_400 + base * 90
+    )
+  }
+
+  static func formatMinutes(_ minutes: Int) -> String {
+    let hours = minutes / 60
+    let mins = minutes % 60
+    return hours > 0 ? "\(hours) h \(mins) m" : "\(mins) m"
   }
 
   private func recordRecent(_ book: CatalogBook) {
@@ -452,70 +470,383 @@ struct AudioDocumentPicker: UIViewControllerRepresentable {
   }
 }
 
-/// Avatar sheet: profile info when signed in, login entry point otherwise
+/// Flowing chip layout that hugs each chip's content width
+struct WrapLayout: Layout {
+  var spacing: CGFloat = 8
+
+  func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+    let maxWidth = proposal.width ?? .infinity
+    var x: CGFloat = 0
+    var y: CGFloat = 0
+    var rowHeight: CGFloat = 0
+
+    for subview in subviews {
+      let size = subview.sizeThatFits(.unspecified)
+      if x + size.width > maxWidth, x > 0 {
+        x = 0
+        y += rowHeight + spacing
+        rowHeight = 0
+      }
+      x += size.width + spacing
+      rowHeight = max(rowHeight, size.height)
+    }
+    return CGSize(width: maxWidth == .infinity ? x : maxWidth, height: y + rowHeight)
+  }
+
+  func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+    var x = bounds.minX
+    var y = bounds.minY
+    var rowHeight: CGFloat = 0
+
+    for subview in subviews {
+      let size = subview.sizeThatFits(.unspecified)
+      if x + size.width > bounds.maxX, x > bounds.minX {
+        x = bounds.minX
+        y += rowHeight + spacing
+        rowHeight = 0
+      }
+      subview.place(at: CGPoint(x: x, y: y), proposal: ProposedViewSize(size))
+      x += size.width + spacing
+      rowHeight = max(rowHeight, size.height)
+    }
+  }
+}
+
+/// Avatar sheet: profile info, listening stats and interests editing.
+/// Interest changes persist immediately — no save button needed.
 struct CatalogProfileSheet: View {
   @Environment(\.accountService) private var accountService
+  @EnvironmentObject private var session: CatalogSession
   @Environment(\.dismiss) private var dismiss
 
   let onGoLibrary: () -> Void
 
   @State private var showLogin = false
+  @State private var selectedGenres: Set<String>
+  @State private var selectedLanguages: Set<String>
 
   private let background = BPDesign.Colors.mediaBackground
+  private let elevated = BPDesign.Colors.mediaSurfaceElevated
   private let subtle = BPDesign.Colors.textSecondaryMedia
   private let accent = BPDesign.Colors.coral
 
+  init(onGoLibrary: @escaping () -> Void) {
+    self.onGoLibrary = onGoLibrary
+    let defaults = UserDefaults.standard
+    _selectedGenres = State(initialValue: Set(
+      defaults.stringArray(forKey: Constants.UserDefaults.onboardingSelectedGenres) ?? []
+    ))
+    _selectedLanguages = State(initialValue: Set(
+      defaults.stringArray(forKey: Constants.UserDefaults.onboardingSelectedLanguages) ?? []
+    ))
+  }
+
   var body: some View {
-    VStack(spacing: Spacing.S1) {
-      ZStack {
-        Circle().fill(accent.opacity(0.25))
-        Image(systemName: "person.fill")
-          .font(.system(size: 34))
-          .foregroundStyle(accent)
-      }
-      .frame(width: 84, height: 84)
-      .padding(.top, Spacing.L)
+    ScrollView {
+      VStack(alignment: .leading, spacing: Spacing.S1) {
+        identityHeader
+        statsSection
 
-      if accountService.hasAccount() {
-        Text(accountService.account.email)
-          .font(.system(size: 17, weight: .semibold))
-          .foregroundStyle(.white)
-      } else {
-        Text("catalog_home_profile_guest")
-          .font(.system(size: 15))
-          .foregroundStyle(subtle)
-
-        BPPrimaryButton(title: "catalog_home_profile_login", isEnabled: true) {
-          showLogin = true
+        interestsSection(
+          title: "catalog_home_genres_section",
+          count: selectedGenres.count,
+          limit: OnboardingViewModel.maxGenres
+        ) {
+          ForEach(OnboardingGenre.all) { genre in
+            chip(title: genre.title, isSelected: selectedGenres.contains(genre.id)) {
+              toggle(genre.id, in: &selectedGenres, limit: OnboardingViewModel.maxGenres)
+            }
+          }
         }
-        .padding(.horizontal, Spacing.M)
+
+        interestsSection(
+          title: "catalog_home_languages_section",
+          count: selectedLanguages.count,
+          limit: OnboardingViewModel.maxLanguages
+        ) {
+          ForEach(OnboardingLanguage.all) { language in
+            chip(title: language.nativeName, isSelected: selectedLanguages.contains(language.id)) {
+              toggle(language.id, in: &selectedLanguages, limit: OnboardingViewModel.maxLanguages)
+            }
+          }
+        }
+
+        Button {
+          dismiss()
+          onGoLibrary()
+        } label: {
+          Text("onboarding_go_library")
+            .font(.system(size: 15, weight: .medium))
+            .foregroundStyle(.white)
+            .frame(height: 44)
+            .frame(maxWidth: .infinity)
+            .background(elevated)
+            .clipShape(RoundedRectangle(cornerRadius: BPDesign.Radius.button))
+        }
         .padding(.top, Spacing.S)
       }
-
-      Button {
-        dismiss()
-        onGoLibrary()
-      } label: {
-        Text("onboarding_go_library")
-          .font(.system(size: 15, weight: .medium))
-          .foregroundStyle(.white)
-          .frame(height: 44)
-          .frame(maxWidth: .infinity)
-          .background(BPDesign.Colors.mediaSurfaceElevated)
-          .clipShape(RoundedRectangle(cornerRadius: BPDesign.Radius.button))
-      }
       .padding(.horizontal, Spacing.M)
-      .padding(.top, Spacing.S)
-
-      Spacer()
+      .padding(.top, Spacing.M)
+      .padding(.bottom, Spacing.L)
     }
-    .frame(maxWidth: .infinity)
     .background(background.ignoresSafeArea())
     .sheet(isPresented: $showLogin) {
       NavigationStack {
         LoginView()
       }
       .environmentObject(ThemeViewModel())
+    }
+  }
+
+  private var identityHeader: some View {
+    HStack(spacing: Spacing.S1) {
+      ZStack {
+        Circle().fill(accent.opacity(0.25))
+        Image(systemName: "person.fill")
+          .font(.system(size: 24))
+          .foregroundStyle(accent)
+      }
+      .frame(width: 56, height: 56)
+
+      VStack(alignment: .leading, spacing: 2) {
+        if accountService.hasAccount() {
+          Text(accountService.account.email)
+            .font(.system(size: 16, weight: .semibold))
+            .foregroundStyle(.white)
+        } else {
+          Text("catalog_home_profile_guest")
+            .font(.system(size: 15))
+            .foregroundStyle(subtle)
+
+          Button {
+            showLogin = true
+          } label: {
+            Text("catalog_home_profile_login")
+              .font(.system(size: 14, weight: .semibold))
+              .foregroundStyle(accent)
+          }
+        }
+      }
+
+      Spacer()
+    }
+  }
+
+  private var statsSection: some View {
+    VStack(alignment: .leading, spacing: Spacing.S2) {
+      Text("profile_stats_title")
+        .font(.system(size: 15, weight: .semibold))
+        .foregroundStyle(subtle)
+        .padding(.top, Spacing.S)
+
+      let stats = session.listeningStats
+      let tiles: [(LocalizedStringKey, Int)] = [
+        ("profile_stats_day", stats.day),
+        ("profile_stats_week", stats.week),
+        ("profile_stats_month", stats.month),
+        ("profile_stats_year", stats.year),
+      ]
+
+      LazyVGrid(
+        columns: [
+          GridItem(.flexible(), spacing: Spacing.S2),
+          GridItem(.flexible(), spacing: Spacing.S2),
+        ],
+        spacing: Spacing.S2
+      ) {
+        ForEach(Array(tiles.enumerated()), id: \.offset) { _, tile in
+          VStack(alignment: .leading, spacing: 2) {
+            Text(CatalogSession.formatMinutes(tile.1))
+              .font(.system(size: 19, weight: .bold))
+              .foregroundStyle(.white)
+            Text(tile.0)
+              .font(.system(size: 12))
+              .foregroundStyle(subtle)
+          }
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .padding(Spacing.S1)
+          .background(elevated)
+          .clipShape(RoundedRectangle(cornerRadius: BPDesign.Radius.card))
+        }
+      }
+    }
+  }
+
+  private func interestsSection<Content: View>(
+    title: LocalizedStringKey,
+    count: Int,
+    limit: Int,
+    @ViewBuilder content: () -> Content
+  ) -> some View {
+    VStack(alignment: .leading, spacing: Spacing.S2) {
+      HStack(alignment: .firstTextBaseline) {
+        Text(title)
+          .font(.system(size: 15, weight: .semibold))
+          .foregroundStyle(subtle)
+
+        Spacer()
+
+        Text("\(count)/\(limit)")
+          .font(.system(size: 12, weight: .medium))
+          .foregroundStyle(subtle)
+      }
+      .padding(.top, Spacing.S)
+
+      WrapLayout(spacing: Spacing.S2) {
+        content()
+      }
+    }
+  }
+
+  private func chip(title: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
+    Button(action: action) {
+      HStack(spacing: Spacing.S3) {
+        if isSelected {
+          Image(systemName: "checkmark")
+            .font(.system(size: 10, weight: .bold))
+        }
+        Text(title)
+          .font(.system(size: 13, weight: .medium))
+      }
+      .foregroundStyle(isSelected ? .black : .white)
+      .padding(.horizontal, Spacing.S1)
+      .frame(height: 34)
+      .background(isSelected ? accent : Color.clear)
+      .overlay(
+        Capsule().stroke(isSelected ? Color.clear : Color.white.opacity(0.18), lineWidth: 1)
+      )
+      .clipShape(Capsule())
+    }
+    .buttonStyle(.plain)
+    .animation(.easeInOut(duration: 0.15), value: isSelected)
+  }
+
+  private func toggle(_ id: String, in set: inout Set<String>, limit: Int) {
+    if set.contains(id) {
+      set.remove(id)
+    } else if set.count < limit {
+      set.insert(id)
+    }
+    persist()
+  }
+
+  private func persist() {
+    let defaults = UserDefaults.standard
+    defaults.set(Array(selectedGenres).sorted(), forKey: Constants.UserDefaults.onboardingSelectedGenres)
+    defaults.set(Array(selectedLanguages).sorted(), forKey: Constants.UserDefaults.onboardingSelectedLanguages)
+  }
+}
+
+/// Full-screen mock player for catalog previews, opened from the mini-player.
+/// Once real catalog audio exists this hands off to the app's PlayerManager.
+struct CatalogPlayerView: View {
+  @EnvironmentObject private var session: CatalogSession
+  @Environment(\.dismiss) private var dismiss
+
+  private let background = BPDesign.Colors.mediaBackground
+  private let subtle = BPDesign.Colors.textSecondaryMedia
+  private let accent = BPDesign.Colors.coral
+
+  var body: some View {
+    ZStack {
+      background.ignoresSafeArea()
+
+      if let book = session.nowPlaying {
+        VStack(spacing: Spacing.S1) {
+          Button {
+            dismiss()
+          } label: {
+            Image(systemName: "chevron.down")
+              .font(.system(size: 17, weight: .semibold))
+              .foregroundStyle(subtle)
+          }
+          .frame(maxWidth: .infinity, alignment: .leading)
+          .padding(.top, Spacing.S)
+
+          Spacer()
+
+          RoundedRectangle(cornerRadius: 16)
+            .fill(book.coverGradient)
+            .frame(width: 280, height: 280)
+            .overlay(
+              Image(systemName: book.coverSymbol)
+                .font(.system(size: 80))
+                .foregroundStyle(.white.opacity(0.9))
+            )
+            .shadow(color: .black.opacity(0.5), radius: 24, y: 10)
+
+          VStack(spacing: 4) {
+            Text(book.title)
+              .font(.system(size: 21, weight: .bold))
+              .foregroundStyle(.white)
+              .multilineTextAlignment(.center)
+
+            Text(book.author)
+              .font(.system(size: 15))
+              .foregroundStyle(subtle)
+          }
+          .padding(.top, Spacing.S)
+
+          progressBar(for: book)
+            .padding(.top, Spacing.S)
+
+          HStack(spacing: Spacing.L) {
+            Image(systemName: "gobackward.15")
+              .font(.system(size: 28))
+              .foregroundStyle(.white)
+
+            Button {
+              session.isPaused.toggle()
+            } label: {
+              ZStack {
+                Circle().fill(accent)
+                Image(systemName: session.isPaused ? "play.fill" : "pause.fill")
+                  .font(.system(size: 28))
+                  .foregroundStyle(.white)
+              }
+              .frame(width: 72, height: 72)
+            }
+
+            Image(systemName: "goforward.15")
+              .font(.system(size: 28))
+              .foregroundStyle(.white)
+          }
+          .padding(.top, Spacing.S)
+
+          Text("onboarding_playing_demo")
+            .font(.system(size: 12))
+            .foregroundStyle(subtle)
+            .padding(.top, Spacing.S)
+
+          Spacer()
+        }
+        .padding(.horizontal, Spacing.M)
+      }
+    }
+  }
+
+  private func progressBar(for book: CatalogBook) -> some View {
+    let progress = session.progress(for: book)
+    let elapsed = Int(Double(book.durationMinutes) * progress)
+
+    return VStack(spacing: Spacing.S3) {
+      GeometryReader { geometry in
+        ZStack(alignment: .leading) {
+          Capsule().fill(.white.opacity(0.2))
+          Capsule()
+            .fill(accent)
+            .frame(width: geometry.size.width * progress)
+        }
+      }
+      .frame(height: 4)
+
+      HStack {
+        Text(CatalogSession.formatMinutes(elapsed))
+        Spacer()
+        Text(CatalogSession.formatMinutes(book.durationMinutes))
+      }
+      .font(.system(size: 12))
+      .foregroundStyle(subtle)
     }
   }
 }

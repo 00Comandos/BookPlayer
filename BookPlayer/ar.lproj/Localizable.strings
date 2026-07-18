@@ -521,3 +521,8 @@
 "uploads_title_personal" = "كتبي الصوتية";
 "uploads_empty_description" = "تبقى ملفاتك في مكتبتك. اختر ملفات صوتية أو مجلدات أو ملفات مضغوطة لإضافتها.";
 "uploads_choose_files" = "اختيار الملفات";
+"profile_stats_title" = "مدة الاستماع";
+"profile_stats_day" = "اليوم";
+"profile_stats_week" = "هذا الأسبوع";
+"profile_stats_month" = "هذا الشهر";
+"profile_stats_year" = "هذا العام";

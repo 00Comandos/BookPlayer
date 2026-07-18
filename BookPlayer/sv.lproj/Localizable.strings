@@ -521,3 +521,8 @@
 "uploads_title_personal" = "Mina ljudböcker";
 "uploads_empty_description" = "Dina filer stannar i ditt bibliotek. Välj ljudfiler, mappar eller zip-filer att lägga till.";
 "uploads_choose_files" = "Välj filer";
+"profile_stats_title" = "Lyssningstid";
+"profile_stats_day" = "Idag";
+"profile_stats_week" = "Denna vecka";
+"profile_stats_month" = "Denna månad";
+"profile_stats_year" = "I år";

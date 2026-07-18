@@ -521,3 +521,8 @@
 "uploads_title_personal" = "Mijn luisterboeken";
 "uploads_empty_description" = "Je bestanden blijven in je bibliotheek. Kies audiobestanden, mappen of zips om ze toe te voegen.";
 "uploads_choose_files" = "Bestanden kiezen";
+"profile_stats_title" = "Luistertijd";
+"profile_stats_day" = "Vandaag";
+"profile_stats_week" = "Deze week";
+"profile_stats_month" = "Deze maand";
+"profile_stats_year" = "Dit jaar";

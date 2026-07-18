@@ -521,3 +521,8 @@
 "uploads_title_personal" = "Omat äänikirjani";
 "uploads_empty_description" = "Tiedostosi pysyvät kirjastossasi. Valitse äänitiedostoja, kansioita tai zip-paketteja lisättäväksi.";
 "uploads_choose_files" = "Valitse tiedostot";
+"profile_stats_title" = "Kuunteluaika";
+"profile_stats_day" = "Tänään";
+"profile_stats_week" = "Tällä viikolla";
+"profile_stats_month" = "Tässä kuussa";
+"profile_stats_year" = "Tänä vuonna";

@@ -521,3 +521,8 @@
 "uploads_title_personal" = "Moje audiobooki";
 "uploads_empty_description" = "Twoje pliki zostają w Twojej bibliotece. Wybierz pliki audio, foldery lub archiwa zip, aby je dodać.";
 "uploads_choose_files" = "Wybierz pliki";
+"profile_stats_title" = "Czas słuchania";
+"profile_stats_day" = "Dzisiaj";
+"profile_stats_week" = "W tym tygodniu";
+"profile_stats_month" = "W tym miesiącu";
+"profile_stats_year" = "W tym roku";

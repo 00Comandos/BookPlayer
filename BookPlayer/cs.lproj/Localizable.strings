@@ -521,3 +521,8 @@
 "uploads_title_personal" = "Moje audioknihy";
 "uploads_empty_description" = "Vaše soubory zůstávají ve vaší knihovně. Vyberte zvukové soubory, složky nebo zipy, které chcete přidat.";
 "uploads_choose_files" = "Vybrat soubory";
+"profile_stats_title" = "Čas poslechu";
+"profile_stats_day" = "Dnes";
+"profile_stats_week" = "Tento týden";
+"profile_stats_month" = "Tento měsíc";
+"profile_stats_year" = "Tento rok";

@@ -521,3 +521,8 @@
 "uploads_title_personal" = "Os meus audiolivros";
 "uploads_empty_description" = "Os seus ficheiros ficam na sua biblioteca. Escolha ficheiros de áudio, pastas ou zips para os adicionar.";
 "uploads_choose_files" = "Escolher ficheiros";
+"profile_stats_title" = "Tempo de escuta";
+"profile_stats_day" = "Hoje";
+"profile_stats_week" = "Esta semana";
+"profile_stats_month" = "Este mês";
+"profile_stats_year" = "Este ano";

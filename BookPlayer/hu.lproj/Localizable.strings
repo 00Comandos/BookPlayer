@@ -521,3 +521,8 @@
 "uploads_title_personal" = "Saját hangoskönyveim";
 "uploads_empty_description" = "A fájljaid a könyvtáradban maradnak. Válassz hangfájlokat, mappákat vagy zipeket a hozzáadáshoz.";
 "uploads_choose_files" = "Fájlok kiválasztása";
+"profile_stats_title" = "Hallgatási idő";
+"profile_stats_day" = "Ma";
+"profile_stats_week" = "Ezen a héten";
+"profile_stats_month" = "Ebben a hónapban";
+"profile_stats_year" = "Idén";

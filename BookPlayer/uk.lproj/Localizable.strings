@@ -521,3 +521,8 @@
 "uploads_title_personal" = "Мої аудіокниги";
 "uploads_empty_description" = "Ваші файли залишаються у вашій бібліотеці. Виберіть аудіофайли, папки або zip-архіви, щоб додати їх.";
 "uploads_choose_files" = "Вибрати файли";
+"profile_stats_title" = "Час прослуховування";
+"profile_stats_day" = "Сьогодні";
+"profile_stats_week" = "Цього тижня";
+"profile_stats_month" = "Цього місяця";
+"profile_stats_year" = "Цього року";

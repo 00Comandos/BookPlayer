@@ -107,8 +107,8 @@ struct CatalogHomeView: View {
   @StateObject private var session = CatalogSession()
 
   @State private var selectedGenreId: String?
-  @State private var showPreferences = false
   @State private var showProfile = false
+  @State private var showPlayer = false
   @State private var showSearch = false
   @State private var showUploads = false
   @State private var navPath: [OnboardingGenre] = []
@@ -217,12 +217,14 @@ struct CatalogHomeView: View {
       }
       .environmentObject(ThemeViewModel())
     }
-    .sheet(isPresented: $showPreferences, onDismiss: { preferencesVersion += 1 }) {
-      CatalogPreferencesSheet()
-    }
-    .sheet(isPresented: $showProfile) {
+    .sheet(isPresented: $showProfile, onDismiss: { preferencesVersion += 1 }) {
       CatalogProfileSheet(onGoLibrary: onClose)
-        .presentationDetents([.medium])
+        .environmentObject(session)
+        .presentationDetents([.large])
+    }
+    .sheet(isPresented: $showPlayer) {
+      CatalogPlayerView()
+        .environmentObject(session)
     }
     .id(preferencesVersion)
     .onAppear {
@@ -238,14 +240,19 @@ struct CatalogHomeView: View {
       if ProcessInfo.processInfo.environment["BP_PREVIEW_UPLOADS"] == "1" {
         showUploads = true
       }
+      if ProcessInfo.processInfo.environment["BP_PREVIEW_PROFILE"] == "1" {
+        showProfile = true
+      }
+      if ProcessInfo.processInfo.environment["BP_PREVIEW_PLAYER"] == "1" {
+        session.nowPlaying = languageMatches.first ?? CatalogMockLibrary.books.first
+        showPlayer = true
+      }
       #endif
     }
   }
 
   private var header: some View {
     HStack(alignment: .center, spacing: Spacing.S2) {
-      BPIsotype(height: 26)
-
       VStack(alignment: .leading, spacing: 2) {
         Text("catalog_home_title")
           .font(.system(size: 24, weight: .bold))
@@ -275,18 +282,6 @@ struct CatalogHomeView: View {
           .clipShape(Circle())
       }
       .accessibilityLabel(Text("catalog_home_upload_title"))
-
-      Button {
-        showPreferences = true
-      } label: {
-        Image(systemName: "slider.horizontal.3")
-          .font(.system(size: 16, weight: .semibold))
-          .foregroundStyle(.white)
-          .frame(width: 34, height: 34)
-          .background(elevated)
-          .clipShape(Circle())
-      }
-      .accessibilityLabel(Text("catalog_home_interests_title"))
 
       Button {
         showProfile = true
@@ -335,7 +330,8 @@ struct CatalogHomeView: View {
     .buttonStyle(.plain)
   }
 
-  /// Up to 4 in-progress titles the user recently listened to
+  /// Up to 4 in-progress titles the user recently listened to,
+  /// visually set apart on a subtly tinted surface
   @ViewBuilder
   private var recentShelf: some View {
     let recents = Array(session.recentBooks.prefix(4))
@@ -355,6 +351,18 @@ struct CatalogHomeView: View {
           .padding(.horizontal, Spacing.S)
         }
       }
+      .padding(.vertical, Spacing.S1)
+      .background(
+        RoundedRectangle(cornerRadius: BPDesign.Radius.banner)
+          .fill(
+            LinearGradient(
+              colors: [accent.opacity(0.10), Color.white.opacity(0.03)],
+              startPoint: .topLeading,
+              endPoint: .bottomTrailing
+            )
+          )
+      )
+      .padding(.horizontal, Spacing.S2)
     }
   }
 
@@ -457,29 +465,38 @@ struct CatalogHomeView: View {
     .padding(.bottom, Spacing.S2)
   }
 
+  /// Tapping opens the full player; the trailing button stops the preview
   private func miniPlayer(_ book: CatalogBook) -> some View {
     HStack(spacing: Spacing.S1) {
-      RoundedRectangle(cornerRadius: 4)
-        .fill(book.coverGradient)
-        .frame(width: 40, height: 40)
-        .overlay(
-          Image(systemName: "waveform")
-            .font(.system(size: 16))
-            .foregroundStyle(.white)
-        )
+      Button {
+        showPlayer = true
+      } label: {
+        HStack(spacing: Spacing.S1) {
+          RoundedRectangle(cornerRadius: 4)
+            .fill(book.coverGradient)
+            .frame(width: 40, height: 40)
+            .overlay(
+              Image(systemName: "waveform")
+                .font(.system(size: 16))
+                .foregroundStyle(.white)
+            )
 
-      VStack(alignment: .leading, spacing: 2) {
-        Text(book.title)
-          .font(.system(size: 14, weight: .semibold))
-          .foregroundStyle(.white)
-          .lineLimit(1)
+          VStack(alignment: .leading, spacing: 2) {
+            Text(book.title)
+              .font(.system(size: 14, weight: .semibold))
+              .foregroundStyle(.white)
+              .lineLimit(1)
 
-        Text("onboarding_playing_demo")
-          .font(.system(size: 12))
-          .foregroundStyle(subtle)
+            Text("onboarding_playing_demo")
+              .font(.system(size: 12))
+              .foregroundStyle(subtle)
+          }
+
+          Spacer()
+        }
+        .contentShape(Rectangle())
       }
-
-      Spacer()
+      .buttonStyle(.plain)
 
       Button {
         session.nowPlaying = nil
@@ -493,115 +510,6 @@ struct CatalogHomeView: View {
     .padding(Spacing.S2)
     .background(elevated)
     .clipShape(RoundedRectangle(cornerRadius: 8))
-  }
-}
-
-/// Edit interests (genres) and content languages from the catalog;
-/// persists to the same preferences the onboarding writes
-struct CatalogPreferencesSheet: View {
-  @Environment(\.dismiss) private var dismiss
-
-  @State private var selectedGenres: Set<String>
-  @State private var selectedLanguages: Set<String>
-
-  private let background = BPDesign.Colors.mediaBackground
-  private let elevated = BPDesign.Colors.mediaSurfaceElevated
-  private let subtle = BPDesign.Colors.textSecondaryMedia
-  private let accent = BPDesign.Colors.coral
-
-  private let columns = [
-    GridItem(.flexible(), spacing: Spacing.S2),
-    GridItem(.flexible(), spacing: Spacing.S2),
-  ]
-
-  init() {
-    let defaults = UserDefaults.standard
-    _selectedGenres = State(initialValue: Set(
-      defaults.stringArray(forKey: Constants.UserDefaults.onboardingSelectedGenres) ?? []
-    ))
-    _selectedLanguages = State(initialValue: Set(
-      defaults.stringArray(forKey: Constants.UserDefaults.onboardingSelectedLanguages) ?? []
-    ))
-  }
-
-  var body: some View {
-    VStack(spacing: 0) {
-      ScrollView {
-        VStack(alignment: .leading, spacing: Spacing.S1) {
-          Text("catalog_home_interests_title")
-            .font(.system(size: 22, weight: .bold))
-            .foregroundStyle(.white)
-            .padding(.top, Spacing.M)
-
-          Text("catalog_home_genres_section")
-            .font(.system(size: 15, weight: .semibold))
-            .foregroundStyle(subtle)
-            .padding(.top, Spacing.S)
-
-          LazyVGrid(columns: columns, spacing: Spacing.S2) {
-            ForEach(OnboardingGenre.all) { genre in
-              toggleChip(
-                title: genre.title,
-                isSelected: selectedGenres.contains(genre.id)
-              ) {
-                toggle(genre.id, in: &selectedGenres, limit: OnboardingViewModel.maxGenres)
-              }
-            }
-          }
-
-          Text("catalog_home_languages_section")
-            .font(.system(size: 15, weight: .semibold))
-            .foregroundStyle(subtle)
-            .padding(.top, Spacing.S)
-
-          LazyVGrid(columns: columns, spacing: Spacing.S2) {
-            ForEach(OnboardingLanguage.all) { language in
-              toggleChip(
-                title: language.nativeName,
-                isSelected: selectedLanguages.contains(language.id)
-              ) {
-                toggle(language.id, in: &selectedLanguages, limit: OnboardingViewModel.maxLanguages)
-              }
-            }
-          }
-        }
-        .padding(.horizontal, Spacing.M)
-        .padding(.bottom, Spacing.M)
-      }
-
-      BPPrimaryButton(title: "catalog_home_save", isEnabled: true) {
-        let defaults = UserDefaults.standard
-        defaults.set(Array(selectedGenres).sorted(), forKey: Constants.UserDefaults.onboardingSelectedGenres)
-        defaults.set(Array(selectedLanguages).sorted(), forKey: Constants.UserDefaults.onboardingSelectedLanguages)
-        dismiss()
-      }
-      .padding(.horizontal, Spacing.M)
-      .padding(.bottom, Spacing.S)
-    }
-    .background(background.ignoresSafeArea())
-  }
-
-  private func toggle(_ id: String, in set: inout Set<String>, limit: Int) {
-    if set.contains(id) {
-      set.remove(id)
-    } else if set.count < limit {
-      set.insert(id)
-    }
-  }
-
-  private func toggleChip(title: String, isSelected: Bool, action: @escaping () -> Void) -> some View {
-    Button(action: action) {
-      Text(title)
-        .font(.system(size: 13, weight: .medium))
-        .foregroundStyle(isSelected ? .black : .white)
-        .lineLimit(1)
-        .padding(.horizontal, Spacing.S2)
-        .frame(height: 38)
-        .frame(maxWidth: .infinity)
-        .background(isSelected ? accent : elevated)
-        .clipShape(Capsule())
-    }
-    .buttonStyle(.plain)
   }
 }
 

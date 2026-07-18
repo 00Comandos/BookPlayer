@@ -521,3 +521,8 @@ Vi jobber hardt for å gi deg en sømløs opplevelse. Hvis mulig, kontakt oss p�
 "uploads_title_personal" = "Mine lydbøker";
 "uploads_empty_description" = "Filene dine blir i biblioteket ditt. Velg lydfiler, mapper eller zip-filer for å legge dem til.";
 "uploads_choose_files" = "Velg filer";
+"profile_stats_title" = "Lyttetid";
+"profile_stats_day" = "I dag";
+"profile_stats_week" = "Denne uken";
+"profile_stats_month" = "Denne måneden";
+"profile_stats_year" = "I år";

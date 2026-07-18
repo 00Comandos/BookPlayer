@@ -523,3 +523,8 @@ We're working hard on providing a seamless experience, if possible, please conta
 "uploads_title_personal" = "My audiobooks";
 "uploads_empty_description" = "Your files stay in your library. Pick audio files, folders or zips to add them.";
 "uploads_choose_files" = "Choose files";
+"profile_stats_title" = "Listening time";
+"profile_stats_day" = "Today";
+"profile_stats_week" = "This week";
+"profile_stats_month" = "This month";
+"profile_stats_year" = "This year";

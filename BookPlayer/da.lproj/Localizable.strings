@@ -521,3 +521,8 @@
 "uploads_title_personal" = "Mine lydbøger";
 "uploads_empty_description" = "Dine filer bliver i dit bibliotek. Vælg lydfiler, mapper eller zips for at tilføje dem.";
 "uploads_choose_files" = "Vælg filer";
+"profile_stats_title" = "Lyttetid";
+"profile_stats_day" = "I dag";
+"profile_stats_week" = "Denne uge";
+"profile_stats_month" = "Denne måned";
+"profile_stats_year" = "I år";

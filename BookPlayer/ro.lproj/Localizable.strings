@@ -521,3 +521,8 @@
 "uploads_title_personal" = "Audiobook-urile mele";
 "uploads_empty_description" = "Fișierele tale rămân în biblioteca ta. Alege fișiere audio, foldere sau arhive zip pentru a le adăuga.";
 "uploads_choose_files" = "Alege fișiere";
+"profile_stats_title" = "Timp de ascultare";
+"profile_stats_day" = "Azi";
+"profile_stats_week" = "Săptămâna aceasta";
+"profile_stats_month" = "Luna aceasta";
+"profile_stats_year" = "Anul acesta";

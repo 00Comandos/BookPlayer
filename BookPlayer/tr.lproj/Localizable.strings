@@ -521,3 +521,8 @@
 "uploads_title_personal" = "Sesli kitaplarım";
 "uploads_empty_description" = "Dosyaların kitaplığında kalır. Eklemek için ses dosyaları, klasörler veya zip dosyaları seç.";
 "uploads_choose_files" = "Dosya seç";
+"profile_stats_title" = "Dinleme süresi";
+"profile_stats_day" = "Bugün";
+"profile_stats_week" = "Bu hafta";
+"profile_stats_month" = "Bu ay";
+"profile_stats_year" = "Bu yıl";

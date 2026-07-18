@@ -521,3 +521,8 @@
 "uploads_title_personal" = "マイオーディオブック";
 "uploads_empty_description" = "ファイルはライブラリに保存されます。追加する音声ファイル、フォルダ、またはzipを選択してください。";
 "uploads_choose_files" = "ファイルを選択";
+"profile_stats_title" = "再生時間";
+"profile_stats_day" = "今日";
+"profile_stats_week" = "今週";
+"profile_stats_month" = "今月";
+"profile_stats_year" = "今年";

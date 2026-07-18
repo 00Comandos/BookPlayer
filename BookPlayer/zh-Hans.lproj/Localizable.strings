@@ -521,3 +521,8 @@
 "uploads_title_personal" = "我的有声书";
 "uploads_empty_description" = "你的文件会保留在书库中。选择要添加的音频文件、文件夹或压缩包。";
 "uploads_choose_files" = "选择文件";
+"profile_stats_title" = "收听时长";
+"profile_stats_day" = "今天";
+"profile_stats_week" = "本周";
+"profile_stats_month" = "本月";
+"profile_stats_year" = "今年";

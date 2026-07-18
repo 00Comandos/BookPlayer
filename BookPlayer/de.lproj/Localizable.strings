@@ -521,3 +521,8 @@
 "uploads_title_personal" = "Meine Hörbücher";
 "uploads_empty_description" = "Deine Dateien bleiben in deiner Bibliothek. Wähle Audiodateien, Ordner oder Zips aus, um sie hinzuzufügen.";
 "uploads_choose_files" = "Dateien auswählen";
+"profile_stats_title" = "Hörzeit";
+"profile_stats_day" = "Heute";
+"profile_stats_week" = "Diese Woche";
+"profile_stats_month" = "Diesen Monat";
+"profile_stats_year" = "Dieses Jahr";
