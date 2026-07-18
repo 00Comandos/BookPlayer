@@ -61,13 +61,22 @@ struct OnboardingWelcomeView: View {
     .background(theme.systemBackgroundColor.ignoresSafeArea())
   }
 
-  /// Top hero area: a short muted looping video when the bundle includes
-  /// `onboarding-hero.mp4`, falling back to the `onboarding-hero` image
+  /// Bundled hero playlist: onboarding-hero-1/2/3.mp4 chained seamlessly
+  private var heroPlaylist: [URL] {
+    (1...3).compactMap {
+      Bundle.main.url(forResource: "onboarding-hero-\($0)", withExtension: "mp4")
+    }
+  }
+
+  /// Top hero area: a muted looping playlist of short clips, falling back
+  /// to a single `onboarding-hero.mp4`, then the `onboarding-hero` image
   /// asset, and lastly to a themed placeholder
   @ViewBuilder
   private var heroView: some View {
-    if let videoURL = Bundle.main.url(forResource: "onboarding-hero", withExtension: "mp4") {
-      LoopingVideoView(url: videoURL)
+    if !heroPlaylist.isEmpty {
+      LoopingVideoView(urls: heroPlaylist)
+    } else if let videoURL = Bundle.main.url(forResource: "onboarding-hero", withExtension: "mp4") {
+      LoopingVideoView(urls: [videoURL])
     } else if UIImage(named: "onboarding-hero") != nil {
       Image("onboarding-hero")
         .resizable()
@@ -126,12 +135,14 @@ struct OnboardingWelcomeView: View {
   }
 }
 
-/// Muted, autoplaying, endlessly looping video (no playback controls)
+/// Muted, autoplaying playlist that loops endlessly (no playback controls).
+/// The clips are stitched into a single composition so the A→B→C→A cycle
+/// has no gaps or black frames between videos.
 private struct LoopingVideoView: UIViewRepresentable {
-  let url: URL
+  let urls: [URL]
 
   func makeUIView(context: Context) -> PlayerContainerView {
-    PlayerContainerView(url: url)
+    PlayerContainerView(urls: urls)
   }
 
   func updateUIView(_ uiView: PlayerContainerView, context: Context) {}
@@ -142,20 +153,61 @@ private struct LoopingVideoView: UIViewRepresentable {
 
     override class var layerClass: AnyClass { AVPlayerLayer.self }
 
-    init(url: URL) {
+    init(urls: [URL]) {
       super.init(frame: .zero)
 
       let playerLayer = layer as! AVPlayerLayer
       playerLayer.player = queuePlayer
       playerLayer.videoGravity = .resizeAspectFill
-
-      looper = AVPlayerLooper(player: queuePlayer, templateItem: AVPlayerItem(url: url))
       queuePlayer.isMuted = true
-      queuePlayer.play()
+
+      Task { [weak self] in
+        await self?.setUpPlaylist(urls)
+      }
     }
 
     required init?(coder: NSCoder) {
       fatalError("init(coder:) has not been implemented")
+    }
+
+    /// Concatenate the video tracks (audio is dropped entirely) and loop
+    /// the resulting composition
+    @MainActor
+    private func setUpPlaylist(_ urls: [URL]) async {
+      let composition = AVMutableComposition()
+      guard
+        let compositionTrack = composition.addMutableTrack(
+          withMediaType: .video,
+          preferredTrackID: kCMPersistentTrackID_Invalid
+        )
+      else { return }
+
+      var cursor = CMTime.zero
+      for url in urls {
+        let asset = AVURLAsset(url: url)
+        guard
+          let videoTrack = try? await asset.loadTracks(withMediaType: .video).first,
+          let duration = try? await asset.load(.duration)
+        else { continue }
+
+        try? compositionTrack.insertTimeRange(
+          CMTimeRange(start: .zero, duration: duration),
+          of: videoTrack,
+          at: cursor
+        )
+        cursor = CMTimeAdd(cursor, duration)
+
+        if cursor == duration,
+          let transform = try? await videoTrack.load(.preferredTransform)
+        {
+          compositionTrack.preferredTransform = transform
+        }
+      }
+
+      guard cursor > .zero else { return }
+
+      looper = AVPlayerLooper(player: queuePlayer, templateItem: AVPlayerItem(asset: composition))
+      queuePlayer.play()
     }
   }
 }
