@@ -218,7 +218,7 @@ struct CatalogHomeView: View {
       .environmentObject(ThemeViewModel())
     }
     .sheet(isPresented: $showProfile, onDismiss: { preferencesVersion += 1 }) {
-      CatalogProfileSheet(onGoLibrary: onClose)
+      CatalogProfileSheet(onGoLibrary: onClose, onImportFiles: onImportFiles)
         .environmentObject(session)
         .presentationDetents([.large])
     }

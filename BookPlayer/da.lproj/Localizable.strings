@@ -543,3 +543,10 @@
 "player_about_book_format" = "”%1$@” er en lydbog i genren %3$@, rost for sin medrivende fortælling og sit tempo.";
 "player_about_author_format" = "%1$@ har skrevet flere roste titler inden for %2$@, oversat til flere sprog.";
 "player_about_source" = "Resuméer fra Wikipedia og forlag (demodata)";
+"player_about_see_more" = "Se mere";
+"player_about_author_caption" = "Forfatter";
+"player_about_more_by_format" = "Mere af %@";
+"player_about_book_extra_format" = "Undervejs udforskes hukommelse, mod og de stille beslutninger, der ændrer et liv, fortalt med en varme, der passer til lange lyttestunder.";
+"player_about_author_extra_format" = "Kritikere roser en særegen stemme og sans for stemning; indspilningen bæres af en fortæller, der matcher tonen.";
+"catalog_library_title" = "Mit bibliotek";
+"catalog_library_open_full" = "Åbn hele biblioteket";

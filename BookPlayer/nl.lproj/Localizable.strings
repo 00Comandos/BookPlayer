@@ -543,3 +543,10 @@
 "player_about_book_format" = "“%1$@” is een luisterboek in het genre %3$@, geprezen om de meeslepende vertelling en het tempo.";
 "player_about_author_format" = "%1$@ schreef meerdere geprezen titels in %2$@, vertaald in meerdere talen.";
 "player_about_source" = "Samenvattingen van Wikipedia en uitgevers (demogegevens)";
+"player_about_see_more" = "Meer weergeven";
+"player_about_author_caption" = "Auteur";
+"player_about_more_by_format" = "Meer van %@";
+"player_about_book_extra_format" = "Onderweg verkent het geheugen, moed en de stille keuzes die een leven veranderen, verteld met een warmte die past bij lange luistersessies.";
+"player_about_author_extra_format" = "Critici prijzen een herkenbare stem en gevoel voor sfeer; deze opname koppelt de tekst aan een passende verteller.";
+"catalog_library_title" = "Mijn bibliotheek";
+"catalog_library_open_full" = "Volledige bibliotheek openen";

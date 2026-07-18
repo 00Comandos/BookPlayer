@@ -543,3 +543,10 @@
 "player_about_book_format" = "《%1$@》是一部%3$@类有声书，以沉浸式的叙述和节奏著称。";
 "player_about_author_format" = "%1$@著有多部广受好评的%2$@类作品，已被翻译成多种语言。";
 "player_about_source" = "简介来自维基百科和出版商（演示数据）";
+"player_about_see_more" = "查看更多";
+"player_about_author_caption" = "作者";
+"player_about_more_by_format" = "%@的更多作品";
+"player_about_book_extra_format" = "故事一路探讨记忆、勇气以及改变人生的细微抉择，温暖的叙述非常适合长时间聆听。";
+"player_about_author_extra_format" = "评论界称赞其独特的声音与氛围感；本录音由与文本气质契合的朗读者演绎。";
+"catalog_library_title" = "我的书库";
+"catalog_library_open_full" = "打开完整书库";

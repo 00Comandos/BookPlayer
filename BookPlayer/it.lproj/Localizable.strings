@@ -543,3 +543,10 @@
 "player_about_book_format" = "«%1$@» è un audiolibro di %3$@ lodato per la narrazione immersiva e il ritmo.";
 "player_about_author_format" = "%1$@ ha scritto diversi titoli acclamati di %2$@, tradotti in più lingue.";
 "player_about_source" = "Riassunti da Wikipedia e dagli editori (dati dimostrativi)";
+"player_about_see_more" = "Vedi altro";
+"player_about_author_caption" = "Autore";
+"player_about_more_by_format" = "Altro di %@";
+"player_about_book_extra_format" = "Lungo il percorso esplora la memoria, il coraggio e le piccole decisioni che cambiano una vita, con una narrazione calda ideale per lunghe sessioni di ascolto.";
+"player_about_author_extra_format" = "La critica ne loda la voce distintiva e il senso dell'atmosfera; questa registrazione è affidata a un narratore all'altezza del testo.";
+"catalog_library_title" = "La mia libreria";
+"catalog_library_open_full" = "Apri la libreria completa";

@@ -543,3 +543,10 @@
 "player_about_book_format" = "„%1$@” este un audiobook din genul %3$@, lăudat pentru narațiunea captivantă și ritmul său.";
 "player_about_author_format" = "%1$@ a scris mai multe titluri apreciate în genul %2$@, traduse în mai multe limbi.";
 "player_about_source" = "Rezumate din Wikipedia și de la edituri (date demonstrative)";
+"player_about_see_more" = "Vezi mai mult";
+"player_about_author_caption" = "Autor";
+"player_about_more_by_format" = "Mai multe de %@";
+"player_about_book_extra_format" = "Pe parcurs explorează memoria, curajul și deciziile tăcute care schimbă o viață, cu o narațiune caldă, ideală pentru sesiuni lungi de ascultare.";
+"player_about_author_extra_format" = "Critica laudă o voce distinctă și simțul atmosferei; înregistrarea alătură textului un narator pe măsură.";
+"catalog_library_title" = "Biblioteca mea";
+"catalog_library_open_full" = "Deschide biblioteca completă";

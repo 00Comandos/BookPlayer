@@ -545,3 +545,10 @@ We're working hard on providing a seamless experience, if possible, please conta
 "player_about_book_format" = "“%1$@” is a %3$@ audiobook praised for its immersive narration and steady pacing; listeners highlight how quickly the story pulls you in.";
 "player_about_author_format" = "%1$@ has written several acclaimed titles in %2$@, with work translated into multiple languages.";
 "player_about_source" = "Summaries sourced from Wikipedia and publishers (demo data)";
+"player_about_see_more" = "See more";
+"player_about_author_caption" = "Author";
+"player_about_more_by_format" = "More by %@";
+"player_about_book_extra_format" = "Along the way it explores memory, courage and the quiet decisions that change a life, narrated with a warmth that suits long listening sessions.";
+"player_about_author_extra_format" = "Critics praise a distinctive voice and a gift for atmosphere; this recording pairs the text with a narrator who matches its tone.";
+"catalog_library_title" = "My library";
+"catalog_library_open_full" = "Open the full library";

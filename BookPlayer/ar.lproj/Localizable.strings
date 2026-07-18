@@ -543,3 +543,10 @@
 "player_about_book_format" = "«%1$@» كتاب صوتي من فئة %3$@، نال إشادة بسرده الآسر وإيقاعه.";
 "player_about_author_format" = "كتب %1$@ عدة أعمال بارزة في فئة %2$@، وتُرجمت أعماله إلى عدة لغات.";
 "player_about_source" = "الملخصات من ويكيبيديا والناشرين (بيانات تجريبية)";
+"player_about_see_more" = "عرض المزيد";
+"player_about_author_caption" = "المؤلف";
+"player_about_more_by_format" = "المزيد من %@";
+"player_about_book_extra_format" = "على امتداد الرحلة يستكشف الذاكرة والشجاعة والقرارات الهادئة التي تغيّر حياة، بسرد دافئ يناسب جلسات الاستماع الطويلة.";
+"player_about_author_extra_format" = "يشيد النقاد بصوت مميز وحس بالأجواء؛ ويرافق النص في هذا التسجيل راوٍ يليق بنبرته.";
+"catalog_library_title" = "مكتبتي";
+"catalog_library_open_full" = "فتح المكتبة الكاملة";

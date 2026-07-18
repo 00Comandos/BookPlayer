@@ -543,3 +543,10 @@
 "player_about_book_format" = "« %1$@ » est un livre audio de %3$@ salué pour sa narration immersive et son rythme.";
 "player_about_author_format" = "%1$@ a écrit plusieurs titres salués en %2$@, traduits en plusieurs langues.";
 "player_about_source" = "Résumés issus de Wikipédia et des éditeurs (données de démonstration)";
+"player_about_see_more" = "Voir plus";
+"player_about_author_caption" = "Auteur";
+"player_about_more_by_format" = "Plus de %@";
+"player_about_book_extra_format" = "Au fil du récit, il explore la mémoire, le courage et ces petites décisions qui changent une vie, avec une narration chaleureuse idéale pour les longues écoutes.";
+"player_about_author_extra_format" = "La critique salue une voix singulière et un vrai sens de l'atmosphère ; cet enregistrement est porté par un narrateur à la hauteur du texte.";
+"catalog_library_title" = "Ma bibliothèque";
+"catalog_library_open_full" = "Ouvrir la bibliothèque complète";

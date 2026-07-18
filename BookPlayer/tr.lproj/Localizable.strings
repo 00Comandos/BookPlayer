@@ -543,3 +543,10 @@
 "player_about_book_format" = "“%1$@”, sürükleyici anlatımı ve temposuyla övülen bir %3$@ sesli kitabıdır.";
 "player_about_author_format" = "%1$@, %2$@ türünde birçok beğenilen esere imza attı; eserleri birçok dile çevrildi.";
 "player_about_source" = "Özetler Wikipedia ve yayıncılardan (demo veriler)";
+"player_about_see_more" = "Daha fazla";
+"player_about_author_caption" = "Yazar";
+"player_about_more_by_format" = "%@ imzalı diğerleri";
+"player_about_book_extra_format" = "Yol boyunca hafızayı, cesareti ve bir hayatı değiştiren sessiz kararları işler; sıcak anlatımı uzun dinlemeler için idealdir.";
+"player_about_author_extra_format" = "Eleştirmenler kendine özgü sesi ve atmosfer duygusunu övüyor; kayıtta metne tonuna uygun bir seslendirmen eşlik ediyor.";
+"catalog_library_title" = "Kitaplığım";
+"catalog_library_open_full" = "Tüm kitaplığı aç";

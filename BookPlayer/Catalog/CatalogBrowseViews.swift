@@ -554,7 +554,11 @@ struct CatalogProfileSheet: View {
     case stats
     case interests
     case subscription
+    case library
   }
+
+  /// Files picked in the library empty state, forwarded to the import pipeline
+  var onImportFiles: ([URL]) -> Void = { _ in }
 
   @State private var path: [Destination] = []
   @State private var showLogin = false
@@ -598,9 +602,8 @@ struct CatalogProfileSheet: View {
           menuRow(icon: "gearshape.fill", title: Text("settings_title")) {
             showSettings = true
           }
-          menuRow(icon: "books.vertical.fill", title: Text("onboarding_go_library")) {
-            dismiss()
-            onGoLibrary()
+          menuRow(icon: "books.vertical.fill", title: Text("catalog_library_title")) {
+            path.append(.library)
           }
 
           appearanceSelector
@@ -637,6 +640,14 @@ struct CatalogProfileSheet: View {
             CatalogInterestsPage()
           case .subscription:
             CatalogSubscriptionPage(planName: planName)
+          case .library:
+            CatalogLibraryView(
+              onImportFiles: onImportFiles,
+              onOpenFull: {
+                dismiss()
+                onGoLibrary()
+              }
+            )
           }
         }
         .toolbarColorScheme(.dark, for: .navigationBar)
@@ -644,6 +655,13 @@ struct CatalogProfileSheet: View {
       }
     }
     .id(accountVersion)
+    .onAppear {
+      #if DEBUG
+      if ProcessInfo.processInfo.environment["BP_PREVIEW_LIBRARY"] == "1" {
+        path = [.library]
+      }
+      #endif
+    }
     .sheet(isPresented: $showLogin, onDismiss: { accountVersion += 1 }) {
       NavigationStack {
         LoginView()
@@ -1017,6 +1035,16 @@ struct CatalogSubscriptionPage: View {
           .font(.system(size: 24, weight: .bold))
           .foregroundStyle(.white)
 
+        VStack(alignment: .leading, spacing: Spacing.S2) {
+          benefitRow(Text("benefits_cloudsync_title"))
+          benefitRow(Text(verbatim: "Apple Watch"))
+          benefitRow(Text("benefits_themesicons_title"))
+        }
+        .padding(Spacing.S1)
+        .background(elevated)
+        .clipShape(RoundedRectangle(cornerRadius: BPDesign.Radius.card))
+        .padding(.top, Spacing.S)
+
         Spacer()
 
         BPPrimaryButton(
@@ -1039,6 +1067,20 @@ struct CatalogSubscriptionPage: View {
       .presentationDetents([.medium])
     }
   }
+
+  private func benefitRow(_ title: Text) -> some View {
+    HStack(spacing: Spacing.S2) {
+      Image(systemName: "checkmark.circle.fill")
+        .font(.system(size: 15))
+        .foregroundStyle(accent)
+
+      title
+        .font(.system(size: 14))
+        .foregroundStyle(.white)
+
+      Spacer()
+    }
+  }
 }
 
 /// Full-screen mock player for catalog previews, opened from the mini-player.
@@ -1048,6 +1090,7 @@ struct CatalogPlayerView: View {
   @Environment(\.dismiss) private var dismiss
 
   @State private var showChapters = false
+  @State private var showAbout = false
 
   private let background = BPDesign.Colors.mediaBackground
   private let elevated = BPDesign.Colors.mediaSurfaceElevated
@@ -1169,53 +1212,84 @@ struct CatalogPlayerView: View {
           chaptersSheet(for: book, chapters: chapters, currentChapter: currentChapter)
             .presentationDetents([.medium, .large])
         }
+        .sheet(isPresented: $showAbout) {
+          CatalogAboutSheet(book: book)
+            .environmentObject(session)
+        }
+        .onAppear {
+          #if DEBUG
+          if ProcessInfo.processInfo.environment["BP_PREVIEW_ABOUT"] == "1" {
+            showAbout = true
+          }
+          #endif
+        }
       }
     }
   }
 
-  /// Book and author blurbs; in production these would come from
-  /// Wikipedia/Amazon metadata via the catalog backend
+  /// Editorial about block: metadata chips, truncated synopsis with a
+  /// "see more" modal, author row and a shelf of more titles by the author.
+  /// In production the copy maps to Wikipedia/Amazon metadata.
   private func aboutSection(for book: CatalogBook) -> some View {
-    VStack(alignment: .leading, spacing: Spacing.S1) {
-      infoCard(
-        title: "player_about_book_title",
-        text: String(
-          format: "player_about_book_format".localized,
-          book.title, book.author, book.genre?.title ?? ""
-        )
-      )
+    VStack(alignment: .leading, spacing: Spacing.S) {
+      CatalogMetadataChips(book: book)
 
-      infoCard(
-        title: "player_about_author_title",
-        text: String(
-          format: "player_about_author_format".localized,
-          book.author, book.genre?.title ?? ""
-        )
-      )
+      VStack(alignment: .leading, spacing: Spacing.S2) {
+        CatalogSectionHeader(title: "player_about_book_title")
 
-      Text("player_about_source")
-        .font(.system(size: 11))
-        .italic()
-        .foregroundStyle(subtle)
-        .frame(maxWidth: .infinity, alignment: .center)
-    }
-  }
+        Text(CatalogAboutContent.bookBlurb(book))
+          .font(.system(size: 15))
+          .foregroundStyle(.white.opacity(0.85))
+          .lineSpacing(5)
+          .lineLimit(3)
+          .multilineTextAlignment(.leading)
 
-  private func infoCard(title: LocalizedStringKey, text: String) -> some View {
-    VStack(alignment: .leading, spacing: Spacing.S2) {
-      Text(title)
-        .font(.system(size: 15, weight: .semibold))
-        .foregroundStyle(.white)
+        Button {
+          showAbout = true
+        } label: {
+          HStack(spacing: Spacing.S3) {
+            Text("player_about_see_more")
+            Image(systemName: "chevron.right")
+              .font(.system(size: 10, weight: .semibold))
+          }
+          .font(.system(size: 14, weight: .semibold))
+          .foregroundStyle(accent)
+        }
+        .buttonStyle(.plain)
+      }
 
-      Text(text)
-        .font(.system(size: 14))
-        .foregroundStyle(subtle)
-        .lineSpacing(3)
+      Divider()
+        .overlay(Color.white.opacity(0.08))
+
+      Button {
+        showAbout = true
+      } label: {
+        HStack(spacing: Spacing.S1) {
+          CatalogAuthorAvatar(name: book.author, size: 44)
+
+          VStack(alignment: .leading, spacing: 2) {
+            Text(book.author)
+              .font(.system(size: 15, weight: .semibold))
+              .foregroundStyle(.white)
+
+            Text("player_about_author_caption")
+              .font(.system(size: 12))
+              .foregroundStyle(subtle)
+          }
+
+          Spacer()
+
+          Image(systemName: "chevron.right")
+            .font(.system(size: 13, weight: .semibold))
+            .foregroundStyle(subtle)
+        }
+        .contentShape(Rectangle())
+      }
+      .buttonStyle(.plain)
+
+      CatalogMoreByAuthorShelf(book: book)
     }
     .frame(maxWidth: .infinity, alignment: .leading)
-    .padding(Spacing.S1)
-    .background(elevated)
-    .clipShape(RoundedRectangle(cornerRadius: BPDesign.Radius.card))
   }
 
   private func chaptersSheet(
@@ -1292,5 +1366,360 @@ struct CatalogPlayerView: View {
       .font(.system(size: 12))
       .foregroundStyle(subtle)
     }
+  }
+}
+
+/// Small uppercase section label used across the about surfaces
+struct CatalogSectionHeader: View {
+  let title: LocalizedStringKey
+
+  var body: some View {
+    Text(title)
+      .font(.system(size: 12, weight: .semibold))
+      .kerning(0.8)
+      .textCase(.uppercase)
+      .foregroundStyle(BPDesign.Colors.textSecondaryMedia)
+  }
+}
+
+/// Genre, duration and language pills
+struct CatalogMetadataChips: View {
+  let book: CatalogBook
+
+  var body: some View {
+    HStack(spacing: Spacing.S2) {
+      if let genre = book.genre {
+        chip(Text(genre.title))
+      }
+      chip(Text(verbatim: book.durationDescription))
+      if let language = book.language {
+        chip(Text(verbatim: language.nativeName))
+      }
+      Spacer()
+    }
+  }
+
+  private func chip(_ text: Text) -> some View {
+    text
+      .font(.system(size: 12, weight: .medium))
+      .foregroundStyle(BPDesign.Colors.textSecondaryMedia)
+      .padding(.horizontal, Spacing.S1)
+      .frame(height: 28)
+      .overlay(Capsule().stroke(Color.white.opacity(0.15), lineWidth: 1))
+  }
+}
+
+/// Initials avatar on a brand gradient
+struct CatalogAuthorAvatar: View {
+  let name: String
+  var size: CGFloat = 44
+
+  private var initials: String {
+    name.split(separator: " ")
+      .prefix(2)
+      .compactMap { $0.first.map(String.init) }
+      .joined()
+      .uppercased()
+  }
+
+  var body: some View {
+    ZStack {
+      Circle().fill(
+        LinearGradient(
+          colors: [BPDesign.Colors.coral, BPDesign.Colors.bookBlue],
+          startPoint: .topLeading,
+          endPoint: .bottomTrailing
+        )
+      )
+      Text(initials)
+        .font(.system(size: size * 0.36, weight: .semibold))
+        .foregroundStyle(.white)
+    }
+    .frame(width: size, height: size)
+  }
+}
+
+/// Horizontal shelf with other titles by the same author
+struct CatalogMoreByAuthorShelf: View {
+  let book: CatalogBook
+
+  private var authorBooks: [CatalogBook] {
+    Array(
+      CatalogMockLibrary.books
+        .filter { $0.author == book.author && $0.id != book.id }
+        .prefix(8)
+    )
+  }
+
+  var body: some View {
+    if !authorBooks.isEmpty {
+      VStack(alignment: .leading, spacing: Spacing.S2) {
+        Text(String(format: "player_about_more_by_format".localized, book.author))
+          .font(.system(size: 15, weight: .semibold))
+          .foregroundStyle(.white)
+
+        ScrollView(.horizontal, showsIndicators: false) {
+          HStack(alignment: .top, spacing: Spacing.S1) {
+            ForEach(authorBooks) { authorBook in
+              CatalogBookCard(book: authorBook, width: 110)
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/// Blurb copy; in production these strings come from Wikipedia/Amazon
+enum CatalogAboutContent {
+  static func bookBlurb(_ book: CatalogBook) -> String {
+    String(
+      format: "player_about_book_format".localized,
+      book.title, book.author, book.genre?.title ?? ""
+    )
+  }
+
+  static func fullBookText(_ book: CatalogBook) -> String {
+    bookBlurb(book) + "\n\n" + String(
+      format: "player_about_book_extra_format".localized,
+      book.title, book.author, book.genre?.title ?? ""
+    )
+  }
+
+  static func authorBlurb(_ book: CatalogBook) -> String {
+    String(
+      format: "player_about_author_format".localized,
+      book.author, book.genre?.title ?? ""
+    )
+  }
+
+  static func fullAuthorText(_ book: CatalogBook) -> String {
+    authorBlurb(book) + "\n\n" + String(
+      format: "player_about_author_extra_format".localized,
+      book.author, book.genre?.title ?? ""
+    )
+  }
+}
+
+/// Expanded book/author information, opened from "see more"
+struct CatalogAboutSheet: View {
+  @EnvironmentObject private var session: CatalogSession
+
+  let book: CatalogBook
+
+  private let background = BPDesign.Colors.mediaBackground
+  private let subtle = BPDesign.Colors.textSecondaryMedia
+
+  var body: some View {
+    ZStack {
+      background.ignoresSafeArea()
+
+      ScrollView {
+        VStack(alignment: .leading, spacing: Spacing.S1) {
+          Text(book.title)
+            .font(.system(size: 24, weight: .bold))
+            .foregroundStyle(.white)
+            .padding(.top, Spacing.M)
+
+          Text(book.author)
+            .font(.system(size: 15))
+            .foregroundStyle(subtle)
+
+          CatalogMetadataChips(book: book)
+            .padding(.top, Spacing.S3)
+
+          CatalogSectionHeader(title: "player_about_book_title")
+            .padding(.top, Spacing.S)
+
+          Text(CatalogAboutContent.fullBookText(book))
+            .font(.system(size: 15))
+            .foregroundStyle(.white.opacity(0.88))
+            .lineSpacing(6)
+
+          CatalogSectionHeader(title: "player_about_author_title")
+            .padding(.top, Spacing.S)
+
+          HStack(spacing: Spacing.S1) {
+            CatalogAuthorAvatar(name: book.author, size: 56)
+
+            VStack(alignment: .leading, spacing: 2) {
+              Text(book.author)
+                .font(.system(size: 16, weight: .semibold))
+                .foregroundStyle(.white)
+
+              Text("player_about_author_caption")
+                .font(.system(size: 12))
+                .foregroundStyle(subtle)
+            }
+
+            Spacer()
+          }
+
+          Text(CatalogAboutContent.fullAuthorText(book))
+            .font(.system(size: 15))
+            .foregroundStyle(.white.opacity(0.88))
+            .lineSpacing(6)
+
+          CatalogMoreByAuthorShelf(book: book)
+            .padding(.top, Spacing.S)
+
+          Text("player_about_source")
+            .font(.system(size: 11))
+            .italic()
+            .foregroundStyle(subtle)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.top, Spacing.S)
+        }
+        .padding(.horizontal, Spacing.M)
+        .padding(.bottom, Spacing.L)
+      }
+    }
+  }
+}
+
+/// Design-system view over the user's real library, with a return.
+/// Empty state offers the single import action; the full legacy library
+/// remains reachable from the footer.
+struct CatalogLibraryView: View {
+  let onImportFiles: ([URL]) -> Void
+  let onOpenFull: () -> Void
+
+  @State private var items: [SimpleLibraryItem] = []
+  @State private var showPicker = false
+
+  private let background = BPDesign.Colors.mediaBackground
+  private let elevated = BPDesign.Colors.mediaSurfaceElevated
+  private let subtle = BPDesign.Colors.textSecondaryMedia
+  private let accent = BPDesign.Colors.coral
+
+  var body: some View {
+    ZStack {
+      background.ignoresSafeArea()
+
+      if items.isEmpty {
+        VStack(spacing: Spacing.S1) {
+          Spacer()
+
+          ZStack {
+            Circle().fill(accent.opacity(0.18))
+            Image(systemName: "books.vertical.fill")
+              .font(.system(size: 34))
+              .foregroundStyle(accent)
+          }
+          .frame(width: 92, height: 92)
+          .padding(.bottom, Spacing.S)
+
+          Text("catalog_library_title")
+            .font(.system(size: 24, weight: .bold))
+            .foregroundStyle(.white)
+
+          Text("uploads_empty_description")
+            .font(.system(size: 15))
+            .foregroundStyle(subtle)
+            .multilineTextAlignment(.center)
+            .padding(.horizontal, Spacing.L)
+
+          Spacer()
+
+          BPPrimaryButton(title: "uploads_choose_files", isEnabled: true) {
+            showPicker = true
+          }
+          .padding(.horizontal, Spacing.M)
+          .padding(.bottom, Spacing.S)
+        }
+      } else {
+        ScrollView {
+          VStack(alignment: .leading, spacing: Spacing.S1) {
+            Text("catalog_library_title")
+              .font(.system(size: 24, weight: .bold))
+              .foregroundStyle(.white)
+
+            Text(String(
+              format: "catalog_home_books_format".localized,
+              CatalogMockLibrary.formattedCount(items.count)
+            ))
+            .font(.system(size: 13))
+            .foregroundStyle(subtle)
+
+            ForEach(items) { item in
+              libraryRow(item)
+            }
+
+            Button(action: onOpenFull) {
+              Text("catalog_library_open_full")
+                .font(.system(size: 15, weight: .medium))
+                .foregroundStyle(.white)
+                .frame(height: 44)
+                .frame(maxWidth: .infinity)
+                .background(elevated)
+                .clipShape(RoundedRectangle(cornerRadius: BPDesign.Radius.button))
+            }
+            .buttonStyle(.plain)
+            .padding(.top, Spacing.S)
+          }
+          .padding(.horizontal, Spacing.M)
+          .padding(.top, Spacing.S)
+          .padding(.bottom, Spacing.L)
+        }
+      }
+    }
+    .toolbarColorScheme(.dark, for: .navigationBar)
+    .toolbarBackground(background, for: .navigationBar)
+    .onAppear {
+      items = AppServices.shared.coreServices?.libraryService
+        .fetchContents(at: nil, limit: nil, offset: nil) ?? []
+    }
+    .sheet(isPresented: $showPicker) {
+      AudioDocumentPicker { urls in
+        showPicker = false
+        onImportFiles(urls)
+      }
+      .ignoresSafeArea()
+    }
+  }
+
+  private func libraryRow(_ item: SimpleLibraryItem) -> some View {
+    HStack(spacing: Spacing.S1) {
+      ZStack {
+        RoundedRectangle(cornerRadius: 6)
+          .fill(
+            LinearGradient(
+              colors: [BPDesign.Colors.bookBlue, BPDesign.Colors.coralSoft],
+              startPoint: .topLeading,
+              endPoint: .bottomTrailing
+            )
+          )
+        Image(systemName: item.type == .folder ? "folder.fill" : "headphones")
+          .font(.system(size: 18))
+          .foregroundStyle(.white)
+      }
+      .frame(width: 48, height: 48)
+
+      VStack(alignment: .leading, spacing: 2) {
+        Text(item.title)
+          .font(.system(size: 15, weight: .semibold))
+          .foregroundStyle(.white)
+          .lineLimit(1)
+
+        Text(item.durationFormatted)
+          .font(.system(size: 12))
+          .foregroundStyle(subtle)
+      }
+
+      Spacer()
+
+      if item.progress > 0, !item.isFinished {
+        Text(verbatim: "\(Int(item.progress * 100))%")
+          .font(.system(size: 12, weight: .semibold))
+          .foregroundStyle(accent)
+      } else if item.isFinished {
+        Image(systemName: "checkmark.circle.fill")
+          .font(.system(size: 16))
+          .foregroundStyle(accent)
+      }
+    }
+    .padding(Spacing.S2)
+    .background(elevated)
+    .clipShape(RoundedRectangle(cornerRadius: BPDesign.Radius.card))
   }
 }

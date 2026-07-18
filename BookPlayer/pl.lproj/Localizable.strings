@@ -543,3 +543,10 @@
 "player_about_book_format" = "„%1$@” to audiobook z gatunku %3$@, chwalony za wciągającą narrację i tempo.";
 "player_about_author_format" = "%1$@ ma na koncie kilka uznanych tytułów z gatunku %2$@, tłumaczonych na wiele języków.";
 "player_about_source" = "Streszczenia z Wikipedii i od wydawców (dane demonstracyjne)";
+"player_about_see_more" = "Zobacz więcej";
+"player_about_author_caption" = "Autor";
+"player_about_more_by_format" = "Więcej od %@";
+"player_about_book_extra_format" = "Po drodze opowieść dotyka pamięci, odwagi i cichych decyzji, które zmieniają życie – ciepła narracja sprzyja długim sesjom słuchania.";
+"player_about_author_extra_format" = "Krytycy chwalą wyrazisty głos i wyczucie atmosfery; nagranie łączy tekst z lektorem dorównującym jego tonowi.";
+"catalog_library_title" = "Moja biblioteka";
+"catalog_library_open_full" = "Otwórz pełną bibliotekę";

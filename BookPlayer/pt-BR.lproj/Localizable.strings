@@ -543,3 +543,10 @@
 "player_about_book_format" = "“%1$@” é um audiolivro de %3$@ elogiado pela narração envolvente e pelo ritmo.";
 "player_about_author_format" = "%1$@ escreveu vários títulos aclamados de %2$@, com obras traduzidas para vários idiomas.";
 "player_about_source" = "Resumos da Wikipédia e das editoras (dados de demonstração)";
+"player_about_see_more" = "Ver mais";
+"player_about_author_caption" = "Autor";
+"player_about_more_by_format" = "Mais de %@";
+"player_about_book_extra_format" = "Ao longo do caminho explora a memória, a coragem e as pequenas decisões que mudam uma vida, com uma narração calorosa ideal para sessões longas.";
+"player_about_author_extra_format" = "A crítica destaca uma voz própria e um grande senso de atmosfera; esta gravação une o texto a um narrador à altura.";
+"catalog_library_title" = "Minha biblioteca";
+"catalog_library_open_full" = "Abrir a biblioteca completa";

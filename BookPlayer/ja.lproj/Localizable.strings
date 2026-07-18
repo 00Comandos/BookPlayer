@@ -543,3 +543,10 @@
 "player_about_book_format" = "『%1$@』は%3$@のオーディオブックで、没入感のあるナレーションとテンポが高く評価されています。";
 "player_about_author_format" = "%1$@は%2$@の分野で高い評価を受ける作品を複数執筆し、多言語に翻訳されています。";
 "player_about_source" = "概要はWikipediaと出版社より（デモデータ）";
+"player_about_see_more" = "もっと見る";
+"player_about_author_caption" = "著者";
+"player_about_more_by_format" = "%@のその他の作品";
+"player_about_book_extra_format" = "物語は記憶や勇気、人生を変える静かな決断を描き、長時間のリスニングに合う温かなナレーションで届けられます。";
+"player_about_author_extra_format" = "批評家は独特の声と雰囲気づくりを高く評価しています。本録音では作品のトーンに合ったナレーターが朗読しています。";
+"catalog_library_title" = "マイライブラリ";
+"catalog_library_open_full" = "ライブラリ全体を開く";

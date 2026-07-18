@@ -543,3 +543,10 @@
 "player_about_book_format" = "”%1$@” är en ljudbok inom %3$@, hyllad för sitt medryckande berättande och tempo.";
 "player_about_author_format" = "%1$@ har skrivit flera hyllade titlar inom %2$@, översatta till flera språk.";
 "player_about_source" = "Sammanfattningar från Wikipedia och förlag (demodata)";
+"player_about_see_more" = "Visa mer";
+"player_about_author_caption" = "Författare";
+"player_about_more_by_format" = "Mer av %@";
+"player_about_book_extra_format" = "Längs vägen utforskas minne, mod och de tysta beslut som förändrar ett liv, berättat med en värme som passar långa lyssningsstunder.";
+"player_about_author_extra_format" = "Kritiker hyllar en egen röst och känsla för stämning; inspelningen bärs av en berättare i samma ton.";
+"catalog_library_title" = "Mitt bibliotek";
+"catalog_library_open_full" = "Öppna hela biblioteket";

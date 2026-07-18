@@ -543,3 +543,10 @@
 "player_about_book_format" = "”%1$@” on genren %3$@ äänikirja, jota kiitetään mukaansatempaavasta kerronnasta ja rytmistä.";
 "player_about_author_format" = "%1$@ on kirjoittanut useita kiitettyjä teoksia genressä %2$@; teoksia on käännetty useille kielille.";
 "player_about_source" = "Tiivistelmät Wikipediasta ja kustantajilta (demotietoa)";
+"player_about_see_more" = "Näytä lisää";
+"player_about_author_caption" = "Kirjailija";
+"player_about_more_by_format" = "Lisää: %@";
+"player_about_book_extra_format" = "Matkan varrella teos tutkii muistia, rohkeutta ja hiljaisia valintoja, jotka muuttavat elämän – lämmin kerronta sopii pitkiin kuunteluhetkiin.";
+"player_about_author_extra_format" = "Kriitikot kiittävät omaperäistä ääntä ja tunnelman tajua; äänitteessä tekstiä kannattelee siihen sopiva lukija.";
+"catalog_library_title" = "Oma kirjasto";
+"catalog_library_open_full" = "Avaa koko kirjasto";

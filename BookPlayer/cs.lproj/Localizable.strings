@@ -543,3 +543,10 @@
 "player_about_book_format" = "„%1$@“ je audiokniha žánru %3$@, ceněná za strhující vyprávění a tempo.";
 "player_about_author_format" = "%1$@ napsal(a) několik oceňovaných titulů v žánru %2$@, přeložených do řady jazyků.";
 "player_about_source" = "Souhrny z Wikipedie a od nakladatelů (ukázková data)";
+"player_about_see_more" = "Zobrazit více";
+"player_about_author_caption" = "Autor";
+"player_about_more_by_format" = "Více od %@";
+"player_about_book_extra_format" = "Cestou zkoumá paměť, odvahu a tichá rozhodnutí, která mění život – hřejivé vyprávění se hodí k dlouhému poslechu.";
+"player_about_author_extra_format" = "Kritika chválí osobitý hlas a smysl pro atmosféru; nahrávku nese vypravěč, který tónu textu odpovídá.";
+"catalog_library_title" = "Moje knihovna";
+"catalog_library_open_full" = "Otevřít celou knihovnu";

@@ -543,3 +543,10 @@
 "player_about_book_format" = "A(z) „%1$@” a(z) %3$@ műfaj hangoskönyve, amelyet magával ragadó narrációjáért dicsérnek.";
 "player_about_author_format" = "%1$@ több elismert címet írt a(z) %2$@ műfajban; műveit több nyelvre lefordították.";
 "player_about_source" = "Összefoglalók a Wikipédiáról és a kiadóktól (demóadatok)";
+"player_about_see_more" = "Továbbiak";
+"player_about_author_caption" = "Szerző";
+"player_about_more_by_format" = "Több tőle: %@";
+"player_about_book_extra_format" = "Útközben az emlékezetet, a bátorságot és az életet megváltoztató csendes döntéseket járja körül – meleg narrációja hosszú hallgatáshoz is ideális.";
+"player_about_author_extra_format" = "A kritika a jellegzetes hangot és a légkörteremtő erőt dicséri; a felvételen a szöveghez illő narrátor szólal meg.";
+"catalog_library_title" = "Saját könyvtáram";
+"catalog_library_open_full" = "Teljes könyvtár megnyitása";
