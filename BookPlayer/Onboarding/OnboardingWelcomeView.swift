@@ -19,10 +19,8 @@ struct OnboardingWelcomeView: View {
     VStack(spacing: 0) {
       heroView
         .frame(maxWidth: .infinity)
-        .containerRelativeFrame(.vertical) { length, _ in length * 0.58 }
-        .clipShape(
-          UnevenRoundedRectangle(bottomLeadingRadius: 24, bottomTrailingRadius: 24)
-        )
+        .containerRelativeFrame(.vertical) { length, _ in length * 0.62 }
+        .clipped()
         .ignoresSafeArea(edges: .top)
 
       Spacer()
@@ -43,7 +41,7 @@ struct OnboardingWelcomeView: View {
 
       VStack(spacing: Spacing.S1) {
         welcomeOptionCard(
-          imageName: "lucide-download",
+          imageName: "lucide-upload",
           title: "onboarding_import_option_title",
           subtitle: "onboarding_import_option_description",
           action: onImportAudiobooks

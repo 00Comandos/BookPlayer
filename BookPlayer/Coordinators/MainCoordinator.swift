@@ -122,8 +122,28 @@ class MainCoordinator: NSObject {
       }
     }
     
+    /// Keep the settled splash on top during the handoff into the onboarding,
+    /// so the library never flashes in between
+    var splashHost: UIHostingController<SplashAnimationView>?
+    if !UserDefaults.standard.bool(forKey: Constants.UserDefaults.completedOnboarding),
+      let window = navigationController.view.window ?? WindowHelper.activeWindow
+    {
+      let host = UIHostingController(rootView: SplashAnimationView(animated: false))
+      host.view.frame = window.bounds
+      host.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+      window.addSubview(host.view)
+      splashHost = host
+    }
+
     navigationController.present(vc, animated: false) { [weak self] in
-      self?.showFirstTimeOnboarding()
+      self?.showFirstTimeOnboarding {
+        guard let splashHost else { return }
+        UIView.animate(withDuration: 0.3, delay: 0.1) {
+          splashHost.view.alpha = 0
+        } completion: { _ in
+          splashHost.view.removeFromSuperview()
+        }
+      }
     }
     mainController = vc
 
@@ -132,11 +152,14 @@ class MainCoordinator: NSObject {
 
   /// One-time welcome flow: import your audiobooks or browse the catalog
   /// picking genre and language preferences
-  func showFirstTimeOnboarding() {
+  func showFirstTimeOnboarding(onPresented: (() -> Void)? = nil) {
     guard
       !UserDefaults.standard.bool(forKey: Constants.UserDefaults.completedOnboarding),
       let mainController
-    else { return }
+    else {
+      onPresented?()
+      return
+    }
 
     let vc = AppHostingViewController(
       rootView: OnboardingView { [weak self] _ in
@@ -149,7 +172,7 @@ class MainCoordinator: NSObject {
     vc.modalPresentationStyle = .fullScreen
     vc.modalTransitionStyle = .crossDissolve
 
-    mainController.present(vc, animated: false)
+    mainController.present(vc, animated: false, completion: onPresented)
   }
 
   func showSecondOnboarding() {
