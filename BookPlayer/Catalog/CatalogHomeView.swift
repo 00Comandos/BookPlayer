@@ -247,6 +247,9 @@ struct CatalogHomeView: View {
         session.nowPlaying = languageMatches.first ?? CatalogMockLibrary.books.first
         showPlayer = true
       }
+      if ProcessInfo.processInfo.environment["BP_PREVIEW_MINIPLAYER"] == "1" {
+        session.nowPlaying = languageMatches.first ?? CatalogMockLibrary.books.first
+      }
       #endif
     }
   }
@@ -465,47 +468,77 @@ struct CatalogHomeView: View {
     .padding(.bottom, Spacing.S2)
   }
 
-  /// Tapping opens the full player; the trailing button stops the preview
+  /// Tapping the info opens the full player; includes play/pause and a
+  /// live progress bar with the remaining time
   private func miniPlayer(_ book: CatalogBook) -> some View {
-    HStack(spacing: Spacing.S1) {
-      Button {
-        showPlayer = true
-      } label: {
-        HStack(spacing: Spacing.S1) {
-          RoundedRectangle(cornerRadius: 4)
-            .fill(book.coverGradient)
-            .frame(width: 40, height: 40)
-            .overlay(
-              Image(systemName: "waveform")
-                .font(.system(size: 16))
+    let progress = session.progress(for: book)
+    let remaining = Int(Double(book.durationMinutes) * (1 - progress))
+
+    return VStack(spacing: Spacing.S2) {
+      HStack(spacing: Spacing.S1) {
+        Button {
+          showPlayer = true
+        } label: {
+          HStack(spacing: Spacing.S1) {
+            RoundedRectangle(cornerRadius: 4)
+              .fill(book.coverGradient)
+              .frame(width: 40, height: 40)
+              .overlay(
+                Image(systemName: "waveform")
+                  .font(.system(size: 16))
+                  .foregroundStyle(.white)
+              )
+
+            VStack(alignment: .leading, spacing: 2) {
+              Text(book.title)
+                .font(.system(size: 14, weight: .semibold))
                 .foregroundStyle(BPDesign.Colors.textPrimary)
-            )
+                .lineLimit(1)
 
-          VStack(alignment: .leading, spacing: 2) {
-            Text(book.title)
-              .font(.system(size: 14, weight: .semibold))
-              .foregroundStyle(BPDesign.Colors.textPrimary)
-              .lineLimit(1)
+              Text(verbatim: "-" + CatalogSession.formatMinutes(remaining))
+                .font(.system(size: 12))
+                .monospacedDigit()
+                .foregroundStyle(subtle)
+            }
 
-            Text("onboarding_playing_demo")
-              .font(.system(size: 12))
-              .foregroundStyle(subtle)
+            Spacer()
           }
-
-          Spacer()
+          .contentShape(Rectangle())
         }
-        .contentShape(Rectangle())
-      }
-      .buttonStyle(.plain)
+        .buttonStyle(.plain)
 
-      Button {
-        session.nowPlaying = nil
-      } label: {
-        Image(systemName: "stop.fill")
-          .font(.system(size: 18))
-          .foregroundStyle(BPDesign.Colors.textPrimary)
+        Button {
+          session.isPaused.toggle()
+        } label: {
+          Image(systemName: session.isPaused ? "play.fill" : "pause.fill")
+            .font(.system(size: 20))
+            .foregroundStyle(BPDesign.Colors.textPrimary)
+            .frame(width: 34, height: 34)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
+
+        Button {
+          session.nowPlaying = nil
+        } label: {
+          Image(systemName: "xmark")
+            .font(.system(size: 14, weight: .semibold))
+            .foregroundStyle(subtle)
+            .frame(width: 28, height: 34)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
       }
-      .padding(.trailing, Spacing.S3)
+
+      GeometryReader { geometry in
+        ZStack(alignment: .leading) {
+          Capsule().fill(subtle.opacity(0.25))
+          Capsule()
+            .fill(accent)
+            .frame(width: geometry.size.width * progress)
+        }
+      }
+      .frame(height: 3)
     }
     .padding(Spacing.S2)
     .background(elevated)

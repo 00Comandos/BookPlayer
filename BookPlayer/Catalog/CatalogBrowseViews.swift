@@ -17,16 +17,47 @@ final class CatalogSession: ObservableObject {
     didSet {
       if let nowPlaying {
         recordRecent(nowPlaying)
+        isPaused = false
       }
+      restartProgressTimer()
     }
   }
   @Published var pendingBook: CatalogBook?
   @Published var showLogin = false
-  @Published var isPaused = false
+  @Published var isPaused = false {
+    didSet { restartProgressTimer() }
+  }
   @Published private(set) var recentIds: [String]
+
+  private var progressTimer: Timer?
 
   init() {
     recentIds = UserDefaults.standard.stringArray(forKey: Constants.UserDefaults.catalogRecentlyPlayed) ?? []
+  }
+
+  /// Simulated playback: one minute of audio per real second, so the
+  /// progress bar and remaining time visibly move during the demo
+  private func restartProgressTimer() {
+    progressTimer?.invalidate()
+    guard nowPlaying != nil, !isPaused else { return }
+
+    progressTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+      Task { @MainActor in
+        self?.advanceProgress()
+      }
+    }
+  }
+
+  private func advanceProgress() {
+    guard let book = nowPlaying, !isPaused else { return }
+
+    let next = progress(for: book) + 1.0 / Double(book.durationMinutes)
+    if next >= 1 {
+      setProgress(1, for: book)
+      isPaused = true
+    } else {
+      setProgress(next, for: book)
+    }
   }
 
   var recentBooks: [CatalogBook] {
@@ -616,7 +647,7 @@ struct CatalogProfileSheet: View {
           appearanceSelector
             .padding(.top, Spacing.S)
 
-          if accountService.hasAccount() {
+          if accountService.hasAccount(), !accountService.account.email.isEmpty {
             Button {
               try? accountService.logout()
               accountVersion += 1
@@ -755,7 +786,7 @@ struct CatalogProfileSheet: View {
       .frame(width: 56, height: 56)
 
       VStack(alignment: .leading, spacing: 2) {
-        if accountService.hasAccount() {
+        if accountService.hasAccount(), !accountService.account.email.isEmpty {
           Text(displayName(from: accountService.account.email))
             .font(.system(size: 16, weight: .semibold))
             .foregroundStyle(BPDesign.Colors.textPrimary)
@@ -763,6 +794,25 @@ struct CatalogProfileSheet: View {
           Text(accountService.account.email)
             .font(.system(size: 13))
             .foregroundStyle(subtle)
+        } else if let demo = Self.demoIdentity {
+          /// Local builds cannot complete the real login (placeholder
+          /// backend), so DEBUG shows a demo identity with the sign-in
+          /// entry point still available
+          Text(demo.name)
+            .font(.system(size: 16, weight: .semibold))
+            .foregroundStyle(BPDesign.Colors.textPrimary)
+
+          Text(demo.email)
+            .font(.system(size: 13))
+            .foregroundStyle(subtle)
+
+          Button {
+            showLogin = true
+          } label: {
+            Text("catalog_home_profile_login")
+              .font(.system(size: 13, weight: .semibold))
+              .foregroundStyle(accent)
+          }
         } else {
           Text("catalog_home_profile_guest")
             .font(.system(size: 15))
@@ -780,6 +830,14 @@ struct CatalogProfileSheet: View {
 
       Spacer()
     }
+  }
+
+  static var demoIdentity: (name: String, email: String)? {
+    #if DEBUG
+    return ("Comandos", "c@comandos.me")
+    #else
+    return nil
+    #endif
   }
 
   /// The account has no name field yet, so derive a friendly one from the email
