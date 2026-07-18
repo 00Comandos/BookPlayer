@@ -653,14 +653,19 @@ struct CatalogProfileSheet: View {
               accountVersion += 1
             } label: {
               Text("profile_logout")
-                .font(.system(size: 15, weight: .medium))
+                .font(.system(size: 16, weight: .semibold))
                 .foregroundStyle(Color(UIColor.systemRed))
-                .frame(height: 48)
+                .frame(height: 50)
                 .frame(maxWidth: .infinity)
                 .background(elevated)
-                .clipShape(RoundedRectangle(cornerRadius: BPDesign.Radius.card))
+                .clipShape(RoundedRectangle(cornerRadius: BPDesign.Radius.button))
             }
             .buttonStyle(.plain)
+            .padding(.top, Spacing.S)
+          } else {
+            BPPrimaryButton(title: "catalog_home_profile_login", isEnabled: true) {
+              showLogin = true
+            }
             .padding(.top, Spacing.S)
           }
         }
@@ -796,8 +801,7 @@ struct CatalogProfileSheet: View {
             .foregroundStyle(subtle)
         } else if let demo = Self.demoIdentity {
           /// Local builds cannot complete the real login (placeholder
-          /// backend), so DEBUG shows a demo identity with the sign-in
-          /// entry point still available
+          /// backend), so DEBUG shows a demo identity
           Text(demo.name)
             .font(.system(size: 16, weight: .semibold))
             .foregroundStyle(BPDesign.Colors.textPrimary)
@@ -805,26 +809,10 @@ struct CatalogProfileSheet: View {
           Text(demo.email)
             .font(.system(size: 13))
             .foregroundStyle(subtle)
-
-          Button {
-            showLogin = true
-          } label: {
-            Text("catalog_home_profile_login")
-              .font(.system(size: 13, weight: .semibold))
-              .foregroundStyle(accent)
-          }
         } else {
           Text("catalog_home_profile_guest")
             .font(.system(size: 15))
             .foregroundStyle(subtle)
-
-          Button {
-            showLogin = true
-          } label: {
-            Text("catalog_home_profile_login")
-              .font(.system(size: 14, weight: .semibold))
-              .foregroundStyle(accent)
-          }
         }
       }
 
