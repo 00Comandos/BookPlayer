@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "没有结果";
 "catalog_home_profile_guest" = "你尚未登录";
 "catalog_home_profile_login" = "登录";
+"uploads_title_from_catalog" = "你的上传";
+"uploads_title_personal" = "我的有声书";
+"uploads_empty_description" = "你的文件会保留在书库中。选择要添加的音频文件、文件夹或压缩包。";
+"uploads_choose_files" = "选择文件";

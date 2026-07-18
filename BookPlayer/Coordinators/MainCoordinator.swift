@@ -172,8 +172,11 @@ class MainCoordinator: NSObject {
       rootView: OnboardingView { [weak self] outcome in
         UserDefaults.standard.set(true, forKey: Constants.UserDefaults.completedOnboarding)
         self?.mainController?.dismiss(animated: false) {
-          if case .finishedCatalog = outcome {
+          switch outcome {
+          case .finishedCatalog:
             self?.showCatalogHome()
+          case .importAudiobooks:
+            self?.showStandaloneUploads()
           }
         }
       }
@@ -196,13 +199,43 @@ class MainCoordinator: NSObject {
         onClose: { [weak self] in
           self?.mainController?.dismiss(animated: true)
         },
-        onUploadOwn: { [weak self] in
-          /// Land on the library, where the existing import flow lives
+        onImportFiles: { [weak self] urls in
+          /// Hand the picked files to the import pipeline and land on the
+          /// library, where the existing import UI takes over
+          self?.processFiles(urls: urls)
           self?.mainController?.dismiss(animated: true)
         }
       )
       .environmentObject(ThemeViewModel())
       .environment(\.accountService, accountService)
+    )
+    vc.modalPresentationStyle = .fullScreen
+    vc.modalTransitionStyle = .crossDissolve
+
+    mainController.present(vc, animated: false)
+  }
+
+  /// Simplified upload page shown after choosing "Load my audiobooks"
+  /// in the onboarding
+  func showStandaloneUploads() {
+    guard let mainController else { return }
+
+    let vc = AppHostingViewController(
+      rootView: NavigationStack {
+        UploadsView(
+          style: .adaptive,
+          title: "uploads_title_personal",
+          showsClose: true,
+          onPick: { [weak self] urls in
+            self?.processFiles(urls: urls)
+            self?.mainController?.dismiss(animated: true)
+          },
+          onClose: { [weak self] in
+            self?.mainController?.dismiss(animated: true)
+          }
+        )
+      }
+      .environmentObject(ThemeViewModel())
     )
     vc.modalPresentationStyle = .fullScreen
     vc.modalTransitionStyle = .crossDissolve

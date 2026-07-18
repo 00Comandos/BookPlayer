@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "Ei tuloksia";
 "catalog_home_profile_guest" = "Et ole kirjautunut sisään";
 "catalog_home_profile_login" = "Kirjaudu";
+"uploads_title_from_catalog" = "Omat lataukset";
+"uploads_title_personal" = "Omat äänikirjani";
+"uploads_empty_description" = "Tiedostosi pysyvät kirjastossasi. Valitse äänitiedostoja, kansioita tai zip-paketteja lisättäväksi.";
+"uploads_choose_files" = "Valitse tiedostot";

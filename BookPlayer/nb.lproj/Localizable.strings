@@ -517,3 +517,7 @@ Vi jobber hardt for å gi deg en sømløs opplevelse. Hvis mulig, kontakt oss p�
 "catalog_home_no_results" = "Ingen resultater";
 "catalog_home_profile_guest" = "Du er ikke logget inn";
 "catalog_home_profile_login" = "Logg inn";
+"uploads_title_from_catalog" = "Dine opplastinger";
+"uploads_title_personal" = "Mine lydbøker";
+"uploads_empty_description" = "Filene dine blir i biblioteket ditt. Velg lydfiler, mapper eller zip-filer for å legge dem til.";
+"uploads_choose_files" = "Velg filer";

@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "Нет результатов";
 "catalog_home_profile_guest" = "Вы не вошли в аккаунт";
 "catalog_home_profile_login" = "Войти";
+"uploads_title_from_catalog" = "Ваши загрузки";
+"uploads_title_personal" = "Мои аудиокниги";
+"uploads_empty_description" = "Ваши файлы остаются в вашей библиотеке. Выберите аудиофайлы, папки или zip-архивы, чтобы добавить их.";
+"uploads_choose_files" = "Выбрать файлы";

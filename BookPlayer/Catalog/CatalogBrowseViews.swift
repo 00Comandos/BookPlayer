@@ -7,6 +7,7 @@
 
 import BookPlayerKit
 import SwiftUI
+import UniformTypeIdentifiers
 
 /// Shared playback/session state for the catalog browsing experience:
 /// current preview, pending login-gated book and recently listened titles
@@ -320,6 +321,134 @@ struct CatalogSearchButton: View {
         .overlay(Circle().stroke(Color.white.opacity(0.08), lineWidth: 1))
     }
     .accessibilityLabel(Text("catalog_home_search_placeholder"))
+  }
+}
+
+/// Minimal upload page in the new visual language, reached from Discover
+/// ("Your uploads", with a return to the catalog) or right after choosing
+/// "Load my audiobooks" in the onboarding ("My audiobooks"). One single
+/// action: pick files, which flow into the existing import pipeline.
+struct UploadsView: View {
+  enum Style {
+    /// Fixed dark, for the always-dark catalog context
+    case media
+    /// Follows the phone appearance, for the standalone context
+    case adaptive
+  }
+
+  let style: Style
+  let title: LocalizedStringKey
+  var showsClose = false
+  let onPick: ([URL]) -> Void
+  var onClose: (() -> Void)?
+
+  @State private var showPicker = false
+
+  private var background: Color {
+    style == .media ? BPDesign.Colors.mediaBackground : BPDesign.Colors.inkBackground
+  }
+
+  private var primaryText: Color {
+    style == .media ? .white : BPDesign.Colors.textPrimary
+  }
+
+  private var secondaryText: Color {
+    style == .media ? BPDesign.Colors.textSecondaryMedia : BPDesign.Colors.textSecondary
+  }
+
+  var body: some View {
+    ZStack {
+      background.ignoresSafeArea()
+
+      VStack(spacing: Spacing.S1) {
+        Spacer()
+
+        ZStack {
+          Circle().fill(BPDesign.Colors.coral.opacity(0.18))
+          Image("lucide-upload")
+            .resizable()
+            .renderingMode(.template)
+            .scaledToFit()
+            .frame(width: 34, height: 34)
+            .foregroundStyle(BPDesign.Colors.coral)
+        }
+        .frame(width: 92, height: 92)
+        .padding(.bottom, Spacing.S)
+
+        Text(title)
+          .font(.system(size: 24, weight: .bold))
+          .foregroundStyle(primaryText)
+          .multilineTextAlignment(.center)
+
+        Text("uploads_empty_description")
+          .font(.system(size: 15))
+          .foregroundStyle(secondaryText)
+          .multilineTextAlignment(.center)
+          .padding(.horizontal, Spacing.L)
+
+        Spacer()
+
+        BPPrimaryButton(title: "uploads_choose_files", isEnabled: true) {
+          showPicker = true
+        }
+        .padding(.horizontal, Spacing.M)
+        .padding(.bottom, Spacing.S)
+      }
+    }
+    .toolbar {
+      if showsClose {
+        ToolbarItem(placement: .cancellationAction) {
+          Button {
+            onClose?()
+          } label: {
+            Image(systemName: "xmark")
+              .font(.system(size: 16, weight: .semibold))
+              .foregroundStyle(primaryText)
+          }
+        }
+      }
+    }
+    .toolbarColorScheme(style == .media ? .dark : nil, for: .navigationBar)
+    .sheet(isPresented: $showPicker) {
+      AudioDocumentPicker { urls in
+        showPicker = false
+        onPick(urls)
+      }
+      .ignoresSafeArea()
+    }
+  }
+}
+
+/// System document picker for audio files, folders and zips
+struct AudioDocumentPicker: UIViewControllerRepresentable {
+  let onPick: ([URL]) -> Void
+
+  func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
+    let picker = UIDocumentPickerViewController(
+      forOpeningContentTypes: [.audio, .folder, .zip],
+      asCopy: true
+    )
+    picker.allowsMultipleSelection = true
+    picker.delegate = context.coordinator
+    return picker
+  }
+
+  func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: Context) {}
+
+  func makeCoordinator() -> Coordinator {
+    Coordinator(onPick: onPick)
+  }
+
+  final class Coordinator: NSObject, UIDocumentPickerDelegate {
+    let onPick: ([URL]) -> Void
+
+    init(onPick: @escaping ([URL]) -> Void) {
+      self.onPick = onPick
+    }
+
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+      onPick(urls)
+    }
   }
 }
 

@@ -517,3 +517,7 @@ Usilovne pracujeme na poskytovaní bezproblémového zážitku, ak je to možné
 "catalog_home_no_results" = "Žiadne výsledky";
 "catalog_home_profile_guest" = "Nie ste prihlásení";
 "catalog_home_profile_login" = "Prihlásiť sa";
+"uploads_title_from_catalog" = "Vaše nahrané súbory";
+"uploads_title_personal" = "Moje audioknihy";
+"uploads_empty_description" = "Vaše súbory zostávajú vo vašej knižnici. Vyberte zvukové súbory, priečinky alebo zipy, ktoré chcete pridať.";
+"uploads_choose_files" = "Vybrať súbory";

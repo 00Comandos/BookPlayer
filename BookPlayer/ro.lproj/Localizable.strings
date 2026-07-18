@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "Niciun rezultat";
 "catalog_home_profile_guest" = "Nu ești autentificat";
 "catalog_home_profile_login" = "Autentificare";
+"uploads_title_from_catalog" = "Încărcările tale";
+"uploads_title_personal" = "Audiobook-urile mele";
+"uploads_empty_description" = "Fișierele tale rămân în biblioteca ta. Alege fișiere audio, foldere sau arhive zip pentru a le adăuga.";
+"uploads_choose_files" = "Alege fișiere";

@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "Nincs találat";
 "catalog_home_profile_guest" = "Nem vagy bejelentkezve";
 "catalog_home_profile_login" = "Bejelentkezés";
+"uploads_title_from_catalog" = "Feltöltéseid";
+"uploads_title_personal" = "Saját hangoskönyveim";
+"uploads_empty_description" = "A fájljaid a könyvtáradban maradnak. Válassz hangfájlokat, mappákat vagy zipeket a hozzáadáshoz.";
+"uploads_choose_files" = "Fájlok kiválasztása";

@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "Geen resultaten";
 "catalog_home_profile_guest" = "Je bent niet ingelogd";
 "catalog_home_profile_login" = "Inloggen";
+"uploads_title_from_catalog" = "Jouw uploads";
+"uploads_title_personal" = "Mijn luisterboeken";
+"uploads_empty_description" = "Je bestanden blijven in je bibliotheek. Kies audiobestanden, mappen of zips om ze toe te voegen.";
+"uploads_choose_files" = "Bestanden kiezen";

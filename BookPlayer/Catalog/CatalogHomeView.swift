@@ -101,7 +101,8 @@ struct CatalogHomeView: View {
   @Environment(\.accountService) private var accountService
 
   let onClose: () -> Void
-  let onUploadOwn: () -> Void
+  /// Files picked in the uploads page, forwarded to the import pipeline
+  let onImportFiles: ([URL]) -> Void
 
   @StateObject private var session = CatalogSession()
 
@@ -109,6 +110,7 @@ struct CatalogHomeView: View {
   @State private var showPreferences = false
   @State private var showProfile = false
   @State private var showSearch = false
+  @State private var showUploads = false
   @State private var navPath: [OnboardingGenre] = []
   /// Bumped when preferences change so the computed shelves re-read UserDefaults
   @State private var preferencesVersion = 0
@@ -198,6 +200,12 @@ struct CatalogHomeView: View {
       .navigationDestination(isPresented: $showSearch) {
         CatalogSearchView(books: languageMatches)
       }
+      .navigationDestination(isPresented: $showUploads) {
+        UploadsView(style: .media, title: "uploads_title_from_catalog") { urls in
+          showUploads = false
+          onImportFiles(urls)
+        }
+      }
     }
     .environmentObject(session)
     .sheet(
@@ -227,6 +235,9 @@ struct CatalogHomeView: View {
       if ProcessInfo.processInfo.environment["BP_PREVIEW_SEARCH"] == "1" {
         showSearch = true
       }
+      if ProcessInfo.processInfo.environment["BP_PREVIEW_UPLOADS"] == "1" {
+        showUploads = true
+      }
       #endif
     }
   }
@@ -250,7 +261,9 @@ struct CatalogHomeView: View {
 
       Spacer()
 
-      Button(action: onUploadOwn) {
+      Button {
+        showUploads = true
+      } label: {
         Image("lucide-upload")
           .resizable()
           .renderingMode(.template)
@@ -593,5 +606,5 @@ struct CatalogPreferencesSheet: View {
 }
 
 #Preview {
-  CatalogHomeView(onClose: {}, onUploadOwn: {})
+  CatalogHomeView(onClose: {}, onImportFiles: { _ in })
 }

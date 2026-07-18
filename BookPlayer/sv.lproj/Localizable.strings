@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "Inga resultat";
 "catalog_home_profile_guest" = "Du är inte inloggad";
 "catalog_home_profile_login" = "Logga in";
+"uploads_title_from_catalog" = "Dina uppladdningar";
+"uploads_title_personal" = "Mina ljudböcker";
+"uploads_empty_description" = "Dina filer stannar i ditt bibliotek. Välj ljudfiler, mappar eller zip-filer att lägga till.";
+"uploads_choose_files" = "Välj filer";

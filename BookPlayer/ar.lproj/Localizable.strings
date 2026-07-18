@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "لا توجد نتائج";
 "catalog_home_profile_guest" = "لم تسجّل الدخول";
 "catalog_home_profile_login" = "تسجيل الدخول";
+"uploads_title_from_catalog" = "مرفوعاتك";
+"uploads_title_personal" = "كتبي الصوتية";
+"uploads_empty_description" = "تبقى ملفاتك في مكتبتك. اختر ملفات صوتية أو مجلدات أو ملفات مضغوطة لإضافتها.";
+"uploads_choose_files" = "اختيار الملفات";

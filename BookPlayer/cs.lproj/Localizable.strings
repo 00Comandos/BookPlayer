@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "Žádné výsledky";
 "catalog_home_profile_guest" = "Nejste přihlášeni";
 "catalog_home_profile_login" = "Přihlásit se";
+"uploads_title_from_catalog" = "Vaše nahrané soubory";
+"uploads_title_personal" = "Moje audioknihy";
+"uploads_empty_description" = "Vaše soubory zůstávají ve vaší knihovně. Vyberte zvukové soubory, složky nebo zipy, které chcete přidat.";
+"uploads_choose_files" = "Vybrat soubory";

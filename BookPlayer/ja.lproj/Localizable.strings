@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "結果がありません";
 "catalog_home_profile_guest" = "サインインしていません";
 "catalog_home_profile_login" = "サインイン";
+"uploads_title_from_catalog" = "あなたのアップロード";
+"uploads_title_personal" = "マイオーディオブック";
+"uploads_empty_description" = "ファイルはライブラリに保存されます。追加する音声ファイル、フォルダ、またはzipを選択してください。";
+"uploads_choose_files" = "ファイルを選択";

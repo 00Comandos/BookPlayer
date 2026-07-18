@@ -519,3 +519,7 @@ We're working hard on providing a seamless experience, if possible, please conta
 "catalog_home_no_results" = "No results";
 "catalog_home_profile_guest" = "You're not signed in";
 "catalog_home_profile_login" = "Sign in";
+"uploads_title_from_catalog" = "Your uploads";
+"uploads_title_personal" = "My audiobooks";
+"uploads_empty_description" = "Your files stay in your library. Pick audio files, folders or zips to add them.";
+"uploads_choose_files" = "Choose files";

@@ -517,3 +517,7 @@ Estem treballant dur per oferir una experiència perfecta; si és possible, pose
 "catalog_home_no_results" = "Sense resultats";
 "catalog_home_profile_guest" = "No has iniciat la sessió";
 "catalog_home_profile_login" = "Inicia la sessió";
+"uploads_title_from_catalog" = "Les teves pujades";
+"uploads_title_personal" = "Els meus audiollibres";
+"uploads_empty_description" = "Els teus fitxers es queden a la teva biblioteca. Tria fitxers d'àudio, carpetes o zips per afegir-los.";
+"uploads_choose_files" = "Tria fitxers";

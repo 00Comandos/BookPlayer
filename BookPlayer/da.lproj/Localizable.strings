@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "Ingen resultater";
 "catalog_home_profile_guest" = "Du er ikke logget ind";
 "catalog_home_profile_login" = "Log ind";
+"uploads_title_from_catalog" = "Dine uploads";
+"uploads_title_personal" = "Mine lydbøger";
+"uploads_empty_description" = "Dine filer bliver i dit bibliotek. Vælg lydfiler, mapper eller zips for at tilføje dem.";
+"uploads_choose_files" = "Vælg filer";

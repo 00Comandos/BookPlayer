@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "Sonuç yok";
 "catalog_home_profile_guest" = "Giriş yapmadın";
 "catalog_home_profile_login" = "Giriş yap";
+"uploads_title_from_catalog" = "Yüklemelerin";
+"uploads_title_personal" = "Sesli kitaplarım";
+"uploads_empty_description" = "Dosyaların kitaplığında kalır. Eklemek için ses dosyaları, klasörler veya zip dosyaları seç.";
+"uploads_choose_files" = "Dosya seç";

@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "Sem resultados";
 "catalog_home_profile_guest" = "Você não fez login";
 "catalog_home_profile_login" = "Fazer login";
+"uploads_title_from_catalog" = "Seus envios";
+"uploads_title_personal" = "Meus audiolivros";
+"uploads_empty_description" = "Seus arquivos ficam na sua biblioteca. Escolha arquivos de áudio, pastas ou zips para adicioná-los.";
+"uploads_choose_files" = "Escolher arquivos";

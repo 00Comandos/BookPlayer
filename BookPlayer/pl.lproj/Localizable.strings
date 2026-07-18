@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "Brak wyników";
 "catalog_home_profile_guest" = "Nie jesteś zalogowany";
 "catalog_home_profile_login" = "Zaloguj się";
+"uploads_title_from_catalog" = "Twoje pliki";
+"uploads_title_personal" = "Moje audiobooki";
+"uploads_empty_description" = "Twoje pliki zostają w Twojej bibliotece. Wybierz pliki audio, foldery lub archiwa zip, aby je dodać.";
+"uploads_choose_files" = "Wybierz pliki";

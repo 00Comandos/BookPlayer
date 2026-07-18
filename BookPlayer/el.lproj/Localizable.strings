@@ -517,3 +517,7 @@
 "catalog_home_no_results" = "Κανένα αποτέλεσμα";
 "catalog_home_profile_guest" = "Δεν έχεις συνδεθεί";
 "catalog_home_profile_login" = "Σύνδεση";
+"uploads_title_from_catalog" = "Οι μεταφορτώσεις σου";
+"uploads_title_personal" = "Τα ακουστικά βιβλία μου";
+"uploads_empty_description" = "Τα αρχεία σου μένουν στη βιβλιοθήκη σου. Διάλεξε αρχεία ήχου, φακέλους ή zip για να τα προσθέσεις.";
+"uploads_choose_files" = "Επιλογή αρχείων";
