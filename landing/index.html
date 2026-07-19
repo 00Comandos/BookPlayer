@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BookPlayer — Your audiobooks, your way</title>
+<meta name="description" content="BookPlayer is the free, open source audiobook player. Import your audiobooks and listen your way, on iPhone and Android.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<style>
+  :root{
+    --navy:#132237;
+    --coral:#FD6746;
+    --ink:#101014;
+    --text-secondary:#5F6570;
+    --hairline:rgba(0,0,0,.08);
+    --radius:20px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Inter,Roboto,sans-serif;
+    background:#fff;color:var(--navy);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- Nav ---------- */
+  header{
+    position:fixed;inset:0 0 auto 0;z-index:10;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 20px;
+    background:rgba(255,255,255,.82);
+    -webkit-backdrop-filter:saturate(180%) blur(14px);
+    backdrop-filter:saturate(180%) blur(14px);
+  }
+  .logo img{height:30px;display:block}
+  nav{display:flex;align-items:center;gap:10px}
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:14px;font-weight:600;text-decoration:none;
+    border-radius:12px;padding:10px 16px;transition:.15s;
+    white-space:nowrap;
+  }
+  .btn-ghost{color:var(--navy);background:rgba(19,34,55,.06)}
+  .btn-ghost:hover{background:rgba(19,34,55,.12)}
+  .btn-dark{color:#fff;background:var(--navy)}
+  .btn-dark:hover{background:#1d3452}
+  .btn-coral{color:#fff;background:var(--coral)}
+  .btn-coral:hover{filter:brightness(1.06)}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    position:relative;
+    margin:76px 16px 0;
+    height:calc(100vh - 92px);
+    min-height:540px;
+    border-radius:var(--radius);
+    overflow:hidden;
+    background:var(--navy);
+  }
+  .hero video{
+    position:absolute;inset:0;width:100%;height:100%;
+    object-fit:cover;
+  }
+  .hero .shade{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(16,16,20,.20) 0%,rgba(16,16,20,.30) 55%,rgba(16,16,20,.55) 100%);
+  }
+  .hero-content{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;color:#fff;padding:0 24px;
+  }
+  h1{
+    font-size:clamp(40px,7vw,84px);
+    font-weight:700;letter-spacing:-.02em;line-height:1.04;
+    max-width:14ch;
+    text-shadow:0 2px 24px rgba(0,0,0,.25);
+  }
+  .sub{
+    margin-top:18px;font-size:clamp(15px,1.6vw,19px);
+    color:rgba(255,255,255,.88);max-width:44ch;
+  }
+  .cta-row{margin-top:34px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+
+  /* Store badges */
+  .store{
+    display:inline-flex;align-items:center;gap:10px;
+    background:#000;color:#fff;text-decoration:none;
+    border:1px solid rgba(255,255,255,.35);
+    border-radius:12px;padding:9px 16px;min-width:158px;
+    transition:.15s;
+  }
+  .store:hover{transform:translateY(-1px);background:#0b0b0e}
+  .store svg{width:24px;height:24px;flex:none}
+  .store .lines{display:flex;flex-direction:column;text-align:left;line-height:1.15}
+  .store .small{font-size:10px;opacity:.8}
+  .store .big{font-size:16px;font-weight:600}
+
+  .hero-foot{
+    position:absolute;left:0;right:0;bottom:22px;
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    color:rgba(255,255,255,.75);font-size:13px;
+  }
+  .hero-foot a{color:rgba(255,255,255,.9);text-decoration:none;font-weight:600}
+  .hero-foot a:hover{color:#fff;text-decoration:underline}
+  .dot{opacity:.5;margin:0 6px}
+  .src{display:inline-flex;align-items:center;gap:6px}
+  .src svg{width:15px;height:15px;fill:currentColor}
+
+  /* ---------- Footer ---------- */
+  footer{
+    display:flex;flex-direction:column;align-items:center;gap:10px;
+    padding:34px 20px 44px;color:var(--text-secondary);font-size:13px;
+  }
+  footer a{color:var(--navy);text-decoration:none;font-weight:600}
+  footer a:hover{text-decoration:underline}
+
+  @media (max-width:560px){
+    .btn-ghost{display:none}
+    .hero{margin:66px 10px 0;height:calc(100svh - 80px)}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="logo" href="#"><img src="assets/logo.png" alt="bookplayer"></a>
+  <nav>
+    <a class="btn btn-ghost" href="https://github.com/TortugaPower/BookPlayer" target="_blank" rel="noopener">Source</a>
+    <a class="btn btn-dark" href="#download">Download</a>
+  </nav>
+</header>
+
+<section class="hero" id="download">
+  <!--
+    Hero playlist: replace/extend with the 4 final brand clips.
+    They play muted, chained, looping forever.
+  -->
+  <video id="heroVideo" autoplay muted playsinline preload="auto"></video>
+  <div class="shade"></div>
+
+  <div class="hero-content">
+    <h1>Your audiobooks, your&nbsp;way.</h1>
+    <p class="sub">The free, open source audiobook player. Import your files and listen anywhere — iPhone, CarPlay and Apple&nbsp;Watch.</p>
+
+    <div class="cta-row">
+      <a class="store" href="https://apps.apple.com/app/bookplayer/id1138219998" target="_blank" rel="noopener" aria-label="Download on the App Store">
+        <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.05 12.54c-.03-2.89 2.36-4.27 2.47-4.34-1.35-1.97-3.44-2.24-4.18-2.27-1.78-.18-3.47 1.05-4.37 1.05-.9 0-2.29-1.02-3.77-1-1.94.03-3.73 1.13-4.73 2.87-2.02 3.5-.52 8.68 1.45 11.52.96 1.39 2.1 2.95 3.6 2.9 1.45-.06 2-.94 3.75-.94s2.24.94 3.77.91c1.56-.03 2.55-1.42 3.5-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.03-.02-3.03-1.16-3.07-4.64zM14.16 4.06c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.55.77-3.38 1.74-.74.85-1.39 2.23-1.22 3.54 1.29.1 2.6-.65 3.41-1.62z"/></svg>
+        <span class="lines"><span class="small">Download on the</span><span class="big">App Store</span></span>
+      </a>
+      <a class="store" href="https://play.google.com/store/search?q=bookplayer&c=apps" target="_blank" rel="noopener" aria-label="Get it on Google Play">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00E3A0" d="M3.6 1.8 14.4 12 3.6 22.2c-.37-.2-.6-.6-.6-1.1V2.9c0-.5.23-.9.6-1.1z"/><path fill="#FFD400" d="m17.5 8.9-3.1 3.1L3.6 1.8c.16-.09.35-.13.55-.13.23 0 .46.06.68.19l12.67 7.04z"/><path fill="#FF5252" d="m17.5 15.1-12.67 7.05c-.22.13-.45.19-.68.19-.2 0-.39-.05-.55-.14L14.4 12l3.1 3.1z"/><path fill="#2196F3" d="m21.1 10.9-3.6-2 -3.1 3.1 3.1 3.1 3.6-2c.9-.5.9-1.7 0-2.2z"/></svg>
+        <span class="lines"><span class="small">GET IT ON</span><span class="big">Google Play</span></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-foot">
+    <div>
+      <a class="src" href="https://github.com/TortugaPower/BookPlayer" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        Source&nbsp;(iOS)
+      </a>
+      <span class="dot">·</span>
+      <a class="src" href="https://github.com/TortugaPower" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        Source&nbsp;(Android)
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <a href="https://bookplayer.app/privacy" target="_blank" rel="noopener">Privacy Policy</a>
+    <span class="dot">·</span>
+    <a href="https://bookplayer.app/terms" target="_blank" rel="noopener">Terms of Use</a>
+  </div>
+  <div>© 2026 BookPlayer. Free &amp; open source.</div>
+</footer>
+
+<script>
+  /*
+    Hero playlist — swap in the 4 final brand clips here, in order.
+    Each plays to the end, then the next starts; after the last it loops.
+  */
+  const playlist = [
+    "assets/hero-test.mp4",
+  ];
+
+  const video = document.getElementById("heroVideo");
+  let index = 0;
+
+  function playCurrent() {
+    video.src = playlist[index];
+    video.play().catch(() => {});
+  }
+
+  video.addEventListener("ended", () => {
+    index = (index + 1) % playlist.length;
+    playCurrent();
+  });
+
+  playCurrent();
+</script>
+
+</body>
+</html>
