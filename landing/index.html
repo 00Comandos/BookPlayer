@@ -3,10 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>BookPlayer — Your audiobooks, your way</title>
-<meta name="description" content="BookPlayer is the free, open source audiobook player. Import your audiobooks and listen your way, on iPhone and Android.">
+<title>BookPlayer — Free, Open Source Audiobook Player for iPhone &amp; Android</title>
+<meta name="description" content="BookPlayer is the free, open source audiobook player. Import your own audiobooks and listen your way on iPhone, CarPlay, Apple Watch and Android.">
+<link rel="canonical" href="https://bookplayer.app/">
+<meta name="theme-color" content="#132237">
+<meta name="robots" content="index,follow">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="BookPlayer">
+<meta property="og:title" content="BookPlayer — Your audiobooks, your way">
+<meta property="og:description" content="The free, open source audiobook player. Import your files and listen anywhere — iPhone, CarPlay, Apple Watch and Android.">
+<meta property="og:url" content="https://bookplayer.app/">
+<meta property="og:image" content="https://bookplayer.app/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="BookPlayer logo — your audiobooks, your way">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="BookPlayer — Your audiobooks, your way">
+<meta name="twitter:description" content="The free, open source audiobook player for iPhone, CarPlay, Apple Watch and Android.">
+<meta name="twitter:image" content="https://bookplayer.app/assets/og-image.png">
+
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  "name": "BookPlayer",
+  "url": "https://bookplayer.app/",
+  "description": "Free, open source audiobook player. Import your own audiobooks and listen your way.",
+  "operatingSystem": "iOS, Android",
+  "applicationCategory": "EntertainmentApplication",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "downloadUrl": [
+    "https://apps.apple.com/us/app/bookplayer/id1138219998",
+    "https://play.google.com/store/apps/details?id=com.tortugapower.audiobookplayer"
+  ],
+  "author": {
+    "@type": "Organization",
+    "name": "BookPlayer",
+    "url": "https://github.com/TortugaPower/BookPlayer"
+  }
+}
+</script>
 <style>
   :root{
     --navy:#132237;
@@ -33,7 +81,7 @@
     -webkit-backdrop-filter:saturate(180%) blur(14px);
     backdrop-filter:saturate(180%) blur(14px);
   }
-  .logo img{height:30px;display:block}
+  .logo img{height:40px;display:block}
   nav{display:flex;align-items:center;gap:10px}
   .btn{
     display:inline-flex;align-items:center;gap:8px;
@@ -116,9 +164,50 @@
   footer a{color:var(--navy);text-decoration:none;font-weight:600}
   footer a:hover{text-decoration:underline}
 
+  /* GitHub dropdown */
+  .menu{position:relative}
+  .menu-list{
+    position:absolute;right:0;top:calc(100% + 8px);
+    min-width:210px;background:#fff;border:1px solid var(--hairline);
+    border-radius:14px;box-shadow:0 12px 32px rgba(19,34,55,.14);
+    padding:6px;display:none;
+  }
+  .menu.open .menu-list{display:block}
+  .menu-list a{
+    display:flex;align-items:center;gap:10px;
+    padding:10px 12px;border-radius:10px;
+    color:var(--navy);text-decoration:none;font-size:14px;font-weight:600;
+  }
+  .menu-list a:hover{background:rgba(19,34,55,.06)}
+  .menu-list .hint{font-size:11px;font-weight:500;color:var(--text-secondary)}
+
+  /* ---------- Responsive ---------- */
+  @media (min-width:1200px){
+    header{padding:16px 32px}
+    .hero{margin-top:84px}
+  }
+
+  @media (max-width:900px){
+    h1{max-width:12ch}
+    .sub{max-width:38ch}
+  }
+
   @media (max-width:560px){
-    .btn-ghost{display:none}
-    .hero{margin:66px 10px 0;height:calc(100svh - 80px)}
+    header{padding:10px 14px}
+    .logo img{height:32px}
+    .btn{padding:9px 13px;font-size:13px}
+    .hero{margin:62px 10px 0;height:calc(100svh - 76px);min-height:480px}
+    .hero-content{padding:0 18px}
+    .sub{margin-top:14px}
+    .cta-row{margin-top:26px;flex-direction:column;align-items:stretch;width:min(320px,100%)}
+    .store{justify-content:center}
+    footer{padding:26px 16px 34px;text-align:center}
+  }
+
+  @media (max-height:520px) and (orientation:landscape){
+    .hero{min-height:430px}
+    h1{font-size:clamp(30px,6vh,48px)}
+    .cta-row{margin-top:18px;flex-direction:row}
   }
 </style>
 </head>
@@ -127,11 +216,25 @@
 <header>
   <a class="logo" href="#"><img src="assets/logo.png" alt="bookplayer"></a>
   <nav>
-    <a class="btn btn-ghost" href="https://github.com/TortugaPower/BookPlayer" target="_blank" rel="noopener">Source</a>
-    <a class="btn btn-dark" href="#download">Download</a>
+    <div class="menu" id="ghMenu">
+      <button class="btn btn-ghost" id="ghToggle" aria-haspopup="true" aria-expanded="false">
+        <svg viewBox="0 0 16 16" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+        GitHub
+        <svg viewBox="0 0 12 12" width="10" height="10" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M2.5 4.5 6 8l3.5-3.5"/></svg>
+      </button>
+      <div class="menu-list" role="menu">
+        <a href="https://github.com/TortugaPower/BookPlayer" target="_blank" rel="noopener" role="menuitem">
+           iOS<span class="hint">TortugaPower/BookPlayer</span>
+        </a>
+        <a href="https://github.com/TortugaPower/bookplayer-android" target="_blank" rel="noopener" role="menuitem">
+           Android<span class="hint">TortugaPower/bookplayer-android</span>
+        </a>
+      </div>
+    </div>
   </nav>
 </header>
 
+<main>
 <section class="hero" id="download">
   <!--
     Hero playlist: replace/extend with the 4 final brand clips.
@@ -145,31 +248,19 @@
     <p class="sub">The free, open source audiobook player. Import your files and listen anywhere — iPhone, CarPlay and Apple&nbsp;Watch.</p>
 
     <div class="cta-row">
-      <a class="store" href="https://apps.apple.com/app/bookplayer/id1138219998" target="_blank" rel="noopener" aria-label="Download on the App Store">
+      <a class="store" href="https://apps.apple.com/us/app/bookplayer/id1138219998" target="_blank" rel="noopener" aria-label="Download on the App Store">
         <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M17.05 12.54c-.03-2.89 2.36-4.27 2.47-4.34-1.35-1.97-3.44-2.24-4.18-2.27-1.78-.18-3.47 1.05-4.37 1.05-.9 0-2.29-1.02-3.77-1-1.94.03-3.73 1.13-4.73 2.87-2.02 3.5-.52 8.68 1.45 11.52.96 1.39 2.1 2.95 3.6 2.9 1.45-.06 2-.94 3.75-.94s2.24.94 3.77.91c1.56-.03 2.55-1.42 3.5-2.81 1.1-1.61 1.55-3.17 1.58-3.25-.03-.02-3.03-1.16-3.07-4.64zM14.16 4.06c.8-.97 1.34-2.32 1.19-3.66-1.15.05-2.55.77-3.38 1.74-.74.85-1.39 2.23-1.22 3.54 1.29.1 2.6-.65 3.41-1.62z"/></svg>
         <span class="lines"><span class="small">Download on the</span><span class="big">App Store</span></span>
       </a>
-      <a class="store" href="https://play.google.com/store/search?q=bookplayer&c=apps" target="_blank" rel="noopener" aria-label="Get it on Google Play">
+      <a class="store" href="https://play.google.com/store/apps/details?id=com.tortugapower.audiobookplayer" target="_blank" rel="noopener" aria-label="Get it on Google Play">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#00E3A0" d="M3.6 1.8 14.4 12 3.6 22.2c-.37-.2-.6-.6-.6-1.1V2.9c0-.5.23-.9.6-1.1z"/><path fill="#FFD400" d="m17.5 8.9-3.1 3.1L3.6 1.8c.16-.09.35-.13.55-.13.23 0 .46.06.68.19l12.67 7.04z"/><path fill="#FF5252" d="m17.5 15.1-12.67 7.05c-.22.13-.45.19-.68.19-.2 0-.39-.05-.55-.14L14.4 12l3.1 3.1z"/><path fill="#2196F3" d="m21.1 10.9-3.6-2 -3.1 3.1 3.1 3.1 3.6-2c.9-.5.9-1.7 0-2.2z"/></svg>
         <span class="lines"><span class="small">GET IT ON</span><span class="big">Google Play</span></span>
       </a>
     </div>
   </div>
 
-  <div class="hero-foot">
-    <div>
-      <a class="src" href="https://github.com/TortugaPower/BookPlayer" target="_blank" rel="noopener">
-        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-        Source&nbsp;(iOS)
-      </a>
-      <span class="dot">·</span>
-      <a class="src" href="https://github.com/TortugaPower" target="_blank" rel="noopener">
-        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
-        Source&nbsp;(Android)
-      </a>
-    </div>
-  </div>
 </section>
+</main>
 
 <footer>
   <div>
@@ -203,6 +294,21 @@
   });
 
   playCurrent();
+
+  /* GitHub dropdown */
+  const ghMenu = document.getElementById("ghMenu");
+  const ghToggle = document.getElementById("ghToggle");
+
+  ghToggle.addEventListener("click", (event) => {
+    event.stopPropagation();
+    const open = ghMenu.classList.toggle("open");
+    ghToggle.setAttribute("aria-expanded", open);
+  });
+
+  document.addEventListener("click", () => {
+    ghMenu.classList.remove("open");
+    ghToggle.setAttribute("aria-expanded", "false");
+  });
 </script>
 
 </body>
