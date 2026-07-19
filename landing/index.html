@@ -28,6 +28,7 @@
 <meta name="twitter:description" content="The free, open source audiobook player for iPhone, CarPlay, Apple Watch and Android.">
 <meta name="twitter:image" content="https://bookplayer.app/assets/og-image.png">
 
+<link rel="preload" as="image" href="assets/hero-poster.jpg" fetchpriority="high">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 
@@ -72,16 +73,17 @@
     font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Inter,Roboto,sans-serif;
     background:#fff;color:var(--navy);
     -webkit-font-smoothing:antialiased;
+    height:100svh;display:flex;flex-direction:column;
+    overflow:hidden;
   }
+  main{flex:1;display:flex;min-height:0}
 
   /* ---------- Nav ---------- */
   header{
-    position:fixed;inset:0 0 auto 0;z-index:10;
+    flex:none;z-index:10;
     display:flex;align-items:center;justify-content:space-between;
-    padding:14px 20px;
-    background:rgba(255,255,255,.82);
-    -webkit-backdrop-filter:saturate(180%) blur(14px);
-    backdrop-filter:saturate(180%) blur(14px);
+    padding:12px 20px;
+    background:#fff;
   }
   .logo img{height:40px;display:block}
   nav{display:flex;align-items:center;gap:10px}
@@ -104,9 +106,8 @@
   /* ---------- Hero ---------- */
   .hero{
     position:relative;
-    margin:76px 16px 0;
-    height:calc(100vh - 92px);
-    min-height:540px;
+    flex:1;min-height:0;
+    margin:0 16px;
     border-radius:var(--radius);
     overflow:hidden;
     background:var(--navy);
@@ -163,8 +164,9 @@
 
   /* ---------- Footer ---------- */
   footer{
-    display:flex;flex-direction:column;align-items:center;gap:10px;
-    padding:34px 20px 44px;color:var(--text-secondary);font-size:13px;
+    flex:none;
+    display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:6px 14px;
+    padding:12px 16px;color:var(--text-secondary);font-size:12px;
   }
   footer a{color:var(--navy);text-decoration:none;font-weight:600}
   footer a:hover{text-decoration:underline}
@@ -194,8 +196,8 @@
 
   /* ---------- Responsive ---------- */
   @media (min-width:1200px){
-    header{padding:16px 32px}
-    .hero{margin-top:84px}
+    header{padding:14px 32px}
+    .hero{margin:0 24px}
   }
 
   @media (max-width:900px){
@@ -207,25 +209,30 @@
     header{padding:10px 14px}
     .logo img{height:32px}
     .btn{padding:9px 13px;font-size:13px}
-    .hero{margin:62px 10px 0;height:calc(100svh - 76px);min-height:480px}
+    .hero{margin:0 10px}
     .hero-content{padding:0 18px}
     .sub{margin-top:14px}
     .cta-row{margin-top:26px;flex-direction:column;align-items:stretch;width:min(320px,100%)}
     .store{justify-content:center}
-    footer{padding:26px 16px 34px;text-align:center}
   }
 
-  @media (max-height:520px) and (orientation:landscape){
-    .hero{min-height:430px}
-    h1{font-size:clamp(30px,6vh,48px)}
-    .cta-row{margin-top:18px;flex-direction:row}
+  /* Very short screens: shrink type instead of clipping; allow scroll as last resort */
+  @media (max-height:600px){
+    h1{font-size:clamp(28px,6vh,48px)}
+    .sub{font-size:14px}
+    .cta-row{margin-top:16px;flex-direction:row;justify-content:center;width:auto}
+    .store{min-width:0;padding:7px 12px}
+  }
+  @media (max-height:440px){
+    body{overflow:auto}
+    .hero{min-height:400px}
   }
 </style>
 </head>
 <body>
 
 <header>
-  <a class="logo" href="#"><img src="assets/logo.png" alt="bookplayer"></a>
+  <a class="logo" href="#"><img src="assets/logo.png" alt="bookplayer" width="156" height="40" decoding="async"></a>
   <nav>
     <div class="menu" id="ghMenu">
       <button class="btn btn-ghost" id="ghToggle" aria-haspopup="true" aria-expanded="false">
@@ -259,7 +266,7 @@
     Hero playlist: replace/extend with the 4 final brand clips.
     They play muted, chained, looping forever.
   -->
-  <video id="heroVideo" autoplay muted playsinline preload="auto" poster="assets/og-image.png"></video>
+  <video id="heroVideo" autoplay muted playsinline preload="auto" poster="assets/hero-poster.jpg" width="1280" height="720" aria-hidden="true" tabindex="-1"></video>
   <div class="shade"></div>
 
   <div class="hero-content">
@@ -286,8 +293,9 @@
     <a href="https://bookplayer.app/privacy" target="_blank" rel="noopener">Privacy Policy</a>
     <span class="dot">·</span>
     <a href="https://bookplayer.app/terms" target="_blank" rel="noopener">Terms of Use</a>
+    <span class="dot">·</span>
+    <span>© 2026 BookPlayer. Free &amp; open source.</span>
   </div>
-  <div>© 2026 BookPlayer. Free &amp; open source.</div>
 </footer>
 
 <script>
@@ -296,7 +304,7 @@
     Each plays to the end, then the next starts; after the last it loops.
   */
   const playlist = [
-    "assets/hero-test.mp4",
+    "assets/hero.mp4",
   ];
 
   const video = document.getElementById("heroVideo");
@@ -307,6 +315,7 @@
     video.play().catch(() => {});
   }
 
+  video.loop = playlist.length === 1;
   video.addEventListener("ended", () => {
     index = (index + 1) % playlist.length;
     playCurrent();
